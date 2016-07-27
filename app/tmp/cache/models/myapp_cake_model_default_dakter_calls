@@ -1,0 +1,3 @@
+1491632245
+a:5:{s:2:"id";a:5:{s:4:"type";s:10:"biginteger";s:4:"null";b:0;s:7:"default";N;s:6:"length";i:20;s:3:"key";s:7:"primary";}s:9:"doctor_id";a:4:{s:4:"type";s:10:"biginteger";s:4:"null";b:1;s:7:"default";N;s:6:"length";i:20;}s:6:"rmp_id";a:4:{s:4:"type";s:10:"biginteger";s:4:"null";b:1;s:7:"default";N;s:6:"length";i:20;}s:10:"patient_id";a:4:{s:4:"type";s:10:"biginteger";s:4:"null";b:1;s:7:"default";N;s:6:"length";i:20;}s:6:"status";a:5:{s:4:"type";s:7:"integer";s:4:"null";b:1;s:7:"default";s:1:"0";s:6:"length";i:11;s:7:"comment";s:31:"1 = call requesting
+2 = on call";}}

@@ -1,0 +1,406 @@
+/* hack reset (for production, use Yahoo! reset CSS)
+*************************/
+
+*
+{
+	margin: 0;
+	padding: 0;
+}
+
+/* body
+*************************/
+
+body  {
+	font: 14px/21px  Georgia, serif;
+	color: #370707;
+	background: #fff url(../img/mainbg.jpg) left 40px repeat-x;
+}
+
+/* links
+*************************/
+
+a:link, a:visited, a:hover, a:active  {
+	text-decoration: underline;
+}
+
+/* inline elements
+*************************/
+
+strong  {
+	font-weight: bold;
+}
+
+/* tabs
+*************************/
+
+ul.tabs  {
+	display: table;
+	padding: 0;
+	list-style: none;
+	float:right;
+}
+
+ul.tabs li  {
+	margin: 0;
+	padding-right: 15px;
+	list-style: none;
+	display: table-cell;
+	float: left;
+
+}
+ul.tabs li span {
+	color:#d1222b;
+}
+
+ul.tabs a  {
+	position: relative;
+	display: block;
+}
+
+/* dropdowns
+*************************/
+
+ul.dropdown  {
+	margin: 0;
+	padding: 0;
+	display: block;
+	position: absolute;
+	z-index: 999;
+	top: 100%;
+	width: 250px;
+	display: none;
+	left: 0;
+}
+
+ul.dropdown ul.dropdown  {
+	top: 0;
+	left: 95%;
+}
+
+ul.dropdown li  {
+	margin: 0;
+	padding: 0;
+	float: none;
+	position: relative;
+	list-style: none;
+	display: block;
+}
+
+ul.dropdown li a  {
+	display: block;
+}
+
+
+/* menu-specifc
+*************************/
+#header_top {
+	width:100%;
+	z-index: 5;
+	top: 0;
+	left: 0;
+	position:relative;
+	background: #fff url(../img/topbg1.gif) repeat-x;
+	box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+	border-top:4px solid #d1222b;
+}
+#menu  {
+	width:90%;
+	height:80px;
+	line-height: 15px;
+    margin:0 auto;
+}
+
+#menu ul  {
+
+}
+
+#menu ul li.hasmore  {
+	background: url(../img/drophighlight.png) no-repeat center 27px;
+}
+
+#menu ul li h4  {
+}
+#menu ul li  {
+}
+
+#menu ul li h4 a  {
+	font-size: 14px;
+	color: #333;
+	font-weight: bold;
+}
+
+#menu ul li a  {
+	color: #fff;
+	padding-left: 4px;
+}
+
+#menu ul li a img  {
+	vertical-align: middle;
+}
+
+#menu ul li a:hover  {
+	background: url(../img/topselectionleft.png) top left no-repeat;
+	color: #d1222b;
+}
+#menu ul li selected a {
+	color: #d1222b;}
+
+#menu ul li a span  {
+	display: block;
+	padding: 0 15px 0 11px;
+}
+
+#menu ul li a:hover span  {
+	background: url(../img/topselectionright.png) top right;
+}
+
+#menu ul.dropdown  {
+	padding: 10px;
+	background-image: url(../img/dropdown.png);
+	overflow:hidden;
+	border-bottom: 1px solid #dc902f;
+	width: 290px;
+}
+
+#menu ul.dropdown li a  {
+	border-bottom: 1px solid #e5cd8e;
+	line-height: 30px;
+	overflow: hidden;
+	height: 30px;
+}
+
+#menu ul.dropdown li.last a  {
+	border-bottom-width: 0;
+}
+
+#menu ul.dropdown li a:hover  {
+	background: url(../img/menuarrow.png) no-repeat left center;
+}
+
+#menu ul li h4 a:hover  {
+	background-image: none;
+}
+/*Extra*/
+.menu_item {
+	width:100%;
+	clear:both;
+}
+
+.heder_right {
+	width:700px;
+	float:right;
+}
+.containt_left {
+	width:17%;
+	float:left;
+	min-height:300px;
+	border:1px solid #CCC;
+}
+.containt_mid {
+	width:100%;
+	border:1px solid #CCC;
+	margin-bottom:10px;
+
+}
+.containt_right {
+	width:17%;
+	height:300px;
+	float:right;
+	border:1px solid #CCC;
+}
+.containt_right p {
+	margin:0 auto;
+	font-size:14px;
+	font-weight:bold;
+	line-height:16px;
+	color:#d1222b;
+	padding:10px 0 0 20px;
+}
+.title_d {
+	width:100%;
+	height:32px;
+	background-color:#d1222b;
+	padding:5px 0 5px 0;
+	line-height:25px;
+}
+.title_d h{
+	font-size:16px;
+	color:#fff;
+	font-weight:bold;
+	padding-left:15px;
+} 
+.mid_wrapper {
+	width:64%;
+	min-height:300px;
+	float:left;
+	margin:0 0 35px 9px;
+	}
+.photo {
+	width:143px;
+	height:164px;
+	padding:5px;
+	margin:0 auto;
+	border:1px solid #e5e5e5; 
+}
+.card_detail {
+	padding:15px 0 0 5px;
+}
+.card_detail p {
+	font-size:14px;
+	line-height:15px;
+	color:#333;
+	padding-left:25px;
+}
+.date_box {
+	width:100%;
+	height:266px;
+	overflow-y: scroll;
+}
+.Prescription {
+	width:97%;
+	height:655px;
+	margin:0 auto;
+}
+.Prescriptionf {
+	width:97%;
+	/*height:600px; */
+	overflow: hidden;
+	margin:0 auto;
+}
+.chief_title {
+	width:100%;
+	height:25px;
+	margin:10px 0 ;
+	border-bottom:2px solid #d1222b;
+}
+.title_chief {
+	font-size:14px;
+	font-weight:bold;
+	float:left;
+	clear:both;
+}
+.title_on {
+	font-size:14px;
+	font-weight:bold;
+	float:left;
+}
+.chief_area {
+	min-height:65px;
+}
+.chief_left {
+	width:5o%;
+	float:left;
+	paddind-right:10px;
+}
+.chief_right {
+	width:5o%;
+	float:right;
+}
+.chief_right p {
+	line-height:8px;
+}
+.control-group {
+	color:#999;
+	padding:0 10px 10px 0;
+	float:left;
+	width: 229px;
+}
+.control-group_button{
+	color:#999;
+	padding:0 10px 10px 0;
+	float:left;
+	width: 100%;
+}
+.control-groupf {
+	width:224px;
+	float:left;
+	padding-right:15px;
+}
+.control-groupf h {
+	f0nt-size:14px;
+	font-weight:bold;
+}
+
+.control-groupf p {
+	font-size:12px;
+	font-weight: normal;
+	color:#000;
+	}
+.control-group2 {
+	color:#999;
+	float:left;
+}
+.control-label {
+	float:left;
+	padding-top:5px;
+	text-align:left
+}
+.form-actions {
+	padding-top:0px;
+}
+.menu_item2 {
+	height:75px;
+	font-size:14px;
+	font-weight: normal;
+	color:#5c9a32;
+	overflow-y: scroll;
+}
+.menu2 {
+	height:75px;
+	float:left;
+}
+.menu2 ul {
+	float:left;
+	padding:0;
+	margin:0;
+	display:inline;
+}	
+.menu2 ul li {
+	float:left;
+	font-size:14px;
+	font-weight: normal;
+	color:#5c9a32;
+	padding:0 3px 0 0
+	;
+}
+.rmp_info {
+	float:right;
+	height:25px;
+}
+.rmp_info ul {
+	float:left;
+	padding:0;
+	margin:0;
+	display:inline;
+}
+.rmp_info ul li	{
+	float:left;
+	font-size:12px;
+	font-weight: normal;
+	color:#fff;
+	padding:0 3px 0 0;
+}
+.footer {
+	clear: both;
+	margin-top:30px;
+	text-align: center;
+	width:100%;
+	height:100px;
+	border-top:1px solid #CCC;
+}
+.footer p {
+	font-size: 14px;
+	font-weight: normal;
+	color: #999;
+	text-align: center;
+	line-height: 50px;
+}
+.footer a {
+	font-size:14px;
+	color:#d1222b;
+	font-weight:normal;
+	text-decoration:none;
+}
+.footer a:hover {
+		color:#da0404;
+	}

@@ -1,0 +1,168 @@
+<?php 	
+	$data = json_decode($pdf, true);
+	
+	if($this->Session->read('Auth.User.image') !=''){
+		$signatureImage = $this->Session->read('Auth.User.image');
+		
+	}else{
+		$signatureImage = 'default.png';
+	}
+	$pulse= '';
+	$bp = '';
+	$temperature = '';
+	$res ='';
+	$arrhythmia ='';
+	$appearance = '';
+	$color = '';
+	$consciousness  = '';
+	$edema = '';
+	$dehydration = '';
+	$osat = '';
+	$followup = '';
+	if(!empty($data['Examination']['osat'])){
+		$osat = '<strong>Oxygen saturation: </strong>'.$data['Examination']['osat'].' %<br />';
+	}
+	if(!empty($data['Examination']['pulse'])){
+		$pulse = '<strong>Pulse: </strong>'.$data['Examination']['pulse'].'(Beats per min)<br />';
+	}
+	if(!empty($data['Examination']['bp'])){
+		$bp = '<strong>BP: </strong>'.$data['Examination']['bp'].'(mm/hg)<br />';
+	}
+	if(!empty($data['Examination']['temperature'])){
+		$temperature = '<strong>Temperature: </strong>'.$data['Examination']['temperature'].' F<br />';
+	}
+	if(!empty($data['Examination']['respiration'])){
+		$res = '<strong>Respiration: </strong>'.$data['Examination']['respiration'].'<br />';
+	}
+	if(!empty($data['Examination']['arrhythmia'])){
+		$arrhythmia = '<strong>Arrhythmia: </strong>'.$data['Examination']['arrhythmia'].'';
+	}
+	if(!empty($data['Examination']['appearance'])){
+		$appearance = '<strong>Appearance: </strong>'.$data['Examination']['appearance'].'<br />';
+	}
+	if(!empty($data['Examination']['color'])){
+		$color ='<strong>Color: </strong>'.$data['Examination']['color'].'<br />';
+	}
+	if(!empty($data['Examination']['consciousness'])){
+		$consciousness = '<strong>State of Consciousness: </strong>'.$data['Examination']['consciousness'].'<br />';
+	}
+	if(!empty($data['Examination']['edema'])){
+		$edema = '<strong>Edema: </strong>'.$data['Examination']['edema'].'<br />';
+	}
+	if(!empty($data['Examination']['dehydration'])){
+		$dehydration = '<strong>Dehydration: </strong>'.$data['Examination']['dehydration'].'<br />';
+	}
+	if(!empty($data['Prescription']['followupDate'])){
+		$followup = '<strong>Follow up date: </strong>'.$data['Prescription']['followupDate'].'<br />';
+	}
+	echo $html = '
+		
+		
+		<table style="width:650px;">
+			<tr>
+			<td COLSPAN=3>
+			<strong>Appointment ID : </strong>'.$data['Prescription']['appointment_id'].' <br />
+			<strong>MRP : </strong>'.$data['UnitCost']['amount'].' '.$currency.' <br />
+			'.$followup.'
+			</td>
+			</tr>
+			<tr >
+			  <td><table  style="border-bottom:1px solid #09C;width:650px;padding-bottom:5px;">
+				<tr><td style="width:400px"><strong>Patient Particulars</strong></td>
+				  <td style="width:250px;text-align:right"><strong>Date : '. date("F j, Y, g:i a").'</strong></td>
+				</tr>
+			       </table>
+			 </td>
+			</tr>
+			<tr>
+			<td><table style="width:650px;padding-bottom:10px;padding-top:5px;">
+			<tr style="font-size:12px">
+			  <td style="width:130px"><strong>Name: </strong><br />'.$data['User']['name'].'</td>
+			  <td  style="width:80px"><strong>Age: </strong><br />'.$data['User']['age'] .'</td>
+			  <td  style="width:80px"> <strong>Sex: </strong><br />'.$data['User']['gender'].'</td>
+			  <td  style="width:80px"><strong>Weight: </strong><br />'.$data['User']['weight'].'</td>
+			  <td  style="width:130px"><strong>Phone number: </strong><br />'.$data['User']['phone'].'</td>
+			  <td  style="width:150px"><strong>RMP Name: </strong>'.$data['User']['rmp'].'<br /><strong>RMP ID:</strong> '.$data['User']['rmp_id'].'</td>
+			</tr>
+		      </table>
+		      </td>
+			</tr>
+			<tr>
+			  <td><table style="width:650px;padding-bottom:5px;">
+			    <tr>
+			      <td style="width:250px"><strong>Chief Complaints</strong></td>
+			      <td style="border-bottom:1px solid #09C;width:400px;"><strong>On Examination</strong></td>
+			    </tr>
+			  </table></td>
+			</tr>
+			<tr>
+			<td>
+			<table style="width:650px;padding-top:5px;">
+			<tr>
+			  <td  style="width:250px;">'.nl2br($data['Prescription']['complain']).'
+			  </td>
+			  <td  style="width:150px;">'.$pulse.'
+			      '.$bp.'
+			      '.$temperature.'
+			      '.$res.'
+			      '.$arrhythmia.'
+			  </td>
+			  <td style="width:250px;">'.$appearance.'
+			      '.$color.'
+			     '.$consciousness .'
+			      '.$edema.'
+			      '.$dehydration.'
+			       '.$osat.'
+			   </td>
+			</tr>
+		      </table>
+		      </td>
+			</tr>
+			<tr>
+			  <td><table style="width:650px;padding-top:10px">
+			<tr>
+			  <td style="width:250px"><strong>Diagnosis</strong></td>
+			  <td style="width:150px"><strong>Rx</strong></td>
+			  <td style="width:250px"><strong>Investigations</strong></td>
+			</tr>
+		      </table>
+		      </td>
+			</tr>
+			<tr>
+			<td>
+			<table  style="border-bottom:1px solid #09C;width:650px;padding-top:10px;padding-bottom:10px;" >
+			<tr>
+			<td style="width:250px">'.nl2br(trim($data['Prescription']['diagnosis'])).'
+			</td>
+			<td style="width:150px">'.nl2br(trim($data['Prescription']['prescription'])).'
+			</td>
+			<td style="width:250px">'.nl2br(trim($data['Prescription']['investigations'])).'
+			</td>
+			</tr>
+		      </table>
+		      </td>
+			</tr>
+			
+			<tr>
+			<td COLSPAN=3><strong>Advice : </strong>'.nl2br(trim($data['Prescription']['advice'])).'</td>
+			</tr>
+			
+			<tr>
+			<td><table style="width:650px;padding-top:5px;">
+			<tr>
+			<td style="width:380px;" >&nbsp;</td>
+			<td style="width:270px;">
+			
+			<img style="padding:0;margin:0" src="http://localhost'.$this->request->webroot.'img/signature/'.$signatureImage.'" >
+			
+			<br />
+			'.@$this->Session->read('Auth.User.doctor_identity').'
+		      
+			</td>
+			</tr>
+		      </table>
+		      </td>
+			</tr>
+		</table>';
+		
+?>		

@@ -1,0 +1,39 @@
+﻿.pure-button {
+      background: -moz-linear-gradient(center top , #f00, #e20404) repeat scroll 0 0 #62af56;
+    border-color: #e20404;
+    color: #fff;
+	border-radius:4px;
+    margin-top: 15px;
+    padding: 8px 10px;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.5);
+    
+	}
+
+
+#my-video {
+  width:230px;
+  height: auto;
+  padding-left:20px;
+}
+
+#their-video {
+  width: 345px;
+  height: 257px;
+  background-color: #eee;
+}
+
+#video-container {
+  padding-top: 25px;
+ }
+
+#step1-error, #step2, #step3 {
+  display: none;
+}
+#my-id {
+  font-weight: bold;
+}
+#step1{
+  
+  display: none;
+}
+

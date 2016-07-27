@@ -1,0 +1,27 @@
+software requirement:
+Most Important
+1. php5
+2. Mysql Database
+3. Apache server
+4. GD library
+
+Needs depends on requirement
+5. PEAR
+6. pear update-channels
+7. pear upgrade
+8. pear channel-discover components.ez.no
+9. pear channel-discover pear.symfony-project.com
+10. pear channel-discover pear.phpunit.de
+11. pear install --alldeps phpunit/PHPUnit
+
+Needs depends on requirement
+12. sudo apt-get update
+13. sudo apt-get install -y python-software-properties python g++ make
+14. sudo add-apt-repository ppa:chris-lea/node.js
+15. sudo apt-get update
+16. sudo apt-get install nodejs
+17. npm install peer
+18. npm install socket.io
+19. npm install node-static
+
+
