@@ -9,8 +9,8 @@ class PagesController extends AppController {
 	public $uses = array();
 
 
-	public function home() {
+	public function index() {
 		
-		
+		$this->layout = 'home';
 	}
 }

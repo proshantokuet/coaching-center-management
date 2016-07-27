@@ -18,9 +18,13 @@
 	
 	<?php
 		echo $this->Html->css(array('bootstrap.min',
-			'ionicons.min',			
+			'ionicons.min',
+			'datepicker3',
+			'all',
+			'bootstrap-timepicker.min',
+			'select2.min',
 			'AdminLTE.min',
-			'square/blue'));		
+			'_all-skins.min'));		
 		echo $this->fetch('css');
 		echo $this->fetch('script');
 	?>
@@ -31,29 +35,29 @@
 	
 
 </head>
-<body class="hold-transition login-page">
-	<?php
+<body class="hold-transition">
+<div class="wrapper row-offcanvas-left">
+
+	<?php 	
+	
 	echo $this->fetch('content'); 
 	echo $this->Session->flash(); ?>
-	
+	<footer class="main-footer">
+	    <div class="pull-right hidden-xs">
+	      <b>Version</b> 2.3.5
+	    </div>
+	    <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+	    reserved.
+  </footer>
 <?php 
 	echo $this->Html->script(array(				
 			'jquery-2.2.3.min',			
 			'bootstrap.min',			
 			'app.min',
-			'icheck.min',
+			
 			
 		));
 ?>
-<script>
-  $(function () {
-    $('input').iCheck({
-      checkboxClass: 'icheckbox_square-blue',
-      radioClass: 'iradio_square-blue',
-      increaseArea: '20%' // optional
-    });
-  });
-</script>
-
+</div>
 </body>
 </html>

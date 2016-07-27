@@ -58,7 +58,7 @@ class User extends AppModel
 				'last' => true,
 			),
 		),
-		/*'password' => array(
+		'password' => array(
 			'alphaNumeric' => array(
 			'rule'     => 'alphaNumeric',
 			'required' => true,
@@ -69,7 +69,7 @@ class User extends AppModel
 		),
 		'verify_password' => array(
 			'rule' => 'validIdentical',
-		),*/
+		),
 	);	
 	
 	

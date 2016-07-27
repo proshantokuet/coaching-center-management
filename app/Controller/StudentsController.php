@@ -51,6 +51,25 @@ class StudentsController extends AppController {
 			'Eleven'=>'Eleven','Tweleve'=>'Tweleve');
 		$this->set(compact('courses','batches','edu_level','institutions'));
 	}
+
+	public function profile(){
+		$this->layout = 'home';
+	}
+	public function registration(){
+		$this->layout = 'home';			
+		$model = $this->_model();
+		$this->loadModel('Course');
+		if (!empty($this->request->data)) {	
+			$this->_saveOrUpdate("",$this->request->data);
+		}
+		$courses = $this->Course->find('list', array('fields'=>array('Course.name','Course.name'),'conditions'=>array('Course.status'=>1)));
+		$institutions = $this->Institution->find('list', array('fields'=>array('Institution.id','Institution.name'),'conditions'=>array('Institution.status'=>1)));
+		$batches = $this->Batch->find('list', array('fields'=>array('Batch.id','Batch.name'),'conditions'=>array('Batch.status'=>1)));
+		$edu_level = array('Kg'=>'Kg','One'=>'One','Two'=>'Two','Three'=>'Three','Four'=>'Four',
+			'Five'=>'Five','Six'=>'Six','Seven'=>'Seven','Eight'=>'Eight','Nine'=>'Nine','Ten'=>'Ten',
+			'Eleven'=>'Eleven','Tweleve'=>'Tweleve');
+		$this->set(compact('courses','batches','edu_level','institutions'));
+	}
 	public function edit($id){
 		$this->checkPermission();
 		$model = $this->_model();
