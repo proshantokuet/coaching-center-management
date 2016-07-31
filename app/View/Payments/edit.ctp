@@ -12,8 +12,8 @@ $v = ucfirst($model);
         
       </h1>
       <ol class="breadcrumb">
-        <li><?php echo $this->Html->link(' Home', array('controller' => 'Homes', 'action' => 'index')); ?>
-         </li>  
+        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => 'userlists')); ?>
+        </li> 
          <li><?php echo $this->Html->link($v, array('controller' => $this->request->params['controller'], 'action' => 'index')); ?>
          </li>      
         <li class="active">Course Edit Page</li>

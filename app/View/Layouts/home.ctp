@@ -1,6 +1,3 @@
-<?php 
-	$cakeDescription = __d('cake_dev', 'Amader Daktar');
-?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +8,7 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo $cakeDescription ?>:
+		<?php echo $title_for_layout ?>:
 		
 	</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
@@ -44,9 +41,9 @@
 	echo $this->Session->flash(); ?>
 	<footer class="main-footer">
 	    <div class="pull-right hidden-xs">
-	      <b>Version</b> 2.3.5
+	      
 	    </div>
-	    <strong>Copyright &copy; 2014-2016 <a href="http://almsaeedstudio.com">Almsaeed Studio</a>.</strong> All rights
+	    <strong>Copyright &copy; 2014-2016 AID ACADEMIA.</strong> All rights
 	    reserved.
   </footer>
 <?php 
@@ -54,6 +51,7 @@
 			'jquery-2.2.3.min',			
 			'bootstrap.min',			
 			'app.min',
+			'demo',
 			
 			
 		));

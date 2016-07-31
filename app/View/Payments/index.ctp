@@ -12,7 +12,7 @@ $v = ucfirst($model);
         
       </h1>
       <ol class="breadcrumb">
-        <li><?php echo $this->Html->link(' Home', array('controller' => 'Homes', 'action' => 'index')); ?>
+        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => 'userlists')); ?>
         </li>
         <li><?php echo $this->Html->link($v, array('controller' => $this->request->params['controller'], 'action' => 'index')); ?>
          </li>           
@@ -42,42 +42,51 @@ $v = ucfirst($model);
                 <label>Course</label>
                
               </div>
-              <div class="col-md-2">
-                <label>Fees</label>
-                
+              <div class="col-md-1">
+                <label>Fees</label>                
               </div>
-              <div class="col-md-2">
-                <label>Payment</label>
-                
+              <div class="col-md-1">
+                <label>Payment</label>                
               </div>
-              <div class="col-md-2">
+              <div class="col-md-1">
                 <label>Due</label>               
+              </div>
+              <div class="col-md-2">
+                <label>Due Date</label>               
               </div>
               <div class="col-md-2">
                 <label>Pay Now</label>               
               </div>
+              <div class="col-md-2">
+                <label>Set Due Date</label>               
+              </div>
           </div>
           <?php if(!empty($this->request->data['Fee'])){?>
-            <?php foreach ($this->request->data['Fee'] as $key => $value) { ?>
-            	<?php //pr($values);?>
+            <?php foreach ($this->request->data['Fee'] as $key => $value) { ?>           	
             
             <div class="row  form-group">
               <div class="col-md-2">
                 <div><?php echo $value['name'];?></div>
               </div>
-              <div class="col-md-2">               
+              <div class="col-md-1">               
                  <div><?php  echo $value['fees']; ?></div>
               </div>
-              <div class="col-md-2">                
+              <div class="col-md-1">                
                 <div><?php  echo $value['payment']; ?></div>
               </div>
-              <div class="col-md-2"> 
+              <div class="col-md-1"> 
               <div><?php  echo $value['due']; ?></div>                             
+              </div>
+              <div class="col-md-2"> 
+              <div><?php  echo $value['due_date']; ?></div>                             
               </div>
               <div class="col-md-2"> 
               	<input  type="number" name="amount[]"   class="form-control">
               	<input  type="hidden" name="course_id[]" value=<?php echo  $value['id'] ?>>
                                         
+              </div>
+              <div class="col-md-2"> 
+                <input type="text" id="due_date" class="form-control due_date" name="due_date[]">
               </div>
           </div>
 
@@ -90,7 +99,7 @@ $v = ucfirst($model);
         </div>
         <!-- /.box-body -->
          <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" style="float:right" class="btn btn-primary">Submit</button>
               </div>
         </form>
         
@@ -101,13 +110,12 @@ $v = ucfirst($model);
               	<table class="table table-condensed">
 	                <tbody>
 	                	<tr> <th>Name</th><td><?php echo $this->request->data['Student']['name'] ?></td></tr>
-			            <tr> <th>Father Name</th><td><?php echo $this->request->data['Student']['father_name'] ?></td></tr>
-			            <tr> <th>Batch</th><td><?php echo $this->request->data['Batch']['name'] ?></td></tr>
-			            
-			            <tr><th>Total Fees</th><td><?php echo $total_fees ?></td></tr>		            
-			            <tr> <th>Total Payment</th><td><?php echo $total_payment ?></td></tr>
-			            <tr> <th>Total Due</th><td><?php echo $total_due ?></td></tr>
-			            
+			             <tr> <th>Father Name</th><td><?php echo $this->request->data['Student']['father_name'] ?>
+                   </td></tr>
+			             <tr> <th>Batch</th><td><?php echo $this->request->data['Batch']['name'] ?></td></tr>
+			             <tr><th>Total Fees</th><td><?php echo $total_fees ?></td></tr>		            
+			             <tr> <th>Total Payment</th><td><?php echo $total_payment ?></td></tr>
+			             <tr> <th>Total Due</th><td><?php echo $total_due ?></td></tr>
 	              	</tbody>
           		</table>
             </div>
@@ -123,5 +131,4 @@ $v = ucfirst($model);
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
 

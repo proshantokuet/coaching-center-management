@@ -11,7 +11,7 @@
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php echo $cakeDescription ?>:
+		<?php echo $title_for_layout ?>:
 		
 	</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
@@ -218,3 +218,13 @@ $("#addCourse").on("click",function(){
 
 
   </script>
+  <script>
+$(function() {
+    $( ".due_date" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      dateFormat: 'YYYY-mm-dd' ,
+      minDate: 0
+    });
+  });
+</script>

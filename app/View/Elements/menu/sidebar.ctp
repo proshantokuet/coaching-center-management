@@ -14,44 +14,21 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
+        
         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Institue</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><?php echo $this->Html->link(__("List"), array('plugin' => 0, 'controller' => 'Institutions', 'action' => 'index')); ?></li>
-            <li><?php echo $this->Html->link(__("Add"), array('plugin' => 0, 'controller' => 'Institutions', 'action' => 'add')); ?></li>
-          </ul>
+            <li><?php echo $this->Html->link(__("Course"), array('plugin' => 0, 'controller' => 'Courses', 'action' => 'index')); ?>
         </li>
         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Course</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><?php echo $this->Html->link(__("List"), array('plugin' => 0, 'controller' => 'Courses', 'action' => 'index')); ?></li>
-            <li><?php echo $this->Html->link(__("Add"), array('plugin' => 0, 'controller' => 'Courses', 'action' => 'add')); ?></li>
-          </ul>
-        </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-dashboard"></i> <span>Batch</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><?php echo $this->Html->link(__("List"), array('plugin' => 0, 'controller' => 'Batches', 'action' => 'index')); ?></li>
-            <li><?php echo $this->Html->link(__("Add"), array('plugin' => 0, 'controller' => 'Batches', 'action' => 'add')); ?></li>
-          </ul>
+          <li><?php echo $this->Html->link(__("Batch"), array('plugin' => 0, 'controller' => 'Batches', 'action' => 'index')); ?>
         </li>
         <li class="treeview">
           <?php echo $this->Html->link(__("Student"), array('plugin' => 0, 'controller' => 'Students', 'action' => 'index')); ?>
+        </li>
+        <!-- <li class="treeview">
+          <?php echo $this->Html->link(__("Payment"), array('plugin' => 0, 'controller' => 'Students', 'action' => 'search')); ?>
+        </li> -->
+        <li class="treeview">
+          <?php echo $this->Html->link(__("Notice"), array('plugin' => 0, 'controller' => 'Notices', 'action' => 'index')); ?>
         </li>
         
       </ul>

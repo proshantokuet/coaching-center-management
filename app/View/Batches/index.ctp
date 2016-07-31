@@ -10,7 +10,9 @@
         All Batches
       </h1>
       <ol class="breadcrumb">
-        <li><?php echo $this->Html->link(' Home', array('controller' => 'Homes', 'action' => 'index')); ?></li>        
+        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => 'userlists')); 
+        ?>
+        </li>        
         <li class="active">Batch</li>
       </ol>
     </section>
@@ -50,11 +52,11 @@
 						'controller' => $this->request->params['controller'],
 						'action' => 'status',
 						$value[$model]['id'],
-						),array('class'=>'fa fa-times','escape' => false, 'confirm' => __('Want to delete?'))
+						),array('escape' => false, 'confirm' => __('Want to change status?'))
 					);
 					$action = $this->Html->link('Edit ', array('controller' =>$this->request->params['controller'], 'action' => 'edit', $value[$model]['id']),array('class'=>'fa fa-pencil-square-o'));					
 					$action .= ' '.$this->Html->link('View', array('controller' =>$this->request->params['controller'], 'action' => 'view', $value[$model]['id']),array('class'=>'fa fa-pencil-square-o'));
-					$name = $this->Html->link($value[$model]['name'], array('controller' =>$this->request->params['controller'], 'action' => 'edit', $value[$model]['id']),array('class'=>'fa fa-pencil-square-o'));	
+					$name = $this->Html->link($value[$model]['name'], array('controller' =>$this->request->params['controller'], 'action' => 'edit', $value[$model]['id']));	
 					$rows[] = array(
 						$name,						
 						$value[$model]['description'],

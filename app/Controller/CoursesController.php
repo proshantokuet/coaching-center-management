@@ -9,7 +9,8 @@ class CoursesController extends AppController {
 	// Patient registration form
 	
 	public function add(){
-		$this->checkPermission();		
+		$this->checkPermission();
+		$this->set('title_for_layout', __('Course Add Page'));		
 		$model = $this->_model();
 		if (!empty($this->request->data)) {			
 			$this->$model->create();			
@@ -45,10 +46,12 @@ class CoursesController extends AppController {
 			}
 		}
 		$this->request->data = $this->$model->read(null, $id);
+		$this->set('title_for_layout', __('Edit Form of '.$this->request->data['Course']['name']));
 	}
 	
 	public function name($id){
 		$model = $this->_model();
+		$this->set('title_for_layout', __('Course List Page'));
 		$cousrse = $this->$model->findById($id);
 		return $cousrse['Course']['name'];
 	}

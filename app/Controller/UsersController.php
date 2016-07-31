@@ -190,14 +190,12 @@ class UsersController extends AppController {
 			array('User.id' => $id)
 		);
 		//$this->$v->saveField("is_logged",1);
-		if($role ==3){
+		if($role =='student'){
 			// if user type doctor then get appointment page
-			$this->redirect(array('controller'=>'Homes','action' => 'index'));
+			$this->redirect(array('controller'=>'Students','action' => 'profile'));
 		}else if($role == 'admin'){
 			// if user type admin then get user list page
 			$this->redirect(array('controller'=>'Users','action' => 'userlists'));						
-		}else{
-			$this->redirect(array('controller'=>'Users','action' => 'appointment'));							
 		}
 	}
 	function _login_fail(){
@@ -334,7 +332,8 @@ class UsersController extends AppController {
 		$this->set(compact('rmp_id','doctor_id'));
 	}
 	
-	public function unauthorized(){		
+	public function unauthorized(){	
+	$this->layout = 'login';	
 		$this->set('title_for_layout', __('Unauthorized Access Area'));
 	}
 	

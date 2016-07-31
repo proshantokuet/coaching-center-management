@@ -12,35 +12,10 @@ class StudentsController extends AppController {
 		$this->checkPermission();		
 		$model = $this->_model();
 		$this->loadModel('Course');
-
+		$this->set('title_for_layout', __('Student Add Form'));
 		if (!empty($this->request->data)) {			
-			/*unset($this->request->data['BatchTime']);						
-			foreach($this->request->data['course'] as $key => $course){					
-				$courses = $this->Course->findByName($this->request->data['course'][$key]);					
-				$this->request->data['StudentCourse'][$key]['course_id'] = $courses['Course']['id'];
-				$this->request->data['StudentCourse'][$key]['batch_id'] = $this->request->data['Student']['batch_id'];
-				
-			}
-			unset($this->request->data['course']);			
-			$this->$model->create();			
-			$this->request->data['User']['role'] = 'student';
-			$this->request->data['User']['status'] = 1;
-			$this->request->data[$model]['status'] = 1;
-			$this->request->data[$model]['created_by']= $this->Session->read('Auth.User.id');
-			$photographName = $this->ImageUpload->uploadImage('picture', IMAGE_LOCATION1);
-			if(!empty($photographName['image'])){
-				$this->request->data['User']['picture']= $photographName['image'];
-				$this->request->data['User']['thumbnail']= $photographName['thumbnail'];
-			}			
-			if ($this->$model->saveAll($this->request->data)) {	
-				$lastId = $this->Student->getInsertID();
-				$this->Session->setFlash(__('Success'), 'default', array('class' => 'success'));				
-				$this->redirect(array('controller'=>'Payments','action' => 'index',$lastId ));
-			} 
-			else {
-				$this->Session->setFlash(__($this->save_msg_error), 'default', array('class' => 'error'));
-			}*/
-			$this->_saveOrUpdate("",$this->request->data);
+			
+			$this->_saveOrUpdate("",$this->request->data,'','');
 		}
 
 		$courses = $this->Course->find('list', array('fields'=>array('Course.name','Course.name'),'conditions'=>array('Course.status'=>1)));
@@ -52,15 +27,62 @@ class StudentsController extends AppController {
 		$this->set(compact('courses','batches','edu_level','institutions'));
 	}
 
+	public function update($id){
+		$this->studentPermission();	
+		$this->layout='home';
+		$this->set('title_for_layout', __('Student Edit Form'));	
+		$model = $this->_model();
+		if (!empty($this->request->data)) {	
+			$this->_saveOrUpdate($id,$this->request->data,'','profile');
+		}
+		$this->request->data = $this->$model->read(null, $id);
+		//pr($this->request->data);
+		$courses = $this->Course->find('list', array('fields'=>array('Course.name','Course.name'),'conditions'=>array('Course.status'=>1)));
+		$institutions = $this->Institution->find('list', array('fields'=>array('Institution.id','Institution.name'),'conditions'=>array('Institution.status'=>1)));
+		$batches = $this->Batch->find('list', array('fields'=>array('Batch.id','Batch.name'),'conditions'=>array('Batch.status'=>1)));
+		$edu_level = array('Kg'=>'Kg','One'=>'One','Two'=>'Two','Three'=>'Three','Four'=>'Four',
+			'Five'=>'Five','Six'=>'Six','Seven'=>'Seven','Eight'=>'Eight','Nine'=>'Nine','Ten'=>'Ten',
+			'Eleven'=>'Eleven','Tweleve'=>'Tweleve');
+		$this->set(compact('courses','batches','edu_level','institutions'));
+	}
 	public function profile(){
+		$this->studentPermission();
+		$model = $this->_model();		
+		$id = $this->Session->read('Auth.User.id');		
+		$this->request->data = $this->$model->find('first', array('conditions'=>array('Student.user_id'=>$id)));
+		$id = $this->request->data['Student']['id'];
+		$this->set('title_for_layout', __('Student Profile of'.$this->request->data['Student']['name']));
 		$this->layout = 'home';
+		$total_fees = 0 ;
+		$total_due = 0;
+		$total_payment = 0;
+		if(!empty($this->request->data['StudentCourse'])){
+			foreach ($this->request->data['StudentCourse'] as $key => $value) {
+				$payment = $this->Payment->find('first', array('conditions'=>array('Payment.course_id'=>$value['course_id'],'Payment.student_id'=>$id,'Payment.status' => 1)));
+				$fee = $this->Course->read(null, $value['course_id']);			
+				$this->request->data['Fee'][$key]['id'] = $value['course_id'];
+				$this->request->data['Fee'][$key]['due_date'] = @$payment['Payment']['due_date'];
+				$this->request->data['Fee'][$key]['name'] = $fee['Course']['name'];
+				$this->request->data['Fee'][$key]['fees'] = $fee['Course']['fees'];
+				$this->request->data['Fee'][$key]['payment'] = @$payment['Payment']['amount'];
+				$this->request->data['Fee'][$key]['due'] = @$fee['Course']['fees'] - @$payment['Payment']['amount'];
+				$total_fees = $total_fees+$fee['Course']['fees'];
+				$total_due = $total_due+$this->request->data['Fee'][$key]['due'];
+				$total_payment = $total_payment+ @$payment['Payment']['amount'];
+			}	
+		}	
+		$date = new DateTime();
+		$date = $date->format('Y-m-d');		
+		$this->set(compact('total_fees','total_due','total_payment','date'));
 	}
 	public function registration(){
-		$this->layout = 'home';			
+		$this->layout = 'home';
+		$this->set('title_for_layout', __('Student Registration Form'));		
 		$model = $this->_model();
 		$this->loadModel('Course');
 		if (!empty($this->request->data)) {	
-			$this->_saveOrUpdate("",$this->request->data);
+
+			$this->_saveOrUpdate("",$this->request->data,0,'');
 		}
 		$courses = $this->Course->find('list', array('fields'=>array('Course.name','Course.name'),'conditions'=>array('Course.status'=>1)));
 		$institutions = $this->Institution->find('list', array('fields'=>array('Institution.id','Institution.name'),'conditions'=>array('Institution.status'=>1)));
@@ -73,11 +95,13 @@ class StudentsController extends AppController {
 	public function edit($id){
 		$this->checkPermission();
 		$model = $this->_model();
+		$this->set('title_for_layout', __('Student Registration Edit Form'));
 		if (!empty($this->request->data)) {	
-			$this->_saveOrUpdate($id,$this->request->data);
+
+			$this->_saveOrUpdate($id,$this->request->data,'','');
 		}
 		$this->request->data = $this->$model->read(null, $id);
-		
+		//pr($this->request->data);
 		$courses = $this->Course->find('list', array('fields'=>array('Course.name','Course.name'),'conditions'=>array('Course.status'=>1)));
 		$institutions = $this->Institution->find('list', array('fields'=>array('Institution.id','Institution.name'),'conditions'=>array('Institution.status'=>1)));
 		$batches = $this->Batch->find('list', array('fields'=>array('Batch.id','Batch.name'),'conditions'=>array('Batch.status'=>1)));
@@ -88,13 +112,13 @@ class StudentsController extends AppController {
 
 	}
 	
-	public function  _saveOrUpdate($id,$data){
+	public function  _saveOrUpdate($id,$data,$status,$action){
 			$this->request->data = $data;
 			$model = $this->_model();
 			if(!empty($this->request->data['BatchTime'])){
 				unset($this->request->data['BatchTime']);	
 			}
-			if(!empty($this->request->data['BatchTime'])){					
+			if(!empty($this->request->data['course'])){					
 				foreach($this->request->data['course'] as $key => $course){	
 					$courses = $this->Course->findByName($this->request->data['course'][$key]);
 					$payment = $this->Payment->find('first', array('conditions'=>array('Payment.course_id'=>$courses['Course']['id'],'Payment.student_id'=>$id,'Payment.status' =>0)));
@@ -105,45 +129,77 @@ class StudentsController extends AppController {
 					$this->request->data['StudentCourse'][$key]['course_id'] = $courses['Course']['id'];
 					$this->request->data['StudentCourse'][$key]['batch_id'] = $this->request->data['Student']['batch_id'];				
 				}
-			
-				unset($this->request->data['course']);
-			}
-			if(!empty($id)){
+				if(!empty($id)){ // When Admin edit student profile and set course
 				$StudentCourse = $this->StudentCourse->find('all', array('fields'=>array('StudentCourse.id'),'conditions'=>array('StudentCourse.student_id'=>$id)));
 				foreach($StudentCourse as $key => $ids){				
 					$this->StudentCourse->delete($ids['StudentCourse']['id']);
 				}
 			}
+				unset($this->request->data['course']);
+			}
+			
 			$this->$model->create();			
 			$this->request->data['User']['role'] = 'student';
-			$this->request->data['User']['status'] = 1;
+			if(!empty($status)){
+				$this->request->data['User']['status'] = 0; // new student registration from outside				
+			}else{
+				$this->request->data['User']['status'] = 1;
+			}
+			
 			$this->request->data[$model]['status'] = 1;
 			$this->request->data[$model]['created_by']= $this->Session->read('Auth.User.id');
 			$photographName = $this->ImageUpload->uploadImage('picture', IMAGE_LOCATION1);
 			if(!empty($photographName['image'])){
-				$this->request->data['User']['picture']= $photographName['image'];
-				$this->request->data['User']['thumbnail']= $photographName['thumbnail'];
+				$this->request->data['Student']['picture']= $photographName['image'];
+				$this->request->data['Student']['thumbnail']= $photographName['thumbnail'];
 			}
-			pr($this->request->data);die;			
-			if ($this->$model->saveAll($this->request->data)) {
-				
-				if(!empty($id)){
-					$lastId = $id;
-				}else{	
-					$lastId = $this->Student->getInsertID();
+			
+			$datasource = $this->$model->getDataSource();
+			$datasource->begin(); 
+			try{ 
+				if ($this->$model->saveAll($this->request->data)) {
+					$datasource->commit();
+					if(!empty($id)){
+						$lastId = $id;
+					}else{	
+						$lastId = $this->Student->getInsertID();
+					}
+					if(!empty($action)){ // when student update profile
+						$action = $action;
+						$this->Session->setFlash(__('Success'), 'default', array('class' => 'success'));				
+						$this->redirect(array('controller'=>'Students','action' => 'profile' ));
+					}else{
+						$this->Session->setFlash(__('Success'), 'default', array('class' => 'success'));				
+						$this->redirect(array('controller'=>'Payments','action' => 'index',$lastId ));
+					}
+					
+				} 
+				else {
+					$datasource->rollback();
+					throw new Exception();
+					$this->Session->setFlash(__($this->save_msg_error), 'default', array('class' => 'error'));
 				}
-				$this->Session->setFlash(__('Success'), 'default', array('class' => 'success'));				
-				$this->redirect(array('controller'=>'Payments','action' => 'index',$lastId ));
-			} 
-			else {
-				$this->Session->setFlash(__($this->save_msg_error), 'default', array('class' => 'error'));
+			}catch(Exception $e) {			
+				$datasource->rollback();
+				return 1;			
+				exit();
 			}
 
+	}
+	public function search(){
+		$this->checkPermission();
+		$this->set('title_for_layout', __('Student Search Form'));	
+		$this->_searchResult($_REQUEST);
 	}
 	
 	public function index(){		
 		$this->checkPermission();
-		$this->set('title_for_layout', __('Your Home Page'));		
+		$this->set('title_for_layout', __('Student Search Form'));		
+		$this->_searchResult($_REQUEST);	
+		
+	}
+
+	public function _searchResult(){
 		$model = $this->_model();
 		$name = @$_REQUEST['name'];
 		$id_number = @$_REQUEST['id_number'];
@@ -189,7 +245,7 @@ class StudentsController extends AppController {
 					'conditions'=>array(
 						$conditions,					
 					),
-					'limit' => 1,
+					'limit' => 20,
 					'order'=> 'Student.id desc',
 				);
 			
@@ -200,14 +256,13 @@ class StudentsController extends AppController {
 		$institutions = $this->Institution->find('list', array('fields'=>array('Institution.id','Institution.name'),'conditions'=>array('Institution.status'=>1)));
 		$batches = $this->Batch->find('list', array('fields'=>array('Batch.id','Batch.name'),'conditions'=>array('Batch.status'=>1)));
 		$this->set(compact('batches','institutions','name','id_number','email','contact_student','institution_id',
-			'institution_id','batch_id'));		
-		
+			'institution_id','batch_id'));	
 	}
 	public function view($id){		
 		$this->checkPermission();				
 		$model = $this->_model();
-
 		$this->request->data = $this->$model->read(null, $id);
+		$this->set('title_for_layout', __('Student View Form ' .$this->request->data['Student']['name'] ));
 		
 	}
 	// delete action
@@ -252,7 +307,36 @@ class StudentsController extends AppController {
 		    return $this->redirect(array('action' => 'index'));
 		}
 	}
-	public $hasMany = array('Student','Institution','Batch');
-	
+	public function print_form($id){
+		$this->layout = 'print';
+		$this->checkPermission();				
+		$model = $this->_model();
+		$this->request->data = $this->$model->read(null, $id);
+		$this->set('title_for_layout', __('Student Print Form ' .$this->request->data['Student']['name'] ));
+		$total_fees = 0 ;
+		$total_due = 0;
+		$total_payment = 0;
+		if(!empty($this->request->data['StudentCourse'])){
+			foreach ($this->request->data['StudentCourse'] as $key => $value) {
+				$payment = $this->Payment->find('first', array('conditions'=>array('Payment.course_id'=>$value['course_id'],'Payment.student_id'=>$id,'Payment.status' => 1)));
+				$fee = $this->Course->read(null, $value['course_id']);			
+				$this->request->data['Fee'][$key]['id'] = $value['course_id'];
+				$this->request->data['Fee'][$key]['due_date'] = @$payment['Payment']['due_date'];
+				$this->request->data['Fee'][$key]['name'] = $fee['Course']['name'];
+				$this->request->data['Fee'][$key]['fees'] = $fee['Course']['fees'];
+				$this->request->data['Fee'][$key]['payment'] = @$payment['Payment']['amount'];
+				$this->request->data['Fee'][$key]['due'] = @$fee['Course']['fees'] - @$payment['Payment']['amount'];
+				$total_fees = $total_fees+$fee['Course']['fees'];
+				$total_due = $total_due+$this->request->data['Fee'][$key]['due'];
+				$total_payment = $total_payment+ @$payment['Payment']['amount'];
+			}	
+		}	
+
+		$date = new DateTime();
+		$date = $date->format('Y-m-d');		
+		$this->set(compact('total_fees','total_due','total_payment','date'));
+		$this->view = 'print';
+
+	}
 
 }

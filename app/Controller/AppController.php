@@ -17,13 +17,15 @@ class AppController extends Controller {
    //set an alias for the newly created helper: Html<->MyHtml
     public $helpers = array('Html');
     public function beforeFilter() {
-        
-        
+    	$this->loadModel('Student'); // If the User model is not loaded already
+        $new_students = $this->Student->find('all', array('conditions'=>array('Student.is_new'=>0)));
+        $new_students_count = $this->Student->find('count', array('conditions'=>array('Student.is_new'=>0)));
+       
+        $this->set(compact('new_students','new_students_count'));
         $this->Cookie->httpOnly = true;
         $currency = $this->currency();
         if (!$this->Auth->loggedIn() && $this->Cookie->read('rememberMe')) {
-            $cookie = $this->Cookie->read('rememberMe');
-     
+            $cookie = $this->Cookie->read('rememberMe');     
             $this->loadModel('User'); // If the User model is not loaded already
             $user = $this->User->find('first', array(
                     'conditions' => array(
@@ -36,7 +38,7 @@ class AppController extends Controller {
                 $this->redirect('/users/logout'); // destroy session & cookie
             }
          }
-     
+     $this->optionLists();
 	$this->createArrayValue();
 	$param = $this->request->params;
 	$action = $param['action'];
@@ -71,29 +73,29 @@ class AppController extends Controller {
 	return 'BDT';
     }
     
-    function checkPermission(){
+    function doctorcheckPermission(){
 	if (!$this->Auth->login()){
 	    $this->redirect(array('controller'=>'Users','action' => 'login'));
 	}
     }
     
-    function adminPermission(){
+    function checkPermission(){
 		if (!$this->Auth->login()){            
 		    $this->redirect(array('controller'=>'Users','action' => 'login'));            
 		}
 		else if($this->Session->read('Auth.User.role') !='admin'){            
 	        $this->Session->setFlash(__(' Unauthorized Access' ), 'default', array('class' => 'success'));			
-	        $this->redirect(array('controller'=>'Users','action' => 'userlists'));
+	        $this->redirect(array('controller'=>'Users','action' => 'unauthorized'));
 	            
 	    }
     }
     
-     function doctorPermission(){
+     function studentPermission(){
 	if (!$this->Auth->login()){
             
 	    $this->redirect(array('controller'=>'Users','action' => 'login'));
             
-	}else if($this->Session->read('Auth.User.role_id') !=2){
+	}else if($this->Session->read('Auth.User.role') !='student'){
             
             $this->Session->setFlash(__(' Unauthorized Access' ), 'default', array('class' => 'success'));			
             $this->redirect(array('controller'=>'Users','action' => 'unauthorized'));
@@ -105,6 +107,15 @@ class AppController extends Controller {
 	return $date = str_replace('/', '-',$date);
 		
     }
+    public function optionLists(){
+	    $boards =  array('Dhaka' =>'Dhaka' ,'Jessore'=>'Jessore','Barisal'=>'Barisal','Comilla'=>'Comilla',
+	    	'Rajshahi'=>'Rajshahi','Chittagong'=>'Chittagong','Rangpur'=>'Rangpur');
+	    $branches = array('Shantinagar'=>'Shantinagar');
+	    $year_of_passing = array('2010'=>'2010','2011'=>'2011','2012'=>'2012','2013'=>'2013','2014'=>'2014','2015'=>'2015','2016'=>'2016');
+	    $occupations = array('Teacher'=>'Teacher','Govt Service Holder' => 'Govt Service Holder','Private Service Holder'=>'Private Service Holder',
+	    	'Others'=>'Others');
+	    $this->set(compact('boards','branches','year_of_passing','occupations'));
+	}
     
     public function createArrayValue(){
 	

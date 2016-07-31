@@ -31,10 +31,7 @@
 					$this->Paginator->sort('name'),
 					$this->Paginator->sort('email'),
 					$this->Paginator->sort('phone'),
-					$this->Paginator->sort('role_id'),
-					
-					'Actions',                	
-																   
+					$this->Paginator->sort('role_id'),		   
 										
 				));
 				echo $tableHeaders;
@@ -56,7 +53,7 @@
 						$value[$v]['email'],
 						$value[$v]['mobile'],		
 						$value[$v]['role'],
-						$action,
+						//$action,
 											
 						);
 					}

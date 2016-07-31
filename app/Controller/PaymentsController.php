@@ -5,8 +5,7 @@ class PaymentsController extends AppController {
 
 	public $name = 'Payments';
 	public $components = array('RequestHandler');
-	public $uses = array('Payment','Course','Student','StudentCourse');	
-	// Patient registration form
+	public $uses = array('Payment','Course','Student','StudentCourse','Transaction');	
 	
 	public function index($id){
 		$this->checkPermission();		
@@ -17,37 +16,59 @@ class PaymentsController extends AppController {
 			foreach ($this->request->data['amount'] as $key => $value) {
 				array_push($course_list,$this->request->data['course_id'][$key]);
 				$payment = $this->$model->find('first', array('conditions'=>array('Payment.course_id'=>$this->request->data['course_id'][$key],'Payment.student_id'=>$id)));
-				
+				$due_date = new DateTime($this->request->data['due_date'][$key]);
+				$due_date = $due_date->format('Y-m-d');
+				$couse_id =  $this->request->data['course_id'][$key];
+				$this->request->data[$key]['Transaction']['student_id'] = $id;
+				$this->request->data[$key]['Transaction']['course_id'] = $couse_id;
+				$this->request->data[$key]['Transaction']['amount'] = $value;
+				$this->request->data[$key]['Transaction']['user_id'] =$this->Session->read('Auth.User.id');;
+
 				if(!empty($payment)){
 					$this->request->data[$key]['Payment']['id'] = $payment['Payment']['id'];
-					$this->request->data[$key]['Payment']['status'] = 1;					
+					$this->request->data[$key]['Payment']['status'] = 1;
+					$this->request->data[$key]['Payment']['due_date'] = $due_date;					
 					$this->request->data[$key]['Payment']['amount'] = $value+$payment['Payment']['amount'];					
 				}else{
 					$this->request->data[$key]['Payment']['user_id'] = $this->Session->read('Auth.User.id');
 					$this->request->data[$key]['Payment']['student_id'] = $id;
 					$this->request->data[$key]['Payment']['amount'] = $value;
 					$this->request->data[$key]['Payment']['status'] = 1;
-					$this->request->data[$key]['Payment']['course_id'] = $this->request->data['course_id'][$key];
+					$this->request->data[$key]['Payment']['due_date'] = $due_date;
+					$this->request->data[$key]['Payment']['course_id'] = $couse_id;
 				}
 			}
 
+
 			$payments = $this->Payment->find('all', array('fields'=>array('Payment.id,Payment.course_id'),'conditions'=>array('Payment.student_id'=>$id,)));
 			foreach($payments as $key => $ids){			
-				if (!in_array($ids['Payment']['course_id'], $course_list)) {
-					//pr(55555);
+				if (!in_array($ids['Payment']['course_id'], $course_list)) {					
 				    $this->Payment->id = $ids['Payment']['id'];
 					$this->Payment->saveField('status', 0);
 				}
 				
 			}			
 			unset($this->request->data['amount']);
-			unset($this->request->data['course_id']);					
-			if ($this->$model->saveAll($this->request->data)) {				
-				$this->Session->setFlash(__('Success'), 'default', array('class' => 'success'));				
-				$this->redirect(array('action' => 'index',$id));
-			} 
-			else {
-				$this->Session->setFlash(__($this->save_msg_error), 'default', array('class' => 'error'));
+			unset($this->request->data['due_date']);
+			unset($this->request->data['course_id']);
+			$datasource = $this->$model->getDataSource();
+			$datasource->begin(); 			
+			try{ 
+				if ($this->$model->saveAll($this->request->data)) {	
+					$this->Transaction->saveAll($this->request->data);
+				 	$datasource->commit();			
+					$this->Session->setFlash(__('Success'), 'default', array('class' => 'success'));				
+					$this->redirect(array('action' => 'index',$id));
+				} 
+				else {
+					$datasource->rollback();
+					throw new Exception();
+					$this->Session->setFlash(__($this->save_msg_error), 'default', array('class' => 'error'));
+				}
+			}catch(Exception $e) {			
+				$datasource->rollback();
+				return 1;			
+				exit();
 			}
 		}
 		$this->request->data = $this->Student->read(null, $id);
@@ -63,6 +84,7 @@ class PaymentsController extends AppController {
 				$this->request->data['Fee'][$key]['name'] = $fee['Course']['name'];
 				$this->request->data['Fee'][$key]['fees'] = $fee['Course']['fees'];
 				$this->request->data['Fee'][$key]['payment'] = @$payment['Payment']['amount'];
+				$this->request->data['Fee'][$key]['due_date'] = @$payment['Payment']['due_date'];
 				$this->request->data['Fee'][$key]['due'] = @$fee['Course']['fees'] - @$payment['Payment']['amount'];
 				$total_fees = $total_fees+$fee['Course']['fees'];
 				$total_due = $total_due+$this->request->data['Fee'][$key]['due'];

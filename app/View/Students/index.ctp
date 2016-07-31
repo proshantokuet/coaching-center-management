@@ -10,7 +10,8 @@ $v = ucfirst($model);
          Student Search Form
       </h1>
       <ol class="breadcrumb">
-        <li><?php echo $this->Html->link(' Home', array('controller' => 'Homes', 'action' => 'index')); ?></li>        
+        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => 'userlists')); ?>
+        </li>       
         <li class="active"> Student Search Form</li>
       </ol>
     </section>
@@ -59,10 +60,7 @@ $v = ucfirst($model);
                <?php  echo $this->Form->input('contact_student',array('placeholder'=>'Student Phone',
                'class'=>'form-control','label'=>false,'div'=>false,'value'=>$contact_student)); ?>
               </div>
-              <div class="form-group">
-                <label>Institute</label>
-                <?php  echo $this->Form->input('institution_id',array('empty'=>'Please Select','options'=>$institutions,'class'=>'form-control','label'=>false,'div'=>false,'selected'=>$institution_id)); ?>
-              </div>
+             
 
             </div>
       
@@ -81,6 +79,7 @@ $v = ucfirst($model);
           $this->Paginator->sort('batch_id'),
           $this->Paginator->sort('email'),
           $this->Paginator->sort('contact_student'),
+          'Action',
                             
                                    
                     
@@ -89,13 +88,16 @@ $v = ucfirst($model);
         $rows = array();
         foreach ($values AS $value) {
           
+          $action = $this->Html->link('Course Assign ', array('controller' =>$this->request->params['controller'], 'action' => 'edit', $value[$model]['id']),array('class'=>'label label-success'));         
+          $action .= '     &nbsp;'.$this->Html->link('Admission Form Print', array('controller' =>$this->request->params['controller'], 'action' => 'print_form', $value[$model]['id']),array('target'=>'_blank','class'=>'label label-success')); 
+          $action .= '&nbsp;'.$this->Html->link('Make Payment', array('controller' =>'Payments', 'action' => 'index', $value[$model]['id']),array('class'=>'label label-success'));  
           $name = $this->Html->link($value[$model]['name'], array('controller' =>$this->request->params['controller'], 'action' => 'edit', $value[$model]['id']));  
           $rows[] = array(
             $name,            
             $value['Batch']['name'],
             $value[$model]['email'],
             $value[$model]['contact_student'],
-           
+            $action,
                       
             );
           }
@@ -139,4 +141,4 @@ $v = ucfirst($model);
     </section>
     <!-- /.content -->
   </div>
-  <!-- /.content-wrapper -->
+  

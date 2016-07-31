@@ -11,6 +11,7 @@ class BatchesController extends AppController {
 	public function add(){
 		$this->checkPermission();		
 		$model = $this->_model();
+		$this->set('title_for_layout', __('Batch Add Form'));	
 		$this->loadModel('Course');
 		if (!empty($this->request->data)) {		
 			unset($this->request->data['Batch']['BatchTime']);
@@ -26,17 +27,27 @@ class BatchesController extends AppController {
 			unset($this->request->data['day']);
 			unset($this->request->data['start_time']);
 			unset($this->request->data['end_time']);
-
-						
 			$this->$model->create();			
 			$this->request->data[$model]['status'] = 1;
 			$this->request->data[$model]['user_id']= $this->Session->read('Auth.User.id');
-			if ($this->$model->saveAll($this->request->data)) {				
-				$this->Session->setFlash(__('Success'), 'default', array('class' => 'success'));				
-				$this->redirect(array('action' => 'index'));
-			} 
-			else {
-				$this->Session->setFlash(__($this->save_msg_error), 'default', array('class' => 'error'));
+
+			$datasource = $this->$model->getDataSource();
+			$datasource->begin(); 
+			try{ 
+				if ($this->$model->saveAll($this->request->data)) {	
+					$datasource->commit();			
+					$this->Session->setFlash(__('Success'), 'default', array('class' => 'success'));				
+					$this->redirect(array('action' => 'index'));
+				} 
+				else {
+					$datasource->rollback();
+					throw new Exception();
+					$this->Session->setFlash(__($this->save_msg_error), 'default', array('class' => 'error'));
+				}
+			}catch(Exception $e) {			
+				$datasource->rollback();
+				return 1;			
+				exit();
 			}
 		}
 
@@ -46,6 +57,7 @@ class BatchesController extends AppController {
 	}
 	public function edit($id){
 		$this->checkPermission();
+		
 		$model = $this->_model();
 		$this->loadModel('BatchTime');
 		$this->loadModel('Course');
@@ -83,7 +95,7 @@ class BatchesController extends AppController {
 			}
 		}
 		$this->request->data = $this->$model->read(null, $id);
-		
+		$this->set('title_for_layout', __('Batch Edit Form of '.$this->request->data['Batch']['name']));
 		$courses = $this->Course->find('list', array('fields'=>array('Course.name','Course.name'),'conditions'=>array('Course.status'=>1)));
 		$days = array('Satarday'=>'Satarday','Sunday'=>'Sunday','Monday'=>'Monday','Tuesday'=>'Tuesday','Wednesday'=>'Wednesday','Thusday'=>'Thusday','Friday'=>'Friday');
 		$this->set(compact('courses','days'));
@@ -94,7 +106,7 @@ class BatchesController extends AppController {
 	
 	public function index(){		
 		$this->checkPermission();
-		$this->set('title_for_layout', __('Your Home Page'));		
+		$this->set('title_for_layout', __('Batch List Page'));		
 		$model = $this->_model();		
 		$this->set('values', $this->paginate());		
 		
@@ -102,8 +114,8 @@ class BatchesController extends AppController {
 	public function view($id){		
 		$this->checkPermission();				
 		$model = $this->_model();
-
 		$this->request->data = $this->$model->read(null, $id);
+		$this->set('title_for_layout', __('View  Form of '.$this->request->data['Batch']['name']));
 		
 	}
 	// delete action
