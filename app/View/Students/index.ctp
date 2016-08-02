@@ -90,6 +90,7 @@ $v = ucfirst($model);
           
           $action = $this->Html->link('Course Assign ', array('controller' =>$this->request->params['controller'], 'action' => 'edit', $value[$model]['id']),array('class'=>'label label-success'));         
           $action .= '     &nbsp;'.$this->Html->link('Admission Form Print', array('controller' =>$this->request->params['controller'], 'action' => 'print_form', $value[$model]['id']),array('target'=>'_blank','class'=>'label label-success')); 
+          $action .= '     &nbsp;'.$this->Html->link('ID Card Print', array('controller' =>$this->request->params['controller'], 'action' => 'card', $value[$model]['id']),array('target'=>'_blank','class'=>'label label-success'));
           $action .= '&nbsp;'.$this->Html->link('Make Payment', array('controller' =>'Payments', 'action' => 'index', $value[$model]['id']),array('class'=>'label label-success'));  
           $name = $this->Html->link($value[$model]['name'], array('controller' =>$this->request->params['controller'], 'action' => 'edit', $value[$model]['id']));  
           $rows[] = array(

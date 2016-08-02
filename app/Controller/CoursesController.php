@@ -61,7 +61,7 @@ class CoursesController extends AppController {
 		$this->set('title_for_layout', __('Your Home Page'));		
 		$v = $this->_model();
 		$this->set('title_for_layout', __('User List'));
-		
+		$this->paginate = array('order'=>'Course.id DESC');
 		$this->set('values', $this->paginate());		
 		
 	}

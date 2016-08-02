@@ -29,6 +29,7 @@ $v = ucfirst($model);
               <div class="form-group">
                 <label>Username</label>
                 <?php  echo $this->Form->input('User.username',array('placeholder'=>'Username','class'=>'form-control','label'=>false,'div'=>false)); ?>
+                
               </div>
 
               <div class="form-group">

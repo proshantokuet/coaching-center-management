@@ -14,7 +14,7 @@ $v = ucfirst($model);
       <ol class="breadcrumb">
         <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => 'userlists')); ?>
         </li>
-        <li><?php echo $this->Html->link($v, array('controller' => $this->request->params['controller'], 'action' => 'index')); ?>
+        <li><?php echo $this->Html->link('Student', array('controller' => 'Students', 'action' => 'index')); ?>
          </li>           
         <li class="active">Payment Creation of <?php echo $this->request->data['Student']['name'] ?></li>
       </ol>

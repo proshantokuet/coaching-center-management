@@ -107,7 +107,8 @@ class BatchesController extends AppController {
 	public function index(){		
 		$this->checkPermission();
 		$this->set('title_for_layout', __('Batch List Page'));		
-		$model = $this->_model();		
+		$model = $this->_model();
+		$this->paginate = array('order'=>'Batch.id DESC');		
 		$this->set('values', $this->paginate());		
 		
 	}

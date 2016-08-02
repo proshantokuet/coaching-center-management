@@ -13,7 +13,7 @@
         <div class="col-md-12">
           <div class="box">
             <div class="box-header with-border">
-              <h3 class="box-title">About Us</h3>
+              <h3 class="box-title">আমরা যেমন</h3>
 
               
             </div>
@@ -22,9 +22,12 @@
               <div class="row">
                 <div class="col-md-12">
                   <p class="text-center">
-                   There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+                   
 
-                   There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.
+শিক্ষার প্রকৃত উদ্দেশ্য কী? এর উত্তর অধিকাংশ মানুষের কাছেই ধোঁয়াশাপূর্ণ। কারণ আমাদের প্রচলিত শিক্ষাব্যবস্থা আমাদেরকে ভাবতে শিখিয়েছে শিক্ষার উদ্দেশ্য হল কিছু সার্টিফিকেট দেয়া এবং সবশেষে জীবিকার জন্য চাকুরির ব্যবস্থা করা। কিন্তু আমরা একদম নির্দ্বিধায় এই ভাবনাকে খারিজ করে দিই। আমরা ভাবি, শিক্ষার লক্ষ্য মানুষের সুপ্ত প্রতিভাকে বিকশিত করা, তার চিন্তাশক্তিকে শাণিত করা এবং তাকে আত্মবিশ্বাসী, ধৈর্যশীল ও দায়িত্ববান মানুষ হিসেবে গড়ে তোলা। এগুলো কি শুধুই কথার কথা? এমনটা মনে হওয়াকেই দূষণীয় বলিনা এজন্য যে জাতিগতভাবেই কাজের চেয়ে অনেক বেশি কথা বলাটা আমাদের অভ্যেস। কথা আমরা অবশ্যই বলবো, কিন্তু সেটা কাজে পরিণত হবার পর। শিক্ষাব্যবস্থা পরিবর্তনের ক্ষমতা আমাদের নেই, থাকলে করতাম অবশ্যই; কিন্তু এর অসঙ্গতিগুলোকে অস্বীকার করবার অঙ্গীকার আমাদের সবসময়কার। সেই অঙ্গীকার বাস্তবায়নে সারথি চাই। সমমত ও পথের সারথি সন্ধানেই আমাদের নিরন্তর পথ চলা।
+
+একটা অংক স্যার করে দিলেন, একজন শিক্ষার্থী দশ-পনেরো বার অন্ধচর্চা করে সেটা পরীক্ষায় লিখে নম্বর পেল, ভাল ফলাফল করল; এতে ঐ শিক্ষার্থীটির আদৌ কি কোন কৃতিত্ব আছে? আমরা চাই শিক্ষার্থী নিজে চেষ্টা করুক। চেষ্টা করতেও অনীহা কাজ করে অনেকের মধ্যে। আমরা মনে করি চেষ্টার আগ্রহ তৈরি ও প্রচেষ্টার প্রয়াসগুলোকে আকর্ষণীয় করবার মাঝেই একটি সিস্টেম বা ব্যবস্থার সার্থকতা। সেই কাঙ্ক্ষিত ব্যবস্থাপত্রটিই আমাদের চূড়ান্ত গন্তব্য। তাহলে, আমরা কারা? আমরা কিছু স্বপ্নবাজ মানুষ যারা প্রতিনিয়ত স্বপ্ন বুনি, মানুষকে জড়পদার্থ নয় চিন্তামনস্ক হিসেবে দেখতে চাই। চিন্তার জন্য চাই প্লাটফরম, যেখান থেকে বিচ্ছুরিত হবে আলো। আমরা এক আলোদায়ী প্লাটফরম, একলাইনে এটাই আমাদের পরিচয়। তবে মানুষ আরও সুস্পষ্ট ও নির্দিষ্ট পরিচয় চায়। তাই ছোট্ট একটা শব্দের আড়ালে ধারণ করেছি নিজেদের। সেই শব্দ-স্বপ্ন কিংবা প্লাটফরম, সবকিছুর সম্মিলনেই উদ্ভাস। আমরাই উদ্ভাস, উদ্ভাসই আমরা।
+
                   </p>
 
                   <!-- <div class="chart">

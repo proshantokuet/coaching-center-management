@@ -55,7 +55,14 @@ class Student extends AppModel
 			),			
 			
 		),
-		
+		'batch_id' => array(
+			'notEmpty' => array(
+				'rule' => 'notEmpty',
+				'message' => 'This field cannot be left blank.',
+				'last' => true,
+			),			
+			
+		),
 		
 		
 		

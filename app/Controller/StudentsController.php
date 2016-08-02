@@ -127,7 +127,19 @@ class StudentsController extends AppController {
 						$this->Payment->saveField('status', 1);
 					}										
 					$this->request->data['StudentCourse'][$key]['course_id'] = $courses['Course']['id'];
-					$this->request->data['StudentCourse'][$key]['batch_id'] = $this->request->data['Student']['batch_id'];				
+					if(!empty($id)){
+						$find_student = $this->$model->findById($id);
+						$student_batch_id = $find_student['Student']['batch_id'];
+						if(!empty($student_batch_id)){
+							$this->request->data['StudentCourse'][$key]['batch_id'] = $student_batch_id;		
+						}else{
+							$this->Session->setFlash(__('Batch is not set yet'), 'default', array('class' => 'error'));				
+							$this->redirect(array('controller'=>'Student','action' => 'edit',$id ));
+						}
+						
+					}else{
+						$this->request->data['StudentCourse'][$key]['batch_id'] = $this->request->data['Student']['batch_id'];				
+					}
 				}
 				if(!empty($id)){ // When Admin edit student profile and set course
 				$StudentCourse = $this->StudentCourse->find('all', array('fields'=>array('StudentCourse.id'),'conditions'=>array('StudentCourse.student_id'=>$id)));
@@ -139,13 +151,8 @@ class StudentsController extends AppController {
 			}
 			
 			$this->$model->create();			
-			$this->request->data['User']['role'] = 'student';
-			if(!empty($status)){
-				$this->request->data['User']['status'] = 0; // new student registration from outside				
-			}else{
-				$this->request->data['User']['status'] = 1;
-			}
-			
+			$this->request->data['User']['role'] = 'student';			
+			$this->request->data['User']['status'] = 1;
 			$this->request->data[$model]['status'] = 1;
 			$this->request->data[$model]['created_by']= $this->Session->read('Auth.User.id');
 			$photographName = $this->ImageUpload->uploadImage('picture', IMAGE_LOCATION1);
@@ -153,7 +160,7 @@ class StudentsController extends AppController {
 				$this->request->data['Student']['picture']= $photographName['image'];
 				$this->request->data['Student']['thumbnail']= $photographName['thumbnail'];
 			}
-			
+
 			$datasource = $this->$model->getDataSource();
 			$datasource->begin(); 
 			try{ 
@@ -246,7 +253,7 @@ class StudentsController extends AppController {
 						$conditions,					
 					),
 					'limit' => 20,
-					'order'=> 'Student.id desc',
+					'order'=> 'Student.id DESC',
 				);
 			
 			$this->set('values', $this->paginate());
@@ -337,6 +344,12 @@ class StudentsController extends AppController {
 		$this->set(compact('total_fees','total_due','total_payment','date'));
 		$this->view = 'print';
 
+	}
+	public function card($id){
+		$this->layout = 'print';
+		$this->checkPermission();				
+		$model = $this->_model();
+		$this->request->data = $this->$model->read(null, $id);
 	}
 
 }

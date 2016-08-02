@@ -107,7 +107,7 @@
           <div class="col-sm-4 invoice-col">
             <label>Total Amount</label> 
             <div><?php echo $total_fees?></div>  
-            <label>Pain on Admission</label> 
+            <label>Paid on Admission</label> 
             <div><?php echo $total_payment?></div> 
             <label>Due Amount</label> 
             <div><?php echo $total_due?></div>               

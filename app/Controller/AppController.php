@@ -18,7 +18,7 @@ class AppController extends Controller {
     public $helpers = array('Html');
     public function beforeFilter() {
     	$this->loadModel('Student'); // If the User model is not loaded already
-        $new_students = $this->Student->find('all', array('conditions'=>array('Student.is_new'=>0)));
+        $new_students = $this->Student->find('all', array('conditions'=>array('Student.is_new'=>0),'order'=>'Student.id DESC'));
         $new_students_count = $this->Student->find('count', array('conditions'=>array('Student.is_new'=>0)));
        
         $this->set(compact('new_students','new_students_count'));
