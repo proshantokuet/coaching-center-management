@@ -119,7 +119,7 @@ $v = ucfirst($model);
                 <label>Picture</label>
                 <input type="file" id="file" name="picture" onchange="readURL(this,this.id);">
                 <img class="remove" id="img" src="#" alt="" />
-                <?php echo $thumbnail= $this->Html->image('user/'.$this->request->data['Student']['picture'],array('class'=>'img-circle')); ?>
+                <?php echo $thumbnail= $this->Html->image('user/thumbnail/'.$this->request->data['Student']['thumbnail'],array('class'=>'img-circle')); ?>
               </div>
 
             </div>

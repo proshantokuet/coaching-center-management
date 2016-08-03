@@ -4,6 +4,7 @@
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
+    <h3> <?php echo $this->Session->flash(); ?></h3>
     <p class="login-box-msg">Sign in to start your session</p>
 
     <?php echo $this->Form->create('User', array('url' => array('controller' => 'users', 'action' => 'login')));?>

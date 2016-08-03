@@ -18,7 +18,7 @@
       <!-- info row -->
       <div class="row invoice-info">
         <div class="col-sm-4 invoice-col">
-          <?php echo $thumbnail= $this->Html->image('user/'.$this->request->data['Student']['picture'],array('class'=>'img-circle')); ?><br />
+          <?php echo $thumbnail= $this->Html->image('user/thumbnail/'.$this->request->data['Student']['thumbnail'],array('class'=>'img-circle')); ?><br />
           <?php echo $this->request->data['Student']['name']?> 
         </div>
         <!-- /.col -->

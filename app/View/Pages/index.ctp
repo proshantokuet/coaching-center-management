@@ -1,4 +1,10 @@
-  
+  <style>
+       #map {
+        width: 100%;
+        height: 400px;
+      }
+    </style>
+
 <div class="content-wrappers" style="background-color: #ecf0f5">
     <!-- Content Header (Page header) -->
     <?php echo $this->element("menu/head"); ?>
@@ -35,6 +41,8 @@
                     <canvas id="salesChart" style="height: 180px;"></canvas>
                   </div> -->
                   <!-- /.chart-responsive -->
+                   <div id="map"> asdas </div>
+
                 </div>
                 <!-- /.col -->
                 
@@ -190,6 +198,7 @@
             <!-- /.box-header -->
              <div class="box-body">
               <ul class="products-list product-list-in-box">
+                <marquee direction="up">
                 <?php if(!empty($notices)){
                   foreach ($notices as $key => $value) {                 
                   ?>       
@@ -201,7 +210,8 @@
                         </span>
                   </div>
                 </li>
-                <?php } } ?>                
+                <?php } } ?> 
+                </marquee>               
                 <!-- /.item -->
               </ul>
             </div>
@@ -254,3 +264,16 @@
     </section>
     <!-- /.content -->
   </div>
+
+  <script>
+      function initMap() {
+        var mapDiv = document.getElementById('map');
+        var map = new google.maps.Map(mapDiv, {
+            center: {lat: 23.7, lng: 90.4},
+            zoom: 7
+        });
+      }
+    </script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOfmq8hhctB3HYvvnyylCRkzblizYM_d8&callback=initMap">
+    </script>

@@ -104,9 +104,12 @@ class NoticesController extends AppController {
 		$this->set('title_for_layout', __('All Notice'));
 		$this->layout = 'home';		
 		$v = $this->_model();	
-		$notices = $this->$v->find('all',array('limit'=>10));	
-		$this->set('values', $this->paginate());
+		$notices = $this->Notice->find('all',array('limit'=>10,'conditions'=>array('Notice.status'=>1)));
 		$this->set(compact('notices'));
+		$this->paginate = array('conditions'=>array('status'=>1));	
+		$this->set('values', $this->paginate());
+
+		
 	}
 	public function view($id){
 		$v = $this->_model();		

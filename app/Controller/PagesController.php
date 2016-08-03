@@ -7,9 +7,10 @@ class PagesController extends AppController {
 	public function index() {
 		$this->set('title_for_layout', __('AID ACADEMIA'));
 		$this->layout = 'home';
-		$values = $this->Course->find('all');
-		$notices = $this->Notice->find('all',array('limit'=>10));
-		$this->set(compact('values','notices'));
+		$values = $this->Course->find('all',array('conditions'=>array('Course.status'=>1)));		
+		$this->set(compact('values'));
+		$notices = $this->Notice->find('all',array('limit'=>10,'conditions'=>array('Notice.status'=>1)));
+		$this->set(compact('notices'));
 
 	}
 }

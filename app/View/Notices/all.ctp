@@ -66,9 +66,11 @@
             <!-- /.box-header -->
              <div class="box-body">
               <ul class="products-list product-list-in-box">
+                <marquee direction="up">  
                 <?php if(!empty($notices)){
                   foreach ($notices as $key => $value) {                 
-                  ?>       
+                  ?>    
+
                 <li class="item">                           
                   <div class="product-info">
                    <?php  echo $name = $this->Html->link($value['Notice']['name'], array('controller' =>'Notices', 'action' => 'view', $value['Notice']['id']),array('class'=>'product-title','escape' => false,)); ?>
@@ -78,7 +80,7 @@
                   </div>
                 </li>
                 <?php } } ?>                
-                <!-- /.item -->
+                 </marquee>
               </ul>
             </div>
             

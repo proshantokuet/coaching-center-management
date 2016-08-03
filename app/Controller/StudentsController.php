@@ -171,12 +171,13 @@ class StudentsController extends AppController {
 					}else{	
 						$lastId = $this->Student->getInsertID();
 					}
+					//$this->Session->setFlash(__('you have successfully registered '), 'default', array('class' => 'success'));				
 					if(!empty($action)){ // when student update profile
 						$action = $action;
-						$this->Session->setFlash(__('Success'), 'default', array('class' => 'success'));				
+						$this->Session->setFlash(__('You have successfully Update your information '), 'default', array('class' => 'success'));				
 						$this->redirect(array('controller'=>'Students','action' => 'profile' ));
 					}else{
-						$this->Session->setFlash(__('Success'), 'default', array('class' => 'success'));				
+						$this->Session->setFlash(__('Your Registration has benn completed.'), 'default', array('class' => 'success'));				
 						$this->redirect(array('controller'=>'Payments','action' => 'index',$lastId ));
 					}
 					

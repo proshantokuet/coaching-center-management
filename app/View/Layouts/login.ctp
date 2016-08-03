@@ -33,8 +33,10 @@
 </head>
 <body class="hold-transition login-page">
 	<?php
+	
 	echo $this->fetch('content'); 
-	echo $this->Session->flash(); ?>
+	?>
+	
 	
 <?php 
 	echo $this->Html->script(array(				
