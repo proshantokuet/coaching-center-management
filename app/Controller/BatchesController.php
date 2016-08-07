@@ -5,7 +5,7 @@ class BatchesController extends AppController {
 
 	public $name = 'Batches';
 	public $components = array('RequestHandler');
-	public $uses = array('Batch');	
+	public $uses = array('Batch','StudentCourse');	
 	// Patient registration form
 	
 	public function add(){
@@ -15,13 +15,15 @@ class BatchesController extends AppController {
 		$this->loadModel('Course');
 		if (!empty($this->request->data)) {		
 			unset($this->request->data['Batch']['BatchTime']);
-			unset($this->request->data['BatchTime']);			
-			foreach($this->request->data['course'] as $key => $course){					
-				$courses = $this->Course->findByName($this->request->data['course'][$key]);					
-				$this->request->data['BatchTime'][$key]['course_id'] = $courses['Course']['id'];
-				$this->request->data['BatchTime'][$key]['day'] = $this->request->data['day'][$key];
-				$this->request->data['BatchTime'][$key]['start_time'] = $this->request->data['start_time'][$key];
-				$this->request->data['BatchTime'][$key]['end_time'] = $this->request->data['end_time'][$key];
+			unset($this->request->data['BatchTime']);
+			if(!empty($this->request->data['course'])){			
+				foreach($this->request->data['course'] as $key => $course){					
+					$courses = $this->Course->findByName($this->request->data['course'][$key]);					
+					$this->request->data['BatchTime'][$key]['course_id'] = $courses['Course']['id'];
+					$this->request->data['BatchTime'][$key]['day'] = $this->request->data['day'][$key];
+					$this->request->data['BatchTime'][$key]['start_time'] = $this->request->data['start_time'][$key];
+					$this->request->data['BatchTime'][$key]['end_time'] = $this->request->data['end_time'][$key];
+				}
 			}
 			unset($this->request->data['course']);
 			unset($this->request->data['day']);
@@ -30,7 +32,10 @@ class BatchesController extends AppController {
 			$this->$model->create();			
 			$this->request->data[$model]['status'] = 1;
 			$this->request->data[$model]['user_id']= $this->Session->read('Auth.User.id');
-
+			
+			$courses = $this->Course->find('list', array('fields'=>array('Course.name','Course.name'),'conditions'=>array('Course.status'=>1)));
+			$days = array('Satarday'=>'Satarday','Sunday'=>'Sunday','Monday'=>'Monday','Tuesday'=>'Tuesday','Wednesday'=>'Wednesday','Thusday'=>'Thusday','Friday'=>'Friday');
+			$this->set(compact('courses','days'));
 			$datasource = $this->$model->getDataSource();
 			$datasource->begin(); 
 			try{ 
@@ -49,6 +54,7 @@ class BatchesController extends AppController {
 				return 1;			
 				exit();
 			}
+
 		}
 
 		$courses = $this->Course->find('list', array('fields'=>array('Course.name','Course.name'),'conditions'=>array('Course.status'=>1)));
@@ -69,12 +75,14 @@ class BatchesController extends AppController {
 		if (!empty($this->request->data)) {
 			unset($this->request->data['Batch']['BatchTime']);
 			unset($this->request->data['BatchTime']);
-			foreach($this->request->data['course'] as $key => $course){
-				$courses = $this->Course->findByName($this->request->data['course'][$key]);					
-				$this->request->data['BatchTime'][$key]['course_id'] = $courses['Course']['id'];
-				$this->request->data['BatchTime'][$key]['day'] = $this->request->data['day'][$key];
-				$this->request->data['BatchTime'][$key]['start_time'] = $this->request->data['start_time'][$key];
-				$this->request->data['BatchTime'][$key]['end_time'] = $this->request->data['end_time'][$key];
+			if(!empty($this->request->data['course'])){
+				foreach($this->request->data['course'] as $key => $course){
+					$courses = $this->Course->findByName($this->request->data['course'][$key]);					
+					$this->request->data['BatchTime'][$key]['course_id'] = $courses['Course']['id'];
+					$this->request->data['BatchTime'][$key]['day'] = $this->request->data['day'][$key];
+					$this->request->data['BatchTime'][$key]['start_time'] = $this->request->data['start_time'][$key];
+					$this->request->data['BatchTime'][$key]['end_time'] = $this->request->data['end_time'][$key];
+				}
 			}
 			$batchTimes = $this->BatchTime->find('all', array('fields'=>array('BatchTime.id'),'conditions'=>array('BatchTime.batch_id'=>$id)));
 			foreach($batchTimes as $key => $ids){				
@@ -104,6 +112,19 @@ class BatchesController extends AppController {
 	}
 	
 	
+	public function name($id){
+		$model = $this->_model();		
+		$batch = $this->$model->findById($id);
+		return $batch['Batch']['name'];
+	}
+
+	public function title($student_id = null,$course_id = null){		
+		$this->StudentCourse->unbindModel(array('belongsTo' => array('Student')));
+		$this->StudentCourse->Behaviors->attach('Containable');
+		$batch = $this->StudentCourse->find('first',array('contain'=>array('Batch'=>array('fields'=>array('name'))),'conditions'=>array('student_id'=>$student_id,'course_id'=>$course_id)));
+		
+		return $batch['Batch']['name'];
+	}
 	public function index(){		
 		$this->checkPermission();
 		$this->set('title_for_layout', __('Batch List Page'));		

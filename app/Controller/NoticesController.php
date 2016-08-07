@@ -17,7 +17,7 @@ class NoticesController extends AppController {
 			$this->request->data[$model]['status'] = 1;
 			$this->request->data[$model]['user_id']= $this->Session->read('Auth.User.id');
 			if ($this->$model->save($this->request->data)) {				
-				$this->Session->setFlash(__('Success'), 'default', array('class' => 'success'));				
+				$this->Session->setFlash(__('Successfully Added Notice'), 'default', array('class' => 'success'));				
 				$this->redirect(array('action' => 'index'));
 			} 
 			else {
@@ -35,7 +35,7 @@ class NoticesController extends AppController {
 		}
 		if (!empty($this->request->data)) {			
 			if ($this->$model->save($this->request->data)) {				
-				$this->Session->setFlash(__('Success'), 'default', array('class' => 'success'));				
+				$this->Session->setFlash(__('Successfully Edited Notice'), 'default', array('class' => 'success'));				
 				$this->redirect(array('action' => 'index'));
 			} 
 			else {

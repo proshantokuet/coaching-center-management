@@ -38,6 +38,8 @@ class AppController extends Controller {
                 $this->redirect('/users/logout'); // destroy session & cookie
             }
          }
+         $home_page = 'index';
+         $this->set(compact('home_page'));
      $this->optionLists();
 	$this->createArrayValue();
 	$param = $this->request->params;
@@ -111,7 +113,8 @@ class AppController extends Controller {
 	    $boards =  array('Dhaka' =>'Dhaka' ,'Jessore'=>'Jessore','Barisal'=>'Barisal','Comilla'=>'Comilla',
 	    	'Rajshahi'=>'Rajshahi','Chittagong'=>'Chittagong','Rangpur'=>'Rangpur');
 	    $branches = array('Shantinagar'=>'Shantinagar');
-	    $year_of_passing = array('2010'=>'2010','2011'=>'2011','2012'=>'2012','2013'=>'2013','2014'=>'2014','2015'=>'2015','2016'=>'2016');
+	    $year_of_passing = array('Admission'=>'Admission','HSC'=>'HSC','SSC'=>'SSC','VIII'=>'VIII','VII'=>'VII',
+	    	'VI'=>'VI');
 	    $occupations = array('Teacher'=>'Teacher','Govt Service Holder' => 'Govt Service Holder','Private Service Holder'=>'Private Service Holder',
 	    	'Others'=>'Others');
 	    $this->set(compact('boards','branches','year_of_passing','occupations'));

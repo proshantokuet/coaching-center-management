@@ -7,9 +7,11 @@
       <!-- title row -->
       <div class="row">
         <div class="col-xs-12">
+          <h3><?php echo $this->Session->flash();?></h3>
           <h2 class="page-header">
             <i class="fa fa-globe"></i> 
              <?php echo $this->Html->link('Edit Profile', array('controller' =>'Students', 'action' => 'update', $this->request->data['Student']['id']),array('class'=>'product-title','escape' => false,)); ?>
+
             <small class="pull-right"><?php echo $date ?></small>
           </h2>
         </div>
@@ -18,7 +20,7 @@
       <!-- info row -->
       <div class="row invoice-info">
         <div class="col-sm-4 invoice-col">
-          <?php echo $thumbnail= $this->Html->image('user/thumbnail/'.$this->request->data['Student']['thumbnail'],array('class'=>'img-circle')); ?><br />
+          <?php echo $thumbnail= $this->Html->image('user/thumbnail/'.$this->request->data['Student']['thumbnail'],array('class'=>'user-image')); ?><br />
           <?php echo $this->request->data['Student']['name']?> 
         </div>
         <!-- /.col -->
@@ -59,8 +61,8 @@
               <th>Course</th>
               <th>Fees</th>
               <th>Payment </th>
-              <th>Due</th>
-              <th>Due Date</th>
+              <th>Due Amount</th>
+              <th>Next Payment Date</th>
             </tr>
             </thead>
             <tbody>

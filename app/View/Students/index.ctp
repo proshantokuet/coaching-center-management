@@ -10,7 +10,7 @@ $v = ucfirst($model);
          Student Search Form
       </h1>
       <ol class="breadcrumb">
-        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => 'userlists')); ?>
+        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => $home_page)); ?>
         </li>       
         <li class="active"> Student Search Form</li>
       </ol>
@@ -22,12 +22,14 @@ $v = ucfirst($model);
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Please fillup the form </h3>
+          <h3 class="box-title"></h3>
 
           <div class="box-tools pull-right">
             <h3 style="float:right" class="box-title"><?php echo $this->Html->link(__("Add New Student"), array('plugin' => 0, 'controller' => $this->request->params['controller'], 'action' => 'add'),array('class'=>'btn btn-default btn-flat')); ?></h3>
+            <h3 style="float:right" class="box-title"><?php echo $this->Html->link(__("New Search"), array('plugin' => 0, 'controller' => $this->request->params['controller'], 'action' => 'index'),array('class'=>'btn btn-default btn-flat')); ?></h3>
           </div>
         </div>
+        <?php if($indicator == 1){ ?>
         <!-- /.box-header -->
        <?php echo $this->Form->create('Home', array('type' => 'get', 'url' => array('controller' => 'Students', 'action' => 'index')));?>
         <div class="box-body ">
@@ -39,12 +41,8 @@ $v = ucfirst($model);
                 <?php  echo $this->Form->input('name',array('placeholder'=>'Student name','class'=>'form-control','label'=>false,'div'=>false,'value'=>$name)); ?>
               </div>
               <div class="form-group">
-                <label>Student ID</label>
+                <label>Roll No</label>
                 <?php  echo $this->Form->input('id_number',array('placeholder'=>'Student ID','class'=>'form-control','label'=>false,'div'=>false,'value'=>$id_number)); ?>
-              </div>
-              <div class="form-group">
-                <label>Batch</label>
-                <?php  echo $this->Form->input('batch_id',array('empty'=>'Please Select','options'=>$batches,'class'=>'form-control','label'=>false,'div'=>false,'selected'=>$batch_id)); ?>
               </div>
               
             </div>
@@ -68,6 +66,12 @@ $v = ucfirst($model);
           </div>
           <!-- /.row -->
         </div>
+        <!-- /.box-body -->
+         <div class="box-footer" >
+            <button style="float:right" type="submit" class="btn btn-primary">Search</button>
+          </div>
+        </form>
+        <?php } ?>
 
 <div class="box-body">
         <?php 
@@ -75,28 +79,28 @@ $v = ucfirst($model);
         <table cellpadding="0" cellspacing="0" class="table" >
         <?php  
         $tableHeaders =  $this->Html->tableHeaders(array(                   
-          $this->Paginator->sort('name'),         
-          $this->Paginator->sort('batch_id'),
-          $this->Paginator->sort('email'),
+          $this->Paginator->sort('name'), 
+          $this->Paginator->sort('id_number'),
           $this->Paginator->sort('contact_student'),
-          'Action',
-                            
-                                   
+          'Actions',          
                     
         ));
         echo $tableHeaders;
         $rows = array();
         foreach ($values AS $value) {
           
-          $action = $this->Html->link('Course Assign ', array('controller' =>$this->request->params['controller'], 'action' => 'edit', $value[$model]['id']),array('class'=>'label label-success'));         
-          $action .= '     &nbsp;'.$this->Html->link('Admission Form Print', array('controller' =>$this->request->params['controller'], 'action' => 'print_form', $value[$model]['id']),array('target'=>'_blank','class'=>'label label-success')); 
+          $action = $this->Html->link('Course Assign ', array('controller' =>$this->request->params['controller'], 'action' => 'course', $value[$model]['id']),array('class'=>'label label-success'));
+
+          $action .= '     &nbsp;'.$this->Html->link('Change Password', array('controller' =>'Users', 'action' => 'changepassword', $value[$model]['id']),array('class'=>'label label-success')); 
+
+          $action .= '     &nbsp;'.$this->Html->link('Student Summary Print', array('controller' =>$this->request->params['controller'], 'action' => 'print_form', $value[$model]['id']),array('target'=>'_blank','class'=>'label label-success')); 
+          
           $action .= '     &nbsp;'.$this->Html->link('ID Card Print', array('controller' =>$this->request->params['controller'], 'action' => 'card', $value[$model]['id']),array('target'=>'_blank','class'=>'label label-success'));
           $action .= '&nbsp;'.$this->Html->link('Make Payment', array('controller' =>'Payments', 'action' => 'index', $value[$model]['id']),array('class'=>'label label-success'));  
           $name = $this->Html->link($value[$model]['name'], array('controller' =>$this->request->params['controller'], 'action' => 'edit', $value[$model]['id']));  
           $rows[] = array(
-            $name,            
-            $value['Batch']['name'],
-            $value[$model]['email'],
+            $name, 
+            $value[$model]['id_number'],
             $value[$model]['contact_student'],
             $action,
                       
@@ -128,11 +132,7 @@ $v = ucfirst($model);
 
          </div>
 
-        <!-- /.box-body -->
-         <div class="box-footer" >
-                <button style="float:right" type="submit" class="btn btn-primary">Search</button>
-              </div>
-        </form>
+        
       </div>
       <!-- /.box -->
 

@@ -8,15 +8,15 @@ $v = ucfirst($model);
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Course Creation Page
+        Course Creation Form
         
       </h1>
       <ol class="breadcrumb">
-        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => 'userlists')); ?>
+        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' =>$home_page)); ?>
         </li>
         <li><?php echo $this->Html->link($v, array('controller' => $this->request->params['controller'], 'action' => 'index')); ?>
          </li>           
-        <li class="active">Course Creation Page</li>
+        <li class="active">Course Creation Form</li>
       </ol>
     </section>
 
@@ -26,7 +26,7 @@ $v = ucfirst($model);
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Please fillup the form </h3>
+          <h3 class="box-title"> </h3>
 
           <div class="box-tools pull-right">
             
@@ -39,7 +39,7 @@ $v = ucfirst($model);
           	
             <div class="col-md-6">
               <div class="form-group">
-                <label>Course Name</label>
+                <label>Course Name <span class="required">*</span></label>
                 <?php  echo $this->Form->input('name',array('placeholder'=>'Course name','class'=>'form-control','label'=>false,'div'=>false)); ?>
               </div>
               <div class="form-group">
@@ -51,12 +51,12 @@ $v = ucfirst($model);
             <!-- /.col -->
             <div class="col-md-6">
               <div class="form-group">
-                <label>Course Code</label>
+                <label>Course Code <span class="required">*</span></label>
                <?php  echo $this->Form->input('code',array('placeholder'=>'Course Code',
                'class'=>'form-control','label'=>false,'div'=>false)); ?>
               </div>
               <div class="form-group">
-                <label>Course Fees</label>
+                <label>Course Fees <span class="required">*</span></label>
                <?php  echo $this->Form->input('fees',array('placeholder'=>'Course Fees',
                'class'=>'form-control','label'=>false,'div'=>false)); ?>
               </div>
@@ -68,9 +68,19 @@ $v = ucfirst($model);
           </div>
           <!-- /.row -->
         </div>
+        <div class="col-md-12">
+            <br /> 
+            <div class="row  form-group" id="prescription">
+              <div class="col-md-2">
+                <label> Batch</label><br />
+                <?php echo $this->Form->input('Course.batch_id',array('options' => $batches,'label'=> false,'div'=> false)); ?>
+              </div>
+          </div>
+           <div id="addBatch" class="btn btn-primary">Add Batch</div>
+        </div>
         <!-- /.box-body -->
          <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button style="float:right" type="submit" class="btn btn-primary">Submit</button>
               </div>
         </form>
       </div>

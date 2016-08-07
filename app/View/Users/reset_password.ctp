@@ -1,30 +1,35 @@
+<div class="login-box">
+  <div class="login-logo">
+    <b>AID ACADEMIA </b>
+  </div>
+  <!-- /.login-logo -->
+  <div class="login-box-body">
+    <h3> <?php echo $this->Session->flash(); ?></h3>    
 
-<span class="titleLeft"><?php echo $title_for_layout ;?></span> 
-<div class="clear"></div>
-<div class="gap"></div>
-<?php echo $this->Form->create('User', array('type'=>'file'));?>
-<fieldset>
-	<div class="tabs">
-	
-	<div id="user-main">
-		<?php //pr($this->request->data);			
-			echo $this->Form->input('id');
-			echo $this->Form->input('password', array('value' => '', 'label' => 'Type New Password'));
-			echo $this->Form->input('verify_password', array('type' => 'password', 'value' => ''));	
-			
-		?>
-	</div>
-		
-	</div>
-</fieldset>
-			<?php
-				echo $this->Form->submit('Save', array('div'=> false));
-				echo $this->Html->link(__('Cancel'), array(
-					'action' => 'index'
-				), array(
-					'class' => 'cancel',
-				));
-				
-				echo $this->Form->end();
-			?>
-	
+    <?php echo $this->Form->create('User', array('url' => array('controller' => 'users', 'action' => 'reset_password',$id,$key)));?>
+      <div class="form-group has-feedback">   
+      <?php echo $this->Form->input('id');   ?>   
+        <?php echo $this->Form->input('password',array('div'=>false ,'value'=>'','class'=>'form-control','placeholder'=>'Password')); 
+        ?>
+        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+      </div>
+      
+      <div class="row">
+        
+        <!-- /.col -->
+        <div class="col-xs-4">
+          <button type="submit" class="btn btn-primary btn-block btn-flat">Submit</button>
+        </div>
+        <!-- /.col -->
+      </div>
+    </form>
+
+   
+    <!-- /.social-auth-links -->
+
+    
+    
+
+  </div>
+  <!-- /.login-box-body -->
+</div>

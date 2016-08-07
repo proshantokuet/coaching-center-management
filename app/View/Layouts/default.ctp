@@ -14,6 +14,11 @@
 		<?php echo $title_for_layout ?>:
 		
 	</title>
+  <script>
+    var siteurl = "<?php echo $this->request->webroot;?>" 
+    
+  </script>
+  
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
 	
 	<?php
@@ -24,6 +29,7 @@
 			'bootstrap-timepicker.min',
 			'select2.min',
 			'AdminLTE.min',
+      'style',
 			'_all-skins.min'));		
 		echo $this->fetch('css');
 		echo $this->fetch('script');
@@ -52,13 +58,13 @@
 	echo $this->element("menu/header");
 	echo $this->element("menu/sidebar");
 	echo $this->fetch('content'); 
-	echo $this->Session->flash(); ?>
+	 ?>
 
 	<footer class="main-footer">
     <div class="pull-right hidden-xs">
       
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="">AID</a>.</strong> All rights
+    <strong>Copyright &copy; 2014-2016 AID ACADEMY.</strong> All rights
     reserved.
   </footer>
 <?php 
@@ -152,19 +158,14 @@
 /**
 * assesment section
 */
-  $("#addPrescription").on("click",function(){
-  var course = $("#BatchTimeCourseId option:selected").val();
+  $("#addPrescription").on("click",function(){  
   var day = $("#BatchBatchTimeDay option:selected").val();
   var startTime =  $("#startTime").val();
   var endTime =  $("#endTime").val();
   
     
     $("#prescription").append('<div>'+
-      '<div  style="clear:both" class="rowss"> '+
-      '<div class="col-md-2">'+ 
-          '<label>Course Id </label>'+
-          '<input  type="text" name="course[]" readonly="true" value="'+course+'" class="form-control">'+ 
-      '</div>'+
+      '<div  style="clear:both" class="rowss"> '+      
       '<div class="col-md-2">'+ 
           '<label>Day</label>'+
           '<input  type="text" name="day[]" readonly="true" value="'+day+'" class="form-control">'+ 
@@ -196,11 +197,20 @@ $(document).on('click','.remove', function(){
 
 $("#addCourse").on("click",function(){
   var course = $("#BatchTimeCourseId option:selected").val();
+  var batch = $("#BatchTimeBatchId option:selected").val();
+  
+  if(course == "" || batch == ""){
+    return ;
+  } 
     $("#prescription").append('<div>'+
       '<div  style="clear:both" class="rowss"> '+
       '<div class="col-md-2">'+ 
           '<label> &nbsp;</label>'+
           '<input  type="text" name="course[]" readonly="true" value="'+course+'" class="form-control">'+ 
+      '</div>'+
+      '<div class="col-md-2">'+ 
+          '<label> &nbsp;</label>'+
+          '<input  type="text" name="batch[]" readonly="true" value="'+batch+'" class="form-control">'+ 
       '</div>'+
       
       '<div class="col-md-1"><label>&nbsp;</label>'+
@@ -210,11 +220,44 @@ $("#addCourse").on("click",function(){
             '</div>'+
       
       '</div>');
-    
-    
-    
-  
 });
+
+
+$("#addBatch").on("click",function(){
+  var batch = $("#CourseBatchId option:selected").val();
+    $("#prescription").append('<div>'+
+      '<div  style="clear:both" class="rowss"> '+
+      '<div class="col-md-2">'+ 
+          '<label> &nbsp;</label>'+
+          '<input  type="text" name="batch[]" readonly="true" value="'+batch+'" class="form-control">'+ 
+      '</div>'+
+      
+      '<div class="col-md-1"><label>&nbsp;</label>'+
+              '<button  type="button"'+
+                'class="btn  btn-md remove">'+
+                '<span class="glyphicon" aria-hidden="true">Delete</span></button>'+
+            '</div>'+
+      
+      '</div>');
+});
+
+
+
+  $(document.body).on("change",'#BatchTimeCourseId', function (event) {
+      var course = $("#BatchTimeCourseId option:selected").val();
+
+      $.ajax({
+          async:true,      
+          dataType: "html",    
+          url:siteurl+"Students/batch/"+course,
+          success:function (data) {   
+        $("#batch").html(data);
+         
+          },
+          type:"get"            
+      });     
+      return false; 
+    }); 
 
 
   </script>

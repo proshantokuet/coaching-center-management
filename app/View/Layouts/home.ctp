@@ -18,6 +18,7 @@
 			'ionicons.min',
 			'datepicker3',
 			'all',
+			'style',
 			'bootstrap-timepicker.min',
 			'select2.min',
 			'AdminLTE.min',
@@ -38,12 +39,12 @@
 	<?php 	
 	
 	echo $this->fetch('content'); 
-	echo $this->Session->flash(); ?>
+	 ?>
 	<footer class="main-footer">
 	    <div class="pull-right hidden-xs">
 	      
 	    </div>
-	    <strong>Copyright &copy; 2014-2016 AID ACADEMIA.</strong> All rights
+	    <strong>Copyright &copy; 2014-2016 AID ACADEMY.</strong> All rights
 	    reserved.
   </footer>
 <?php 

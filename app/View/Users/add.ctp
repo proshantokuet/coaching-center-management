@@ -12,9 +12,11 @@ $v = ucfirst($model);
         
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Forms</a></li>
-        <li class="active">Advanced Elements</li>
+        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => $home_page)); ?>
+        </li>
+        <li><?php echo $this->Html->link($v, array('controller' => $this->request->params['controller'], 'action' => 'index')); ?>
+         </li>           
+        <li class="active">Student Creation Page</li>
       </ol>
     </section>
 
@@ -24,7 +26,7 @@ $v = ucfirst($model);
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Please fillup the form </h3>
+          <h3 class="box-title"> </h3>
 
           <div class="box-tools pull-right">
             
@@ -37,42 +39,44 @@ $v = ucfirst($model);
           	
             <div class="col-md-6">
               <div class="form-group">
-                <label>Name</label>
-                <input class="form-control" name=data[User][name] type="text" placeholder="Name">
+                <label>Name <span class="required">*</span></label>                
+                 <?php  echo $this->Form->input('name',array('placeholder'=>'Name','class'=>'form-control','label'=>false,'div'=>false)); ?>
               </div>
               <div class="form-group">
-                <label>User name</label>
-                <input class="form-control" name=data[User][username] type="text" placeholder="User Name">
+                <label>User name <span class="required">*</span></label>
+                <?php  echo $this->Form->input('username',array('placeholder'=>'User Name','class'=>'form-control','label'=>false,'div'=>false)); ?>                
               </div>
               <!-- /.form-group -->
               <div class="form-group">
-                <label>Email</label>
-                <input class="form-control" name=data[User][email] type="text" placeholder="Email">
+                <label>Email <span class="required">*</span></label>
+                <?php  echo $this->Form->input('email',array('placeholder'=>'Email','class'=>'form-control','label'=>false,'div'=>false)); ?>   
+                
               </div>
               <!-- /.form-group -->
               <div class="form-group">
                 <label>Mobile</label>
-               <input type="text" name=data[User][mobile] class="form-control"  placeholder="Mobile">
+                <?php  echo $this->Form->input('mobile',array('placeholder'=>'Mobile','class'=>'form-control','label'=>false,'div'=>false)); ?>   
+               
               </div>
 
               <div class="form-group">
-                <label>Password</label>
-               <input type="password" name=data[User][password] class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <label>Password <span class="required">*</span></label>
+                <?php  echo $this->Form->input('password',array('placeholder'=>'Password','class'=>'form-control','label'=>false,'div'=>false)); ?> 
+               
               </div>
-
-              <!-- <div class="form-group">
-                <label>Re-Type Password</label>
-               <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Re-Type Password">
-              </div> -->
-              <!-- /.form-group -->
+             
             </div>
             <!-- /.col -->
             <div class="col-md-6">
               <div class="form-group">
                 <label>Address</label>
-               <input type="text" name=data[User][address] class="form-control"  placeholder="Address">
+                <?php  echo $this->Form->input('address',array('placeholder'=>'Address','class'=>'form-control','label'=>false,'div'=>false)); ?> 
               </div>
-
+              <div class="form-group">
+                <label>Secret key <span class="required">*</span></label>
+                <?php  echo $this->Form->input('question',array('placeholder'=>'Secret key','class'=>'form-control','label'=>false,'div'=>false)); ?>   
+               
+              </div>
               <div class="form-group">
                 <label>Status</label>
                 <?php
@@ -81,7 +85,8 @@ $v = ucfirst($model);
               </div>
 				      <div class="form-group">
                 <label>Picture</label>
-                <input type="file" id="file" name="picture">
+                 <input type="file" id="file" name="picture" onchange="readURL(this,this.id);">
+                <img class="remove" id="img" src="#" alt="" />
               </div>
               <!-- /.form-group -->
             </div>
@@ -92,7 +97,7 @@ $v = ucfirst($model);
         </div>
         <!-- /.box-body -->
          <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button style="float:right" type="submit" class="btn btn-primary">Submit</button>
               </div>
         </form>
       </div>
@@ -107,3 +112,28 @@ $v = ucfirst($model);
   <!-- /.content-wrapper -->
 
 
+<script>
+function readURL(input, name) {
+        //$("#del").css("display", 'block');
+        //alert(name);
+        var idd = name.split('_');
+        var ids = idd[1];
+        
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+
+          reader.onload = function (e) {
+            $("#img")
+              .attr('src', e.target.result)
+              .width(100)
+              .height(100);
+          };
+
+          reader.readAsDataURL(input.files[0]);
+         /* $("#"+name).css("display", 'none');
+          $(".rem"+ids).css("display", 'inline-block');*/
+        }
+      
+      
+      }
+</script>

@@ -12,7 +12,7 @@ $v = ucfirst($model);
         
       </h1>
       <ol class="breadcrumb">
-       <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => 'userlists')); ?>
+       <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => $home_page)); ?>
         </li>
          <li><?php echo $this->Html->link($v, array('controller' => $this->request->params['controller'], 'action' => 'index')); ?>
          </li>         
@@ -25,7 +25,7 @@ $v = ucfirst($model);
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Please fillup the form </h3>
+          <h3 class="box-title"> </h3>
           <div class="box-tools pull-right">            
           </div>
         </div>
@@ -35,7 +35,7 @@ $v = ucfirst($model);
           <div class="row">          	
             <div class="col-md-12">
               <div class="form-group">
-                <label>Title</label>
+                <label>Title <span class="required">*</span></label>
                 <?php echo $this->Form->input('id'); ?>                
                 <?php  echo $this->Form->input('name',array('placeholder'=>'Title','class'=>'form-control','label'=>false,'div'=>false)); ?>
               </div>

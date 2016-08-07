@@ -10,7 +10,7 @@
         View of batch <?php echo $this->request->data['Batch']['name']?>
       </h1>
       <ol class="breadcrumb">
-        <li><?php echo $this->Html->link(' Home', array('controller' => 'Homes', 'action' => 'index')); ?></li> 
+        <li><?php echo $this->Html->link(' Home', array('controller' => 'Homes', 'action' => $home_page)); ?></li> 
         <li><?php echo $this->Html->link($model, array('controller' => $this->request->params['controller'], 'action' => 'index')); ?>
          </li>         
         <li class="active"><?php echo $this->request->data['Batch']['name']?></li>

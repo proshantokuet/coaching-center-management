@@ -19,10 +19,25 @@ class Course extends AppModel
 				'last' => true,
 			),
 		),
+		'fees' => array(
+			'notEmpty' => array(
+				'rule' => 'notEmpty',
+				'message' => 'This field cannot be left blank.',
+				'last' => true,
+			)
+		),
+		
+		'code' => array(
+			'notEmpty' => array(
+				'rule' => 'notEmpty',
+				'message' => 'This field cannot be left blank.',
+				'last' => true,
+			)
+		),
 		
 	);
 	
 	public $belongsTo = array('User');
-	
+	public $hasMany = array('CourseBatch');
 	
 }

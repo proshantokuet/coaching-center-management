@@ -8,15 +8,15 @@ $v = ucfirst($model);
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Batch Creation Page
+        Batch Creation Form
         
       </h1>
       <ol class="breadcrumb">
-        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => 'userlists')); ?>
+        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => $home_page)); ?>
         </li>
         <li><?php echo $this->Html->link($v, array('controller' => $this->request->params['controller'], 'action' => 'index')); ?>
          </li>           
-        <li class="active">Batch Creation Page</li>
+        <li class="active">Batch Creation Form</li>
       </ol>
     </section>
 
@@ -26,7 +26,7 @@ $v = ucfirst($model);
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Please fillup the form </h3>
+          <h3 class="box-title">  </h3>
 
           <div class="box-tools pull-right">
             
@@ -39,7 +39,7 @@ $v = ucfirst($model);
           	
             <div class="col-md-6">
               <div class="form-group">
-                <label>Batch Name</label>
+                <label>Batch Name <span class="required">*</span></label>
                 <?php  echo $this->Form->input('name',array('placeholder'=>'Batch name','class'=>'form-control','label'=>false,'div'=>false)); ?>
               </div>
               
@@ -59,12 +59,9 @@ $v = ucfirst($model);
 
           <div class="col-md-12">
             <br />
-            <div id="addPrescription" class="btn btn-primary">Add Course</div>
+            <div id="addPrescription" class="btn btn-primary">Add Batch Schedule</div>
             <div class="row  form-group" id="prescription">
-              <div class="col-md-2">
-                <label>Course</label>
-                <?php echo $this->Form->input('BatchTime.course_id',array('options' => $courses,'label'=> false,'div'=> false)); ?>
-              </div>
+              
               <div class="col-md-2">
                 <label>Day</label>
                 <?php echo $this->Form->select('BatchTime.day',array('options' => $days,'label'=> false,'div'=> false)); ?>
@@ -108,7 +105,7 @@ $v = ucfirst($model);
         </div>
         <!-- /.box-body -->
          <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button style="float:right" type="submit" class="btn btn-primary">Submit</button>
               </div>
         </form>
       </div>

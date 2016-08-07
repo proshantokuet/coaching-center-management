@@ -1,5 +1,5 @@
 <?php 
-	$cakeDescription = __d('cake_dev', 'AID ACDEMIA');
+	$cakeDescription = __d('cake_dev', 'AID ACDEMY');
 ?>
 <!DOCTYPE html>
 <html>

@@ -12,7 +12,7 @@ $v = ucfirst($model);
         
       </h1>
       <ol class="breadcrumb">
-        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => 'userlists')); ?>
+        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => $home_page)); ?>
         </li>
         <li><?php echo $this->Html->link($v, array('controller' => $this->request->params['controller'], 'action' => 'index')); ?>
          </li>           
@@ -26,7 +26,7 @@ $v = ucfirst($model);
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Please fillup the form </h3>
+          <h3 class="box-title"> </h3>
 
           <div class="box-tools pull-right">
             
@@ -36,46 +36,100 @@ $v = ucfirst($model);
        <?php echo $this->Form->create($v, array('type'=>'file'));?>
         <div class="box-body ">
           <div class="row">
-            <?php  echo $this->Form->hidden('id'); ?>
+            
+            <div class="col-md-6">             
+
+              <div class="form-group">
+                <label>Student Name <span class="required">*</span></label>
+                 <?php  echo $this->Form->hidden('id'); ?>
                  <?php  echo $this->Form->hidden('is_new',array('value'=>1)); ?>
                  <?php  echo $this->Form->hidden('User.id'); ?>
-            
+                <?php  echo $this->Form->input('name',array('placeholder'=>'Student name','class'=>'form-control','label'=>false,'div'=>false)); ?>
+              </div>
+              <div class="form-group">
+                <label>Father Name <span class="required">*</span></label>
+                <?php  echo $this->Form->input('father_name',array('placeholder'=>'Father name','class'=>'form-control','label'=>false,'div'=>false)); ?>
+              </div>
+              <div class="form-group">
+                <label>Mother Name</label>
+                <?php  echo $this->Form->input('mother_name',array('placeholder'=>'Mother name','class'=>'form-control','label'=>false,'div'=>false)); ?>
+              </div>
+              <div class="form-group">
+                <label>Student Phone</label>
+                <?php  echo $this->Form->input('contact_student',array('placeholder'=>'Student Contact','class'=>'form-control','label'=>false,'div'=>false)); ?>
+              </div>
+              <div class="form-group">
+                <label>Present Address</label>
+                <?php  echo $this->Form->input('present_address',array('placeholder'=>'Present Address','class'=>'form-control','label'=>false,'div'=>false)); ?>
+              </div>
+
+
+              <div class="form-group">
+                <label>Institute</label>
+                <?php  echo $this->Form->input('institution_id',array('options'=>$institutions,'class'=>'form-control','label'=>false,'div'=>false)); ?>
+              </div>
+              
+              <div class="form-group">
+                <label>Roll No <span class="required">*</span></label>
+                <?php  echo $this->Form->input('id_number',array('placeholder'=>'Student Id','class'=>'form-control','label'=>false,'div'=>false)); ?>
+              </div>
+              <div class="form-group">
+                <label>Secret key <span class="required">*</span></label>
+                <?php  echo $this->Form->input('User.question',array('placeholder'=>'Secret key','class'=>'form-control','label'=>false,'div'=>false)); ?>   
+               
+              </div>
+               
+               
+               
+              
+            </div>
+            <!-- /.col -->
+            <div class="col-md-6">              
+              <div class="form-group">
+                <label>Nick Name</label>
+                <?php  echo $this->Form->input('nick_name',array('placeholder'=>'Nick Name','class'=>'form-control','label'=>false,'div'=>false)); ?>
+              </div>
+              
+              <div class="form-group">
+                <label>Father Occupation</label>
+                 <?php  echo $this->Form->input('father_occupation',array('placeholder'=>'Father Occupation','class'=>'form-control','label'=>false,'div'=>false)); ?>
+              </div>
+              <div class="form-group">
+                <label>Mother Occupation</label>
+                 <?php  echo $this->Form->input('mother_occupation',array('placeholder'=>'Mother Occupation','class'=>'form-control','label'=>false,'div'=>false)); ?>
+              </div>
+              <div class="form-group">
+                <label>Guardian Phone</label>
+                <?php  echo $this->Form->input('contact_guardian',array('placeholder'=>'Guardian Contact','class'=>'form-control','label'=>false,'div'=>false)); ?>
+              </div>
+               <div class="form-group">
+                <label>Email</label>
+                <?php  echo $this->Form->input('email',array('placeholder'=>'Email','class'=>'form-control','label'=>false,'div'=>false)); ?>
+              </div>
+              <div class="form-group">
+                <label>Class</label>
+                <?php  echo $this->Form->input('passing_year',array('options'=>$year_of_passing,'class'=>'form-control','label'=>false,'div'=>false)); ?>
+              </div>
+              
+               <div class="form-group">
+                <label>Branch</label>
+                 <?php  echo $this->Form->input('branch',array('options'=>$branches,'class'=>'form-control','label'=>false,'div'=>false)); ?>
+              </div>
+              
+             <div class="form-group">
+                <label>Picture</label>
+                <input type="file" id="file" name="picture" onchange="readURL(this,this.id);">
+                <img class="remove" id="img" src="#" alt="" />
+                <?php echo $thumbnail= $this->Html->image('user/thumbnail/'.$this->request->data['Student']['thumbnail'],array('class'=>'user-image')); ?>
+              </div>
+
+            </div>
       
             <!-- /.col -->
           </div>
           <!-- /.row -->
 
-          <div class="col-md-12">
-            <br />
-            
-            <div class="row  form-group" id="prescription">
-              <div class="col-md-2">
-                <label>Course</label>
-                <?php echo $this->Form->input('BatchTime.course_id',array('options' => $courses,'label'=> false,'div'=> false)); ?>
-              </div>
-         
-          <?php foreach($this->request->data['StudentCourse'] as $key => $course){  ?>
-              <div  style="clear:both" class="rowss"> 
-                <div class="col-md-2">
-                 <label>&nbsp;</label>
-                  <?php $courseName  = $this->requestAction('courses/name/'.$course['course_id']) ;
-                  
-                  ?>                 
-                  <input  type="text" name="course[]" readonly="true" value=<?php echo $courseName ?> class="form-control">
-                </div>
-                <div class="col-md-1"><label>&nbsp;</label>
-                  <button  type="button"
-                    class="btn  btn-md remove">
-                    <span class="glyphicon" aria-hidden="true">Delete</span></button>
-                </div> 
-                    
-              </div>
-              <?php } ?>
-               </div>
-              <div style="clear:both"></div>
-              <br />
-          <div id="addCourse" class="btn btn-primary">Add Course</div>
-        </div>
+        
 
         <!-- /.box-body -->
          <div class="box-footer">
@@ -102,14 +156,12 @@ function readURL(input, name) {
         
         if (input.files && input.files[0]) {
           var reader = new FileReader();
-
           reader.onload = function (e) {
             $("#img")
               .attr('src', e.target.result)
               .width(100)
               .height(100);
           };
-
           reader.readAsDataURL(input.files[0]);
          /* $("#"+name).css("display", 'none');
           $(".rem"+ids).css("display", 'inline-block');*/

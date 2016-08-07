@@ -9,8 +9,11 @@
       <h1>
         All Institutions
       </h1>
-      <ol class="breadcrumb">
-        <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>        
+     <ol class="breadcrumb">
+        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => $home_page)); ?>
+        </li>
+        <li><?php echo $this->Html->link('Instutute', array('controller' => 'Institutions', 'action' => 'index')); ?>
+         </li>           
         <li class="active">Institute</li>
       </ol>
     </section>

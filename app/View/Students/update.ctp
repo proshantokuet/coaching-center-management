@@ -23,23 +23,16 @@ $v = ucfirst($model);
         <!-- /.box-header -->
        <?php echo $this->Form->create($v, array('type'=>'file'));?>
         <div class="box-body ">
-          <div class="row">
-            
+          <div class="row">            
             <div class="col-md-6">              
               <?php  echo $this->Form->hidden('id'); ?>
               <?php  echo $this->Form->hidden('User.id'); ?>
               <div class="form-group">
-                <label>Student Name(All Capital Letter)</label>
+                <label>Student Name <span class="required">*</span></label>
                 <?php  echo $this->Form->input('name',array('placeholder'=>'Student name','class'=>'form-control','label'=>false,'div'=>false)); ?>
-              </div>
+              </div>              
               <div class="form-group">
-                <label>Student Name(Bengali)</label>
-                <?php  echo $this->Form->input('name_bn',array('placeholder'=>'Student name','class'=>'form-control','label'=>false,'div'=>false)); ?>
-              </div>
-              
-
-              <div class="form-group">
-                <label>Father Name</label>
+                <label>Father Name <span class="required">*</span></label>
                 <?php  echo $this->Form->input('father_name',array('placeholder'=>'Father name','class'=>'form-control','label'=>false,'div'=>false)); ?>
               </div>
               <div class="form-group">
@@ -55,26 +48,14 @@ $v = ucfirst($model);
                 <?php  echo $this->Form->input('present_address',array('placeholder'=>'Present Address','class'=>'form-control','label'=>false,'div'=>false)); ?>
               </div>
 
-
               <div class="form-group">
                 <label>Institute</label>
                 <?php  echo $this->Form->input('institution_id',array('options'=>$institutions,'class'=>'form-control','label'=>false,'div'=>false)); ?>
               </div>
               
-              
-              
-              
-               <div class="form-group">
-                <label>Year of Passing</label>
-                <?php  echo $this->Form->input('passing_year',array('options'=>$year_of_passing,'class'=>'form-control','label'=>false,'div'=>false)); ?>
-              </div>
-               <div class="form-group">
-                <label>GPA</label>
-                <?php  echo $this->Form->input('gpa',array('placeholder'=>'Student Contact','class'=>'form-control','label'=>false,'div'=>false)); ?>
-              </div>
-               <div class="form-group">
-                <label>Board</label>
-                <?php  echo $this->Form->input('board',array('options'=>$boards,'class'=>'form-control','label'=>false,'div'=>false)); ?>
+              <div class="form-group">
+                <label>Secret key <span class="required">*</span></label>
+                <?php  echo $this->Form->input('User.question',array('placeholder'=>'Secret key','class'=>'form-control','label'=>false,'div'=>false)); ?>  
               </div>
               
             </div>
@@ -85,51 +66,41 @@ $v = ucfirst($model);
                 <label>Nick Name</label>
                 <?php  echo $this->Form->input('nick_name',array('placeholder'=>'Nick Name','class'=>'form-control','label'=>false,'div'=>false)); ?>
               </div>
-               <div class="form-group">
-                <label>Email</label>
-                <?php  echo $this->Form->input('email',array('placeholder'=>'Email','class'=>'form-control','label'=>false,'div'=>false)); ?>
-              </div>
+               
               <div class="form-group">
                 <label>Father Occupation</label>
-                 <?php  echo $this->Form->input('father_occupation',array('options'=>$occupations,'class'=>'form-control','label'=>false,'div'=>false)); ?>
+                 <?php  echo $this->Form->input('father_occupation',array('placeholder'=>'Father Occupation','class'=>'form-control','label'=>false,'div'=>false)); ?>
               </div>
               <div class="form-group">
                 <label>Mother Occupation</label>
-                <?php  echo $this->Form->input('mother_occupation',array('options'=>$occupations,'class'=>'form-control','label'=>false,'div'=>false)); ?>
+                <?php  echo $this->Form->input('mother_occupation',array('placeholder'=>'Mother Occupation','class'=>'form-control','label'=>false,'div'=>false)); ?>
               </div>
               <div class="form-group">
                 <label>Guardian Phone</label>
                 <?php  echo $this->Form->input('contact_guardian',array('placeholder'=>'Guardian Contact','class'=>'form-control','label'=>false,'div'=>false)); ?>
               </div>
+              <div class="form-group">
+                <label>Email</label>
+                <?php  echo $this->Form->input('email',array('placeholder'=>'Email','class'=>'form-control','label'=>false,'div'=>false)); ?>
+              </div>
+               <div class="form-group">
+                <label>Class</label>
+                <?php  echo $this->Form->input('passing_year',array('options'=>$year_of_passing,'class'=>'form-control','label'=>false,'div'=>false)); ?>
+              </div>
               
-              <div class="form-group">
-                <label>Batch</label>
-                <?php  echo $this->Form->input('batch_id',array('empty'=>'Please Select','options'=>$batches,'class'=>'form-control','label'=>false,'div'=>false)); ?>
-              </div>
-              <div class="form-group">
-                <label>Roll</label>
-                <?php  echo $this->Form->input('roll',array('class'=>'form-control','label'=>false,'div'=>false)); ?>
-              </div>
                <div class="form-group">
                 <label>Branch</label>
                 <?php  echo $this->Form->input('branch',array('options'=>$branches,'class'=>'form-control','label'=>false,'div'=>false)); ?>
               </div>
-              
+               
              <div class="form-group">
                 <label>Picture</label>
                 <input type="file" id="file" name="picture" onchange="readURL(this,this.id);">
                 <img class="remove" id="img" src="#" alt="" />
-                <?php echo $thumbnail= $this->Html->image('user/thumbnail/'.$this->request->data['Student']['thumbnail'],array('class'=>'img-circle')); ?>
+                <?php echo $thumbnail= $this->Html->image('user/thumbnail/'.$this->request->data['Student']['thumbnail'],array('class'=>'user-image')); ?>
               </div>
-
             </div>
-      
-            <!-- /.col -->
           </div>
-          <!-- /.row -->
-
-          
-
           
         <!-- /.box-body -->
          <div class="box-footer">

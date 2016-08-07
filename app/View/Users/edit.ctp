@@ -1,38 +1,135 @@
-<div class="hero-unit">
-<span class="titleLeft"><?php echo $title_for_layout ;?></span> 
-<div class="gap"></div>
-
 <?php 
-$model =  Inflector::singularize($this->request->params['controller']);		  
-		  
-		  $v =ucfirst($model); ?>
-		
-		<?php echo $this->Form->create($v, array('type'=>'file'));?>
-		<?php
-			echo $this->Form->input('id');
-			echo $this->Form->input('name',array('class'=>'input-text'));				
-			echo $this->Form->input('email',array('class'=>'input-text'));
-			echo $this->Form->input('phone',array('class'=>'input-text'));
-			echo $this->Form->input('available_time',array('class'=>'input-textarea'));
-			echo $this->Form->input('speciality',array('placeholder'=>'Hearth , Brain','class'=>'input-text')); 
-			echo $this->Form->input('doctor_identity',array('label'=>'Doctor Identity','class'=>'input-textarea'));			
-			echo $this->Form->input('status');
-			echo $this->Form->label('Signature'); ?>
-			<input type="file" name="image"/>
+$model =  Inflector::singularize($this->request->params['controller']);
+$v = ucfirst($model);
+?>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <h1>
+        User Edit Page
+        
+      </h1>
+      <ol class="breadcrumb">
+        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => $home_page)); ?>
+        </li>
+        <li><?php echo $this->Html->link($v, array('controller' => $this->request->params['controller'], 'action' => 'index')); ?>
+         </li>           
+        <li class="active">User Edit Page</li>
+      </ol>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- SELECT2 EXAMPLE -->
+      <div class="box box-default">
+        <div class="box-header with-border">
+          <h3 class="box-title"> </h3>
+
+          <div class="box-tools pull-right">
+            
+          </div>
+        </div>
+        <!-- /.box-header -->
+       <?php echo $this->Form->create($v, array('type'=>'file'));?>
+        <div class="box-body ">
+          <div class="row">
+          	
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Name <span class="required">*</span></label>                
+                 <?php  echo $this->Form->input('id');
+                 echo $this->Form->input('name',array('placeholder'=>'Name','class'=>'form-control','label'=>false,'div'=>false)); ?>
+              </div>
+              <div class="form-group">
+                <label>User name <span class="required">*</span></label>
+                <?php  echo $this->Form->input('username',array('placeholder'=>'User Name','class'=>'form-control','label'=>false,'div'=>false)); ?>                
+              </div>
+              <!-- /.form-group -->
+              <div class="form-group">
+                <label>Email <span class="required">*</span></label>
+                <?php  echo $this->Form->input('email',array('placeholder'=>'Email','class'=>'form-control','label'=>false,'div'=>false)); ?>   
+                
+              </div>
+              <!-- /.form-group -->
+              <div class="form-group">
+                <label>Mobile</label>
+                <?php  echo $this->Form->input('mobile',array('placeholder'=>'Mobile','class'=>'form-control','label'=>false,'div'=>false)); ?>   
+               
+              </div>
+
+              
+            </div>
+            <!-- /.col -->
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Address</label>
+                <?php  echo $this->Form->input('address',array('placeholder'=>'Address','class'=>'form-control','label'=>false,'div'=>false)); ?> 
+              </div>
+              <div class="form-group">
+                <label>Secret key <span class="required">*</span></label>
+                <?php  echo $this->Form->input('question',array('placeholder'=>'Secret key','class'=>'form-control','label'=>false,'div'=>false)); ?>   
+               
+              </div>
+              <div class="form-group">
+                <label>Status</label>
+                <?php
+                echo $this->Form->checkbox('status');
+                ?>
+              </div>
+				      <div class="form-group">
+                <label>Picture</label>
+                <input type="file" id="file" name="picture" onchange="readURL(this,this.id);">               <img class="remove" id="img" src="#" alt="" />
+                <?php echo $thumbnail= $this->Html->image('user/thumbnail/'.$this->request->data['User']['thumbnail'],array('class'=>'user-image')); ?>
+              </div>
+              <!-- /.form-group -->
+            </div>
 			
-			<?php echo $thumbnail= $this->Html->image('signature/thumbnail/'.$this->request->data['User']['thumbnail']); ?> <br />
-			<br />
-			<?php
-			echo $this->Form->submit('Save', array('div'=> false,'class'=>'btn'));
-			echo '&nbsp;'. $this->Html->link(__('Cancel'), array(
-				'action' => 'userlists'
-			), array( 'class' => 'btn pure-button pure-button-success',
-			));
-			echo $this->Form->end();
-			?>
-		
-		
+            <!-- /.col -->
+          </div>
+          <!-- /.row -->
+        </div>
+        <!-- /.box-body -->
+         <div class="box-footer">
+                <button style="float:right" type="submit" class="btn btn-primary">Submit</button>
+              </div>
+        </form>
       </div>
+      <!-- /.box -->
+
+      
+      <!-- /.row -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
 
 
+<script>
+function readURL(input, name) {
+        //$("#del").css("display", 'block');
+        //alert(name);
+        var idd = name.split('_');
+        var ids = idd[1];
+        
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
 
+          reader.onload = function (e) {
+            $("#img")
+              .attr('src', e.target.result)
+              .width(100)
+              .height(100);
+          };
+
+          reader.readAsDataURL(input.files[0]);
+         /* $("#"+name).css("display", 'none');
+          $(".rem"+ids).css("display", 'inline-block');*/
+        }
+      
+      
+      }
+</script>

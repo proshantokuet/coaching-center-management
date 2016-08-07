@@ -10,7 +10,7 @@ $v = ucfirst($model);
          Student Search Form
       </h1>
       <ol class="breadcrumb">
-        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => 'userlists')); ?>
+        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => $home_page)); ?>
         </li>        
         <li class="active"> Student Search Form</li>
       </ol>

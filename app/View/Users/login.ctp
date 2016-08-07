@@ -38,6 +38,8 @@
     <!-- /.social-auth-links -->
 
     <!-- <a href="#">I forgot my password</a><br> -->
+    <?php echo $this->Html->link(__("I forgot my password"), array('plugin' => 0, 'controller' => 'Users', 'action' => 'forget_password')); ?>
+    <br />
     <?php echo $this->Html->link(__("Register a new student"), array('plugin' => 0, 'controller' => 'Students', 'action' => 'registration')); ?>
    
 

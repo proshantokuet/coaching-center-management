@@ -13,6 +13,9 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
         <li class="header">MAIN NAVIGATION</li>
+        <li class="treeview">
+            <li><?php echo $this->Html->link(__("Users"), array('plugin' => 0, 'controller' => 'Users', 'action' => $home_page)); ?>
+        </li>
          <li class="treeview">
             <li><?php echo $this->Html->link(__("Institute"), array('plugin' => 0, 'controller' => 'Institutions', 'action' => 'index')); ?>
         </li>
@@ -24,12 +27,12 @@
         </li>
         <li class="treeview">
           <?php echo $this->Html->link(__("Student"), array('plugin' => 0, 'controller' => 'Students', 'action' => 'index')); ?>
-        </li>
-        <!-- <li class="treeview">
-          <?php echo $this->Html->link(__("Payment"), array('plugin' => 0, 'controller' => 'Students', 'action' => 'search')); ?>
-        </li> -->
+        </li>        
         <li class="treeview">
           <?php echo $this->Html->link(__("Notice"), array('plugin' => 0, 'controller' => 'Notices', 'action' => 'index')); ?>
+        </li>
+        <li class="treeview">
+          <?php echo $this->Html->link(__("Statement"), array('plugin' => 0, 'controller' => 'Students', 'action' => 'statement')); ?>
         </li>
         
       </ul>

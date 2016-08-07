@@ -37,9 +37,9 @@ class UsersController extends AppController {
 			$this->request->data['User']['role'] = 'admin';
 			if ($this->$v->save($this->request->data)) {
 				
-				$this->Session->setFlash(__('Success'), 'default', array('class' => 'success'));
+				$this->Session->setFlash(__('User has been created successfully.'), 'default', array('class' => 'success'));
 				
-				$this->redirect(array('action' => 'userlists'));
+				$this->redirect(array('action' => 'index'));
 			} 
 			else {
 				$this->Session->setFlash(__($this->save_msg_error), 'default', array('class' => 'error'));
@@ -48,45 +48,7 @@ class UsersController extends AppController {
 		$this->layout = 'default';
 	}
 	
-	public function reset_password($id = null){
-		
-		if(empty($id)){
-			$this->checkPermission();
-		}
-		$this->set('title_for_layout', __('Reset Password'));
-		if (!empty($this->request->data) and !empty($id)) {
-			if (!$this->User->hasAny(array('User.resetkey' => $id))) {
-				$this->Session->destroy();
-				$this->Session->setFlash(__('Invalid Key'), 'default', array('class' => 'success'));
-				$this->redirect(array('action' => 'login'));
-			}else{
-				$this->User->recuesive = -1;
-				$user = $this->User->findByResetkey($id);
-				$this->request->data['User']['id'] = $user['User']['id'];
-				
-				
-				if ($this->User->save($this->request->data)) {
-					$activationKey = '';
-					$this->User->saveField('resetkey', $activationKey);
-					$this->Session->setFlash(__('Password has been Reset'), 'default', array('class' => 'success'));
-					$this->redirect(array('action' => 'index'));
-				} else {
-					$this->Session->setFlash(__('Password could not be Reset. Please, try again.'), 'default', array('class' => 'error'));
-				}
-			}	
-		}else if(!empty($this->request->data) and empty($id)){
-			
-			$this->request->data['User']['id'] = $this->Session->read('Auth.User.id');
-			//pr($this->request->data);
-			if ($this->User->save($this->request->data)) {
-				$this->Session->setFlash(__('Password has been Reset'), 'default', array('class' => 'success'));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('Password could not be Reset. Please, try again.'), 'default', array('class' => 'error'));
-			}
-		}
-		$this->request->data = $this->User->read(null, $id);
-	}
+	
 	
 	/****************User  edit Action  **********************/
 	public function edit($id = null) {
@@ -100,16 +62,16 @@ class UsersController extends AppController {
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->request->data)) {
-			$photo = $this->ImageUpload->uploadImage('image', IMAGE_LOCATION1);				
+			$photo = $this->ImageUpload->uploadImage('picture', IMAGE_LOCATION1);				
 			if(!empty($photo['image'])){		   
-				$this->request->data['User']['image']= $photo['image'];
+				$this->request->data['User']['picture']= $photo['image'];
 				$this->request->data['User']['thumbnail']= $photo['thumbnail'];
 			}
 			if ($this->$v->save($this->request->data)) {
-				$this->Session->setFlash(__('The '.$v.' has been saved'), 'default', array('class' => 'success'));
-				$this->redirect(array('action' => 'userlists'));
+				$this->Session->setFlash(__('User has been updated successfully.'), 'default', array('class' => 'success'));
+				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The '.$v.'  could not be saved. Please, try again.'), 'default', array('class' => 'error'));
+				$this->Session->setFlash(__('The '.$v.'  could not be updated. Please, try again.'), 'default', array('class' => 'error'));
 			}
 		}
 		$this->request->data = $this->$v->read(null, $id);
@@ -128,10 +90,10 @@ class UsersController extends AppController {
 		if (!empty($this->request->data)) {
 			
 			if ($this->$v->save($this->request->data)) {
-				$this->Session->setFlash(__('The '.$v.' has been saved'), 'default', array('class' => 'success'));
-				$this->redirect(array('action' => 'userlists'));
+				$this->Session->setFlash(__('Password has been updated successfully.'), 'default', array('class' => 'success'));
+				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The '.$v.'  could not be saved. Please, try again.'), 'default', array('class' => 'error'));
+				$this->Session->setFlash(__('The password  could not be updated. Please, try again.'), 'default', array('class' => 'error'));
 			}
 		}
 		$this->request->data = $this->$v->read(null, $id);
@@ -195,7 +157,7 @@ class UsersController extends AppController {
 			$this->redirect(array('controller'=>'Students','action' => 'profile'));
 		}else if($role == 'admin'){
 			// if user type admin then get user list page
-			$this->redirect(array('controller'=>'Users','action' => 'userlists'));						
+			$this->redirect(array('controller'=>'Users','action' => 'index'));						
 		}
 	}
 	function _login_fail(){
@@ -216,7 +178,7 @@ class UsersController extends AppController {
 		$this->Cookie->delete('rememberMe');		
 		$this->redirect(array($this->params['prefix']=>false,'controller'=>'Users','action' => 'login' ));
 	}
-	public function userlists(){
+	public function index(){
 		
 		$this->checkPermission();
 		$this->set('title_for_layout', __('Your Home Page'));
@@ -226,13 +188,38 @@ class UsersController extends AppController {
 		$this->Patient->recursive = 0;
 		$filter = array('conditions'=>array('User.role ='=> 'admin'),'limit'=>20,'order'=> 'User.id desc');		
 		$this->paginate =$filter;
-		$this->set('values', $this->paginate('User'));		
+		$this->set('values', $this->paginate('User'));
+		$this->view = 'userlists';		
 		
 	}
 	
-	public function index(){
-		
-		$this->redirect(array('action' => 'appointment'));
+	// delete action
+	public function status($id) {
+		$this->checkPermission();
+		$v = $this->_model();
+		if ($this->request->is('get')) {
+		    throw new MethodNotAllowedException();
+		}
+		$institute = $this->$v->findById($id);
+		$status = $institute[$v]['status'];
+		//pr($institute);
+		if($status ==0){
+			$status = 1;
+			$msg = 'activated';
+		}else{
+			$status = 0;
+			$msg = 'de-activated';
+		}
+		$institute[$v]['status'] = $status;
+
+		$institute[$v]['id'] = $id;
+		//pr($institute);die;
+		if ($this->$v->save($institute)) {
+		    $this->Session->setFlash(
+			__('This has been '.$msg)
+		    );
+		    return $this->redirect(array('action' => 'index'));
+		}
 	}
 	
 		 
@@ -246,51 +233,55 @@ class UsersController extends AppController {
 		return json_encode($userNames);
 	}	
 	
+	public function reset_password($id = null,$key=null){		
+		
+		$this->set('title_for_layout', __('Reset Password'));
+		if (!empty($this->request->data) and !empty($id)) {
+			
+			if (!$this->User->hasAny(array('User.resetkey' => $key,'User.id'=>$id))) {
+				$this->Session->destroy();
+				$this->Session->setFlash(__('Invalid Key'), 'default', array('class' => 'success'));
+				$this->redirect(array('action' => 'login'));
+			}else{
+				
+				$this->request->data['User']['id'] = $id;
+				if ($this->User->save($this->request->data)) {
+					$activationKey = '';
+					$this->User->saveField('resetkey', $activationKey);
+					$this->Session->setFlash(__('Password has been Reset'), 'default', array('class' => 'success'));
+					$this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('Password could not be Reset. Please, try again.'), 'default', array('class' => 'error'));
+				}
+			}	
+		}
+		$this->layout = 'login';
+		$this->request->data = $this->User->read(null, $id);
+		$this->set(compact('id','key'));
+	}
+
 	public function forget_password(){
 		$this->set('title_for_layout', __('Forgot your password'));
-		if (!empty($this->request->data) && isset($this->request->data['User']['email'])) {
-			
+		if (!empty($this->request->data)) {			
 			$this->User->recuesive = -1;
-			$user = $this->User->findByEmail($this->request->data['User']['email']);
-			if (!isset($user['User']['id'])) {
-				$this->Session->setFlash(__('Invalid Email.'), 'default', array('class' => 'error'));
-				
+			$userName = $this->request->data['User']['username'];
+			$answer = $this->request->data['User']['question'];
+			$user = $this->User->find('first',array('conditions'=>array('username'=>$userName,
+				'question'=>$answer)));
+			if(!empty($user)){
+				$this->User->id = $user['User']['id'];
+				$activationKey = md5(uniqid());
+				$this->User->saveField('resetkey', $activationKey);
+				//$link = Router::url(array('controller' => 'users','action' => 'reset_password',$activationKey), true); 
+				//$this->Session->setFlash(__('Please Check Your Mail'), 'default', array('class' => 'success'));
+				$this->redirect(array('controller' =>'Users','action' => 'reset_password',$user['User']['id'],$activationKey));
+			}else{
+				$this->Session->setFlash(__('User Does not exist'), 'default', array('class' => 'success'));
+				$this->redirect(array('controller' =>'Users','action' => 'forget_password'));
 			}
-			$this->User->id = $user['User']['id'];
-			$activationKey = md5(uniqid());
-			$this->User->saveField('resetkey', $activationKey);
-			$link = Router::url(array('controller' => 'users','action' => 'reset_password',$activationKey), true); 
-			$to  = $this->request->data['User']['email'] ; // note the comma				
-
-				// subject
-				$subject = 'Forget password';
-
-				// message
-				 $message = '
-				<html>
-					<head>
-  						<title>Forget Password</title>
-					</head>
-				<body>
- 					 <p>'.Date('Y-m-d').'</p>
- 					 <div><a href="'.$link.'"> Click Here for reset password </a> </div>
-				</body>
-				</html>
-					';
-
-			// To send HTML mail, the Content-type header must be set
-			$headers  = 'MIME-Version: 1.0' . "\r\n";
-			$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-
-			
-
-			// Mail it
-			mail($to, $subject, $message, $headers);
-			$this->Session->setFlash(__('Please Check Your Mail'), 'default', array('class' => 'success'));
-			$this->redirect(array('controller' =>'Homes','action' => 'index'));
 			
 		}
-		//echo $activationKey = md5(uniqid());
+		$this->layout = 'login';
 	}
 	
 	public function getlogin($deviceId =null, $pass = null){
@@ -337,21 +328,19 @@ class UsersController extends AppController {
 		$this->set('title_for_layout', __('Unauthorized Access Area'));
 	}
 	
-	// delete action
 	public function delete($id) {
-		$this->adminPermission();
-		$v = $this->_model();
+		$this->checkPermission();
+		$model = $this->_model();
 		if ($this->request->is('get')) {
 		    throw new MethodNotAllowedException();
 		}	    
-		if ($this->$v->delete($id)) {
+		if ($this->$model->delete($id)) {
 		    $this->Session->setFlash(
 			__('This has been deleted.')
 		    );
-		    return $this->redirect(array('action' => 'userlists'));
+		    return $this->redirect(array('action' => 'index'));
 		}
 	}
-	
 	
 	
 

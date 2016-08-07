@@ -33,9 +33,22 @@ class Student extends AppModel
 				'message' => 'This field cannot be left blank.',
 				'last' => true,
 			),
-			 'isUnique' => array(
+			//'rule' => array('minLength', 6),
+			'isUnique' => array(
 				'rule' => 'isUnique',
 				'message' => 'The username has already been taken.',
+				'last' => true,
+			),
+		),
+		'question' => array(
+			'notEmpty' => array(
+				'rule' => 'notEmpty',
+				'message' => 'This field cannot be left blank.',
+				'last' => true,
+			),
+			 'isUnique' => array(
+				'rule' => 'isUnique',
+				'message' => 'The Anwser has already been taken.',
 				'last' => true,
 			),
 		),

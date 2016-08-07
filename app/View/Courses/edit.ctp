@@ -12,7 +12,7 @@ $v = ucfirst($model);
         
       </h1>
       <ol class="breadcrumb">
-        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => 'userlists')); ?>
+        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => $home_page)); ?>
         </li>
          <li><?php echo $this->Html->link($v, array('controller' => $this->request->params['controller'], 'action' => 'index')); ?>
          </li>      
@@ -26,7 +26,7 @@ $v = ucfirst($model);
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Please fillup the form </h3>
+          <h3 class="box-title"></h3>
 
           <div class="box-tools pull-right">
             
@@ -70,9 +70,36 @@ $v = ucfirst($model);
           </div>
           <!-- /.row -->
         </div>
+        <div class="col-md-12">
+            <br /> 
+            <div class="row  form-group" id="prescription">
+              <div class="col-md-2">
+                <label> Batch</label><br />
+                <?php echo $this->Form->input('Course.batch_id',array('options' => $batches,'label'=> false,'div'=> false)); ?>
+              </div>
+                <?php foreach($this->request->data['CourseBatch'] as $key => $batch){
+                $batchName  = $this->requestAction('batches/name/'.$batch['batch_id']) ;
+               ?>
+              <div  style="clear:both" class="rowss">                 
+                <div class="col-md-2"> 
+                  <label>&nbsp;</label>
+                  <input  type="text" name="batch[]" readonly="true" value=<?php echo $batchName ?> class="form-control"> 
+                </div>
+                <div class="col-md-1"><label>&nbsp;</label>
+                  <button  type="button"
+                    class="btn  btn-md remove">
+                    <span class="glyphicon" aria-hidden="true">Delete</span></button>
+                </div> 
+                     
+              </div>
+              <?php } ?>
+          </div>
+           <div id="addBatch" class="btn btn-primary">Add Batch</div>
+        </div>
+
         <!-- /.box-body -->
          <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button style="float:right" type="submit" class="btn btn-primary">Submit</button>
               </div>
         </form>
       </div>

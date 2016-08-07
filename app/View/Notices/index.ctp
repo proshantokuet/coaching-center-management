@@ -10,18 +10,19 @@
         All Notice
       </h1>
       <ol class="breadcrumb">
-       <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => 'userlists')); ?>
+       <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' =>$home_page)); ?>
         </li>        
         <li class="active">Notice</li>
       </ol>
     </section>
-
+   
     <!-- Main content -->
     <section class="content">
     	<div class="row">
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
+            <h3 class="box-title"> <?php  echo $this->Session->flash(); ?> </h3>
               <h3 style="float:right" class="box-title"><?php echo $this->Html->link(__("Add new"), array('plugin' => 0, 'controller' => $this->request->params['controller'], 'action' => 'add'),array('class'=>'btn btn-default btn-flat')); ?></h3>
             </div>
             <!-- /.box-header -->

@@ -1,5 +1,5 @@
 <?php 
-	$cakeDescription = __d('cake_dev', 'AID ACADEMIA');
+	$cakeDescription = __d('cake_dev', 'AID ACADEMY');
 ?>
 <!DOCTYPE html>
 <html>
@@ -27,7 +27,13 @@
 	
 
 </head>
-<body onload="window.print();">
+<style>
+@media print {
+    .vendorListHeading th {
+    color: white !important;
+}}
+</style>
+<body>
 	<?php
 	echo $this->fetch('content'); 
 	echo $this->Session->flash(); ?>

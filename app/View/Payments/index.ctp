@@ -8,11 +8,11 @@ $v = ucfirst($model);
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Payment Creation of  <?php echo $this->request->data['Student']['name'] ?>
+        Payment of  <?php echo $this->request->data['Student']['name'] ?>
         
       </h1>
       <ol class="breadcrumb">
-        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => 'userlists')); ?>
+        <li><?php echo $this->Html->link(' Home', array('controller' => 'Users', 'action' => $home_page)); ?>
         </li>
         <li><?php echo $this->Html->link('Student', array('controller' => 'Students', 'action' => 'index')); ?>
          </li>           
@@ -26,10 +26,11 @@ $v = ucfirst($model);
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Please fillup the form </h3>
+          <h3 class="box-title"></h3>
 
           <div class="box-tools pull-right">
-            
+           <?php  echo $this->Html->link('Student Summary Print', array('controller' => 'Students', 'action' => 'print_form',$this->request->data['Student']['id']),array('target'=>'_blank','class'=>'label label-success'));
+           ?>
           </div>
         </div>
         <!-- /.box-header -->
@@ -52,13 +53,13 @@ $v = ucfirst($model);
                 <label>Due</label>               
               </div>
               <div class="col-md-2">
-                <label>Due Date</label>               
+                <label>Payment Date</label>               
               </div>
               <div class="col-md-2">
                 <label>Pay Now</label>               
               </div>
               <div class="col-md-2">
-                <label>Set Due Date</label>               
+                <label>Next Payment Date</label>               
               </div>
           </div>
           <?php if(!empty($this->request->data['Fee'])){?>
@@ -112,7 +113,7 @@ $v = ucfirst($model);
 	                	<tr> <th>Name</th><td><?php echo $this->request->data['Student']['name'] ?></td></tr>
 			             <tr> <th>Father Name</th><td><?php echo $this->request->data['Student']['father_name'] ?>
                    </td></tr>
-			             <tr> <th>Batch</th><td><?php echo $this->request->data['Batch']['name'] ?></td></tr>
+			             
 			             <tr><th>Total Fees</th><td><?php echo $total_fees ?></td></tr>		            
 			             <tr> <th>Total Payment</th><td><?php echo $total_payment ?></td></tr>
 			             <tr> <th>Total Due</th><td><?php echo $total_due ?></td></tr>
