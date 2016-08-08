@@ -137,18 +137,16 @@ class StudentsController extends AppController {
 			if(!empty($this->request->data['BatchTime'])){
 				unset($this->request->data['BatchTime']);	
 			}
-			$course_list = $this->request->data['course'];
-			if(!empty($course_list)){					
-				foreach($course_list as $key => $course){	
+			
+			if(!empty($this->request->data['course'])){					
+				foreach($this->request->data['course'] as $key => $course){	
 					$courses = $this->Course->findByName($this->request->data['course'][$key]);
 					$payment = $this->Payment->find('first', array('conditions'=>array('Payment.course_id'=>$courses['Course']['id'],'Payment.student_id'=>$id,'Payment.status' =>0)));
 					if(!empty($payment)){
 						$this->Payment->id = $payment['Payment']['id'];
 						$this->Payment->saveField('status', 1);
 					}
-
 					$batch = $this->Batch->findByName($this->request->data['batch'][$key]);
-
 					$this->request->data['StudentCourse'][$key]['course_id'] = $courses['Course']['id'];
 					$this->request->data['StudentCourse'][$key]['batch_id'] = $batch['Batch']['id'];		
 						
@@ -161,7 +159,26 @@ class StudentsController extends AppController {
 			   }
 				unset($this->request->data['course']);
 				unset($this->request->data['batch']);
+
+				// array duplicate check
+				for ($e = 0; $e < count($this->request->data['StudentCourse']); $e++)
+				{
+				  $duplicate = null;
+				  for ($ee = $e+1; $ee < count($this->request->data['StudentCourse']); $ee++)
+				  {
+				    if (strcmp($this->request->data['StudentCourse'][$ee]['course_id'],$this->request->data['StudentCourse'][$e]['course_id']) === 0)
+				    {
+				      $duplicate = $ee;
+				      break;
+				    }
+				  }
+				  if (!is_null($duplicate))
+				    array_splice($this->request->data['StudentCourse'],$duplicate,1);
+				}// end array duplicate check
+
 			}
+
+			
 			//pr($this->request->data);die;
 			$this->$model->create();			
 			$this->request->data['User']['role'] = 'student';			

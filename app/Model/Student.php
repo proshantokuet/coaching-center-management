@@ -15,9 +15,13 @@ class Student extends AppModel
 			),
 			 'isUnique' => array(
 				'rule' => 'isUnique',
-				'message' => 'The course name has already been taken.',
+				'message' => 'The roll has already been taken.',
 				'last' => true,
 			),
+			 'between' => array(
+                'rule' => array('between', 6, 6),
+                'message' => 'must be 6 characters'
+            )
 		),
 		'password' => array(
 			'notEmpty' => array(
