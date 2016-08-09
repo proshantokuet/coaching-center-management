@@ -79,13 +79,12 @@ $v = ucfirst($model);
             $value['Student']['name'],            
             $value['Course']['name'],
             $value['Transaction']['amount'],
-            $value['Transaction']['created'],
-           
+            $value['Transaction']['created'],           
                       
             );
           }
           echo $this->Html->tableCells($rows);
-          echo '<tr><td>Total amount</td> <td>&nbsp;</td> <td>'.$total.'</td> <td>&nbsp;</td></tr>';
+          echo '<tr><td><b>Total amount</b></td> <td>&nbsp;</td> <td><b>'.$total.'</b></td> <td>&nbsp;</td></tr>';
           echo '</table>'; 
           
         }       

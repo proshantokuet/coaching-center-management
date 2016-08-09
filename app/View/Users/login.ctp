@@ -1,6 +1,6 @@
 <div class="login-box">
   <div class="login-logo">
-    <b>AID ACADEMIA </b>
+    <b>AID ACADEMY </b>
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">

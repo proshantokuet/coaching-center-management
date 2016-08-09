@@ -32,7 +32,7 @@
           <?php echo $this->Html->link(__("Notice"), array('plugin' => 0, 'controller' => 'Notices', 'action' => 'index')); ?>
         </li>
         <li class="treeview">
-          <?php echo $this->Html->link(__("Statement"), array('plugin' => 0, 'controller' => 'Students', 'action' => 'statement')); ?>
+          <?php echo $this->Html->link(__("Payment Statement"), array('plugin' => 0, 'controller' => 'Students', 'action' => 'statement')); ?>
         </li>
         
       </ul>

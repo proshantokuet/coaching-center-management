@@ -33,7 +33,7 @@
     color: white !important;
 }}
 </style>
-<body>
+<body onload="window.print();">
 	<?php
 	echo $this->fetch('content'); 
 	echo $this->Session->flash(); ?>

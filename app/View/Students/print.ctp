@@ -13,20 +13,19 @@
       <!-- /.col -->
     </div>
     <!-- info row -->
+    
     <div class="row invoice-info">
-      <div class="col-sm-12 invoice-col">
-        <strong>Student's Name : </strong> <span><?php echo $this->request->data['Student']['name']?>
+      <div class="col-sm-6 invoice-col">
+           <strong>Student's Name : </strong> <span><?php echo $this->request->data['Student']['name']?>
+       
       </div>
-    </div>
-    <div class="row invoice-info">
-      <div class="col-sm-4 invoice-col">
-        <strong>Roll No : </strong> <span><?php echo $this->request->data['Student']['id_number']
-        ?>
+       <div class="col-sm-6 invoice-col">
+        <strong>Roll No : <span><?php echo $this->request->data['Student']['id_number']
+        ?></strong> 
+         
+       
       </div>
-       <!-- <div class="col-sm-4 invoice-col">
-        <strong>Name in Bengali : </strong> <span><?php echo $this->request->data['Student']['name_bn']
-        ?>
-      </div> -->
+      
       <div class="col-sm-4 invoice-col" style="position:absolute;left:1000px;top:68px">
         <?php echo $thumbnail= $this->Html->image('user/'.$this->request->data['Student']['picture'],array('class'=>'image-user','width'=>'100px','height'=>'100px')); ?>
       </div>
@@ -35,30 +34,24 @@
       <!-- /.col -->
     </div>
     <!-- /.row -->
-    <div class="row invoice-info">
-      <div class="col-sm-12 invoice-col">
-        <strong>Father's Name : </strong> <span><?php echo $this->request->data['Student']['father_name']?>
-      </div>
-    </div>
+    
 
     <div class="row invoice-info">
      
-       <div class="col-sm-6 invoice-col">
-        <strong>Mother's Name : </strong> <span><?php echo $this->request->data['Student']['mother_name']
-        ?>
+      <div class="col-sm-6 invoice-col">
+       <strong>Father's Name : </strong> <span><?php echo $this->request->data['Student']['father_name']?>
       </div>
+       <div class="col-sm-6 invoice-col">
+         <strong>Mother's Name : </strong> <span><?php echo $this->request->data['Student']['mother_name']
+        ?>          
+      </div>
+
       <!-- /.col -->
     </div>
-    <div class="row invoice-info">
-      <div class="col-sm-6 invoice-col">
-      </div>
-     
-    </div>
+    
 
     <div class="row invoice-info">
-      <div class="col-md-6">
-        <strong>Present Address : </strong> <span><?php echo $this->request->data['Student']['present_address']?>
-      </div>
+      
       <div class="col-sm-6 invoice-col">
         <strong>Class : </strong> <span><?php echo $this->request->data['Student']['passing_year']?>
       </div>
@@ -120,8 +113,7 @@
         <!-- /.col -->
       </div>
     <hr />
-     <div class="row invoice-info">
-      <div class="col-sm-12 invoice-col">
+     
         <strong> Latest Payment</strong>
         <div class="row">
         <div class="col-xs-12 table-responsive">
@@ -130,7 +122,8 @@
             <tr>
               <th>Serial #</th>
               <th>Course</th>
-              <th>Payment Amount</th>              
+              <th>Payment Amount</th> 
+              <th>Date</th>              
             </tr>
             </thead>
             <tbody>
@@ -141,6 +134,7 @@
               <td><?php  echo $value['Course']['name']; ?>( 
                 <?php echo $this->requestAction('batches/title/'.$value['LastPayment']['student_id'].'/'.$value['LastPayment']['course_id'])?> )</td>
               <td><?php  echo $value['LastPayment']['amount']; ?></td>
+              <td><?php  echo $value['LastPayment']['created']; ?></td>
               
             </tr>
             <?php } } ?>
@@ -149,8 +143,7 @@
         </div>
         <!-- /.col -->
       </div>
-      </div>
-    </div>
+      
     <div class="row invoice-info">
       <div class="col-sm-4 invoice-col">
         <div> <br />

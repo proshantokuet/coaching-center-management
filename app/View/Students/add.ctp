@@ -159,28 +159,31 @@ $v = ucfirst($model);
   </div>
   <!-- /.content-wrapper -->
 <script>
-function readURL(input, name) {
-        //$("#del").css("display", 'block');
-        //alert(name);
-        var idd = name.split('_');
-        var ids = idd[1];
-        
-        if (input.files && input.files[0]) {
-          var reader = new FileReader();
+/*function readURL(input, name) {        
+  var idd = name.split('_');
+  var ids = idd[1];   
+  var fileName = input.files[0].name;
+  var Extension = fileName.substring(
+                    fileName.lastIndexOf('.') + 1).toLowerCase();
+  alert(Extension);
+  if (Extension == "gif" || Extension == "png" || Extension == "bmp"
+                      || Extension == "jpeg" || Extension == "jpg") {
 
-          reader.onload = function (e) {
-            $("#img")
-              .attr('src', e.target.result)
-              .width(100)
-              .height(100);
-          };
-
-          reader.readAsDataURL(input.files[0]);
-         /* $("#"+name).css("display", 'none');
-          $(".rem"+ids).css("display", 'inline-block');*/
-        }
-      
-      
-      }
+    if (input.files && input.files[0]) {
+      var reader = new FileReader();
+      reader.onload = function (e) {
+      $("#img")
+        .attr('src', e.target.result)
+        .width(100)
+        .height(100);
+      };
+      reader.readAsDataURL(input.files[0]);         
+    }
+  }else{
+     alert("Photo only allows file types of GIF, PNG, JPG, JPEG and BMP. ");
+      input.value = "";
+      return false;
+  }
+}*/
 </script>
 
