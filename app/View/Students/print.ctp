@@ -14,7 +14,7 @@
     </div>
     <!-- info row -->
     
-    <div class="row invoice-info">
+   <!--  <div class="row invoice-info">
       <div class="col-sm-6 invoice-col">
            <strong>Student's Name : </strong> <span><?php echo $this->request->data['Student']['name']?>
        
@@ -31,12 +31,12 @@
       </div>
 
 
-      <!-- /.col -->
-    </div>
+      
+    </div> -->
     <!-- /.row -->
     
 
-    <div class="row invoice-info">
+   <!--  <div class="row invoice-info">
      
       <div class="col-sm-6 invoice-col">
        <strong>Father's Name : </strong> <span><?php echo $this->request->data['Student']['father_name']?>
@@ -46,7 +46,7 @@
         ?>          
       </div>
 
-      <!-- /.col -->
+      
     </div>
     
 
@@ -73,14 +73,42 @@
       <div class="col-sm-6 invoice-col">
         <strong>Email : </strong> <span><?php echo $this->request->data['Student']['email']?>
       </div>
-    </div>
+    </div> -->
+
+     <div class="row invoice-info">
+       <div class="col-sm-4 invoice-col">
+        
+        <?php echo $thumbnail= $this->Html->image('user/thumbnail/'.$this->request->data['Student']['thumbnail'],array('class'=>'image-user','width'=>'150px','height'=>'100px')); ?>
+      
+        <br />
+        <strong>Student's Name : </strong> <span><?php echo $this->request->data['Student']['name']?></span>
+        <br />
+        <strong>Roll No : <span><?php echo $this->request->data['Student']['id_number']
+        ?></strong> </span>
+
+       </div>
+       <div class="col-sm-4 invoice-col">
+        <strong>Father's Name : </strong> <span><?php echo $this->request->data['Student']['father_name']?><br />
+        <strong>Mother's Name : </strong> <span><?php echo $this->request->data['Student']['mother_name']
+        ?> <br />
+        <strong>Class : </strong> <span><?php echo $this->request->data['Student']['passing_year']?><br />
+        <strong>Contact(Student) : </strong> <span><?php echo $this->request->data['Student']['contact_student']?><br />
+         <strong>Contact(Guardian) : </strong> <span><?php echo $this->request->data['Student']['contact_guardian']?><br />
+          <strong>Institute : </strong> <span><?php echo $this->request->data['Institution']['name']?><br />
+           <strong>Email : </strong> <span><?php echo $this->request->data['Student']['email']?>
+
+       </div>
+       <div class="col-sm-4 invoice-col" >
+        <img  src="https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=name:sohel roll no:123456&choe=UTF-8" title="Link to Google.com" />
+       </div>
+
+
+     </div>
 
     <hr />
-   <div class="row invoice-info">
-      <div class="col-sm-12 invoice-col">
-        <strong> Student Payment Profile</strong>
-      </div>
-    </div>
+
+    <strong> Student Payment Profile</strong>
+      
     <hr />
      <div class="row">
         <div class="col-xs-12 table-responsive">
