@@ -123,12 +123,67 @@ class PaymentsController extends AppController {
 		}
 		$this->request->data = $this->$model->read(null, $id);
 	}
-	
+	public function due_payment(){
+		$this->checkPermission();
+		$indicator = 1;
+		$this->view = 'due';
+		$this->set('title_for_layout', __('Due Payment'));
+		
+		if(!empty($_REQUEST)){
+			$indicator = 2;	
+			$this->_due_payment($_REQUEST);		
+		}				
+		$this->set(compact('indicator'));
+	}
 	public function name($id){
 		$model = $this->_model();
 		$cousrse = $this->$model->findById($id);
 		return $cousrse['Course']['name'];
 	}
-	
+	function _due_payment(){
+
+       $id_array = array();
+		if(!empty(@$_REQUEST['name'])){
+			$name = @$_REQUEST['name'];
+			$s_name_role = $name;
+
+			$role = explode('-',$name);
+			$s_name =$role[0];
+			$role = $role[1];
+			@$student_id=$this->Student->find('first',array('conditions'=>array('id_number'=>$role)));
+			@$student_id = @$student_id['Student']['id'];
+			if(!empty(@$student_id)){
+				$id_array = array($model.'.student_id ='  => $student_id);
+			}else{
+				$id_array = array();
+			}
+		}
+		
+		$start = @$_REQUEST['start'];
+		$end = @$_REQUEST['end'];
+		$this->set(compact('start','end'));
+		$start = new DateTime($start);
+		$start = $start->format('Y-m-d');
+		$end = new DateTime($end);
+		$end = $end->format('Y-m-d');		
+		$model = $this->_model();
+		$conditions = array();
+		
+		if(!empty($start)){
+			$start_array = array($model.'.due_date >='  => $start);
+		}else{
+			$start_array = array();
+		}
+		if(!empty($end)){
+			$end_array = array($model.'.due_date <='  => $end);
+		}else{
+			$end_array = array();
+		}
+		$conditions = array_merge($start_array,$end_array,$id_array);
+		//$this->$model->unbindModel(array('belongsTo' => array('Student')));		
+		$values = $this->$model->find('all',array('conditions'=>$conditions));
+		 
+		$this->set(compact('values','s_name','s_name_role'));
+	}
 	
 }

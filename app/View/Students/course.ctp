@@ -26,7 +26,7 @@ $v = ucfirst($model);
       <!-- SELECT2 EXAMPLE -->
       <div class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Please fillup the form </h3>
+          <h3 class="box-title"> </h3>
 
           <div class="box-tools pull-right">
             

@@ -29,6 +29,9 @@ $v = ucfirst($model);
           <h3 class="box-title"></h3>
 
           <div class="box-tools pull-right">
+             <?php  echo $this->Html->link('Course Assign', array('controller' => 'Students', 'action' => 'course',$this->request->data['Student']['id']),array('class'=>'label label-success'));
+           ?>
+
            <?php  echo $this->Html->link('Student Summary Print', array('controller' => 'Students', 'action' => 'print_form',$this->request->data['Student']['id']),array('target'=>'_blank','class'=>'label label-success'));
            ?>
           </div>

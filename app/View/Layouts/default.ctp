@@ -30,6 +30,7 @@
 			'select2.min',
 			'AdminLTE.min',
       'style',
+      'jquery-ui',
 			'_all-skins.min'));		
 		echo $this->fetch('css');
 		echo $this->fetch('script');
@@ -82,6 +83,8 @@
 			'jquery.slimscroll.min',
 			'icheck.min',
 			'fastclick',
+      'jquery-ui',
+      
 			'app.min',
 			
 			
@@ -266,8 +269,8 @@ $(function() {
     $( ".due_date" ).datepicker({
       changeMonth: true,
       changeYear: true,
-      dateFormat: 'YYYY-mm-dd' ,
-      minDate: 0
+     // dateFormat: 'YYYY-mm-dd' ,
+      //minDate: 0
     });
   });
 </script>
@@ -298,3 +301,75 @@ function readURL(input, name) {
   }
 }
 </script>
+
+<script>
+  $(document.body).on("click",'#export', function (event) {    
+      var start = $("#start").val();
+      var end = $("#end").val(); 
+      if(start =="" || end == ""){
+        
+        return ;
+      }   
+      $.ajax({
+          async:true,      
+          dataType: "html",    
+          url:"",
+          success:function (data) { 
+          window.location = siteurl+"Students/export?start="+start+"&end="+end;
+          },
+          type:"get"            
+      });     
+      return false; 
+    }); 
+ 
+  </script>
+
+  <script>
+
+$(function(){
+  
+  
+$("#role").autocomplete({
+  minLength: 2,
+  source: function( request, response ) {    
+    $.ajax({          
+      url: siteurl+"Students/students/",
+      dataType: "json", 
+      data: {
+              q: request.term
+            },     
+      success: function( data ) {
+        
+        var patients = [];
+        for(var i=0;i<data.length;i++){          
+            patients.push(data[i].Student.name+" -"+data[i].Student.id_number); 
+          }
+          response( patients );
+        }
+      });
+    },
+  });   
+});
+
+</script>
+
+<!-- jquery modal for student preview details-->
+  <script>
+  $(document.body).on("click",'.view', function (event) { 
+    $.ajax({
+        url: "",
+        success: function(data){
+            $("#dialog").html("this is test data");
+        }   
+    });
+
+    $("#dialog").dialog(
+           {
+            bgiframe: true,
+            autoOpen: false,
+            height: 100,
+            modal: true
+           }
+    );
+});
+  </script>

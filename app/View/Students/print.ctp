@@ -145,7 +145,9 @@
         <strong> Latest Payment</strong>
         <div class="row">
         <div class="col-xs-12 table-responsive">
-          <table class="table table-striped">
+          
+            <?php if(!empty($last_payment)){ $i=0;?>   
+            <table class="table table-striped">
             <thead>
             <tr>
               <th>Serial #</th>
@@ -154,18 +156,23 @@
               <th>Date</th>              
             </tr>
             </thead>
-            <tbody>
-            <?php if(!empty($last_payment)){ $i=0;?>      
-            <?php foreach ($last_payment as $key => $value) {  $i++; //pr($value);?> 
-            <tr>
-              <td><?php echo $i;?></td>              
-              <td><?php  echo $value['Course']['name']; ?>( 
-                <?php echo $this->requestAction('batches/title/'.$value['LastPayment']['student_id'].'/'.$value['LastPayment']['course_id'])?> )</td>
-              <td><?php  echo $value['LastPayment']['amount']; ?></td>
-              <td><?php  echo $value['LastPayment']['created']; ?></td>
-              
-            </tr>
-            <?php } } ?>
+            <tbody>   
+            <?php foreach ($last_payment as $key => $value) { 
+              if($value['LastPayment']['amount'] !=""){
+                 $i++; ?> 
+                <tr>
+                  <td><?php echo $i;?></td>              
+                  <td><?php  echo $value['Course']['name']; ?>( 
+                    <?php echo $this->requestAction('batches/title/'.$value['LastPayment']['student_id'].'/'.$value['LastPayment']['course_id'])?> )</td>
+                  <td><?php  echo $value['LastPayment']['amount']; ?></td>
+                  <td><?php  echo $value['LastPayment']['created']; ?></td>
+                  
+                </tr>
+            <?php  
+              }}
+
+
+            } ?>
             </tbody>
           </table>
         </div>

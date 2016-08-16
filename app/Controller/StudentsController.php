@@ -421,11 +421,65 @@ class StudentsController extends AppController {
    	$this->set(compact('batch'));
    	
    }
- 
+   public function export(){
+   	$filename = "report.csv";
+	$fp = fopen('php://output', 'w');
+	$header[0] =  'Student Name';
+	$header[1] =  'Course';
+	$header[2] =  'Amount';
+	$header[3] =  'Date';
+	fputcsv($fp, $header);
+	header('Content-type: application/csv');
+	header('Content-Disposition: attachment; filename='.$filename);
+	$this->layout = "ajax";
+
+	$start =@$_REQUEST['start'];
+	$end = @$_REQUEST['end'];
+	//pr($start);
+	$start = new DateTime($start);
+	$start = $start->format('Y-m-d');
+	$end = new DateTime($end);
+	$end = $end->format('Y-m-d');		
+	$model = 'Transaction';
+	$conditions = array();
+	if(!empty($start)){
+	$start_array = array($model.'.created >='  => $start);
+	}else{
+		$start_array = array();
+	}
+	if(!empty($end)){
+		$end_array = array($model.'.created <='  => $end);
+	}else{
+		$end_array = array();
+	}
+	$conditions = array_merge($start_array,$end_array);		
+	$values = $this->$model->find('all',array('conditions'=>$conditions));
+	
+	foreach ($values as $key => $value) {
+		$row[0] = $value['Student']['name']; 
+		$row[1] = $value['Course']['name'];
+		$row[2] = $value['Transaction']['amount'];
+		$row[3] = $value['Transaction']['created'];
+		fputcsv($fp, $row);
+	}
+	
+	exit;
+
+   }
+ 	public function students(){
+ 		$name = @$_REQUEST['q']; 					
+		$model = $this->_model(); 	
+		$this->$model->unbindModel(array('hasMany' => array('StudentCourse')));
+		echo json_encode($this->$model->find('all',array('fields'=>array('name','id_number'),'conditions'=>array($model.'.name LIKE ?'  => "%".$name."%"))));	
+ 		
+
+
+ 	}
 	function _make_statement(){
 
 		$start = @$_REQUEST['start'];
 		$end = @$_REQUEST['end'];
+		$this->set(compact('start','end'));
 		$start = new DateTime($start);
 		$start = $start->format('Y-m-d');
 		$end = new DateTime($end);

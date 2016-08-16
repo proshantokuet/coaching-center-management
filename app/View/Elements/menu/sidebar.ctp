@@ -34,6 +34,9 @@
         <li class="treeview">
           <?php echo $this->Html->link(__("Payment Statement"), array('plugin' => 0, 'controller' => 'Students', 'action' => 'statement')); ?>
         </li>
+        <li class="treeview">
+          <?php echo $this->Html->link(__("Due Payment"), array('plugin' => 0, 'controller' => 'Payments', 'action' => 'due_payment')); ?>
+        </li>
         
       </ul>
     </section>

@@ -29,15 +29,15 @@ $v = ucfirst($model);
             <h3 style="float:right" class="box-title"><?php echo $this->Html->link(__("New Search"), array('plugin' => 0, 'controller' => $this->request->params['controller'], 'action' => 'statement'),array('class'=>'btn btn-default btn-flat')); ?></h3>
           </div>
         </div>
-        <?php if($indicator == 1){ ?>
+        
         <!-- /.box-header -->
-       <?php echo $this->Form->create('Home', array('type' => 'get', 'url' => array('controller' => 'Students', 'statement' => 'index')));?>
+       <?php echo $this->Form->create('Home', array('type' => 'get', 'url' => array('controller' => 'Students', 'action' => 'index')));?>
         <div class="box-body ">
           <div class="row">            
             <div class="col-md-6">
               <div class="form-group">
                 <label>Start Date</label>
-               <input type="text" id="due_date" required="required" class="form-control due_date" name="start">
+               <input type="text" id="start" value="<?php echo @$start?>" required="required" class="form-control due_date" name="start">
               </div>
               
             </div>
@@ -45,7 +45,7 @@ $v = ucfirst($model);
             <div class="col-md-6">
               <div class="form-group">
                 <label>End Date</label>
-               <input type="text" id="due_date" required="required" class="form-control due_date" name="end">
+               <input type="text" id="end" value="<?php echo @$end?>" required="required" class="form-control due_date" name="end">
               </div>
             </div>
             <!-- /.col -->
@@ -53,10 +53,12 @@ $v = ucfirst($model);
           <!-- /.row -->
         </div>
          <div class="box-footer" >
-            <button style="float:right" type="submit" class="btn btn-primary">Search</button>
+          <button style="float:right" type="submit" class="btn btn-primary">Generate</button>
+          &nbsp;&nbsp;&nbsp;
+          <button style="float:right;margin-right:10px" id="export" type="submit" class="btn btn-primary">Export</button>
           </div>
         </form>
-        <?php } ?>
+        
 
       <div class="box-body">
         <?php 
