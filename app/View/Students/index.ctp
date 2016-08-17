@@ -98,9 +98,10 @@ $v = ucfirst($model);
           $action .= '     &nbsp;'.$this->Html->link('ID Card Print', array('controller' =>$this->request->params['controller'], 'action' => 'card', $value[$model]['id']),array('target'=>'_blank','class'=>'label label-success'));
           $action .= '&nbsp;'.$this->Html->link('Make Payment', array('controller' =>'Payments', 'action' => 'index', $value[$model]['id']),array('class'=>'label label-success'));  
           $name = $this->Html->link($value[$model]['name'], array('controller' =>$this->request->params['controller'], 'action' => 'edit', $value[$model]['id']));  
+            $id = $this->Html->link($value[$model]['id_number'],array(), array('class'=>'view')); 
           $rows[] = array(
             $name, 
-            $value[$model]['id_number'],
+            $id,
             $value[$model]['contact_student'],
             $action,
                       
@@ -145,5 +146,5 @@ $v = ucfirst($model);
     <!-- /.content -->
   </div>
   <div id="dialog" title="Basic dialog">
-  <p>This is an animated dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
+  
 </div>

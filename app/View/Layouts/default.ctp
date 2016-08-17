@@ -354,22 +354,14 @@ $("#role").autocomplete({
 </script>
 
 <!-- jquery modal for student preview details-->
-  <script>
-  $(document.body).on("click",'.view', function (event) { 
+<script>
+  $(document.body).on("click",'.view', function (event) {
     $.ajax({
-        url: "",
-        success: function(data){
-            $("#dialog").html("this is test data");
-        }   
+      url: '',
+      success: function(data) {
+        $("#dialog").html("data").dialog({modal:true}).dialog('open');
+      }
     });
-
-    $("#dialog").dialog(
-           {
-            bgiframe: true,
-            autoOpen: false,
-            height: 100,
-            modal: true
-           }
-    );
-});
-  </script>
+    return false;
+  });
+</script>

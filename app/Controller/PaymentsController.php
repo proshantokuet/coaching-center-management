@@ -141,7 +141,7 @@ class PaymentsController extends AppController {
 		return $cousrse['Course']['name'];
 	}
 	function _due_payment(){
-
+		$model = $this->_model();
        $id_array = array();
 		if(!empty(@$_REQUEST['name'])){
 			$name = @$_REQUEST['name'];
@@ -165,10 +165,8 @@ class PaymentsController extends AppController {
 		$start = new DateTime($start);
 		$start = $start->format('Y-m-d');
 		$end = new DateTime($end);
-		$end = $end->format('Y-m-d');		
-		$model = $this->_model();
+		$end = $end->format('Y-m-d');
 		$conditions = array();
-		
 		if(!empty($start)){
 			$start_array = array($model.'.due_date >='  => $start);
 		}else{
