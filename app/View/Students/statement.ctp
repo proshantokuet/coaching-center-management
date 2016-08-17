@@ -31,7 +31,7 @@ $v = ucfirst($model);
         </div>
         
         <!-- /.box-header -->
-       <?php echo $this->Form->create('Home', array('type' => 'get', 'url' => array('controller' => 'Students', 'action' => 'index')));?>
+       <?php echo $this->Form->create('Home', array('type' => 'get', 'url' => array('controller' => 'Students', 'action' => 'statement')));?>
         <div class="box-body ">
           <div class="row">            
             <div class="col-md-6">
