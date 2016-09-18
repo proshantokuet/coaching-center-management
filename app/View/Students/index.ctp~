@@ -80,7 +80,7 @@ $v = ucfirst($model);
         <?php  
         $tableHeaders =  $this->Html->tableHeaders(array(                   
           $this->Paginator->sort('name'), 
-          $this->Paginator->sort('id_number','Roll No'),
+          $this->Paginator->sort('id_number','Role No'),
           $this->Paginator->sort('contact_student'),
           'Actions',          
                     

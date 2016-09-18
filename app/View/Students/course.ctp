@@ -75,11 +75,13 @@ $v = ucfirst($model);
                   <input  type="text" name="batch[]" readonly="true" value=<?php echo $batchName ?> class="form-control">
                 </div>
                 <div class="col-md-1"><label>&nbsp;</label>
+				<?php if(!array_key_exists($course['course_id'],$course_payments)){ ?>
                   <button  type="button"
                     class="btn  btn-md remove">
                     <span class="glyphicon" aria-hidden="true">Delete</span></button>
+				   <?php } ?>
                 </div> 
-                    
+                   
               </div>
               <?php } ?>
                </div>

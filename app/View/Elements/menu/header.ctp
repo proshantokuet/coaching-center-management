@@ -1,6 +1,6 @@
  <header class="main-header">
     <!-- Logo -->
-    <a href="/test" class="logo">
+    <a href="/" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>A</b>A</span>
       <!-- logo for regular state and mobile devices -->
@@ -77,9 +77,7 @@
             </ul>
           </li>
           <!-- Control Sidebar Toggle Button -->
-          <li>
-            <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
-          </li>
+         
         </ul>
       </div>
     </nav>

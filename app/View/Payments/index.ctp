@@ -37,6 +37,7 @@ $v = ucfirst($model);
           </div>
         </div>
         <!-- /.box-header -->
+		<?php if(!empty($this->request->data['Student']['id_number']) || $this->request->data['Student']['id_number']!= null){?>
        <?php echo $this->Form->create($v, array('type'=>'file'));?>
         <div class="box-body ">
           <div class="row">
@@ -106,6 +107,9 @@ $v = ucfirst($model);
                 <button type="submit" style="float:right" class="btn btn-primary">Submit</button>
               </div>
         </form>
+		<?php  }else{ ?>
+		<div class="row"><div class="col-md-12"><h2> Please add student roll number.</h2></div> </div>
+		<?php } ?>
         
         <div class="box-header">
         	<div class="col-md-6">        		

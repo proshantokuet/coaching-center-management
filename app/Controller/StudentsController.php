@@ -108,7 +108,13 @@ class StudentsController extends AppController {
 		$edu_level = array('Kg'=>'Kg','One'=>'One','Two'=>'Two','Three'=>'Three','Four'=>'Four',
 			'Five'=>'Five','Six'=>'Six','Seven'=>'Seven','Eight'=>'Eight','Nine'=>'Nine','Ten'=>'Ten',
 			'Eleven'=>'Eleven','Tweleve'=>'Tweleve');
-		$this->set(compact('courses','batches','edu_level','institutions'));
+		//pr($this->request->data);
+		@$course_payments ="";
+		foreach($this->request->data['StudentCourse'] as $key=>$value){
+			
+				@$course_payments[$value['course_id']]= $value['amount'];
+		}
+		$this->set(compact('courses','batches','edu_level','institutions','course_payments'));
 
 	}
 	public function edit($id){

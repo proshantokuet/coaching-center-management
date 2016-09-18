@@ -55,12 +55,12 @@
 						),array('escape' => false, 'confirm' => __('Want to change status?'))
 					);
 					$action = $this->Html->link('Edit ', array('controller' =>$this->request->params['controller'], 'action' => 'edit', $value[$model]['id']),array('class'=>'fa fa-pencil-square-o'));					
-					$action .= ' '.$this->Form->postLink(__('Delete', true), array(		
+					/*$action .= ' '.$this->Form->postLink(__('Delete', true), array(		
 						'controller' => $this->request->params['controller'],
 						'action' => 'delete',
 						$value[$model]['id'],
 						),array('class'=>'fa fa-times','escape' => false, 'confirm' => __('Want to delete?'))
-					);
+					); */
 					$name = $this->Html->link($value[$model]['name'], array('controller' =>$this->request->params['controller'], 'action' => 'edit', $value[$model]['id']));	
 					$rows[] = array(
 						$name,
