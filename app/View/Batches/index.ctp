@@ -48,12 +48,12 @@
 					}else{	
 						$icon = '<span class="label label-warning">Pending</span>';
 					}
-					/*$status = $this->Form->postLink(__($icon, true), array(		
+					$status = $this->Form->postLink(__($icon, true), array(		
 						'controller' => $this->request->params['controller'],
 						'action' => 'status',
 						$value[$model]['id'],
 						),array('escape' => false, 'confirm' => __('Want to change status?'))
-					); */
+					); 
 					$action = $this->Html->link('Edit ', array('controller' =>$this->request->params['controller'], 'action' => 'edit', $value[$model]['id']),array('class'=>'fa fa-pencil-square-o'));					
 					$action .= ' '.$this->Html->link('View', array('controller' =>$this->request->params['controller'], 'action' => 'view', $value[$model]['id']),array('class'=>'fa fa-pencil-square-o'));
 					$name = $this->Html->link($value[$model]['name'], array('controller' =>$this->request->params['controller'], 'action' => 'edit', $value[$model]['id']));	

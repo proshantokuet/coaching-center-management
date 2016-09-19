@@ -207,11 +207,11 @@ $("#addCourse").on("click",function(){
   } 
     $("#prescription").append('<div>'+
       '<div  style="clear:both" class="rowss"> '+
-      '<div class="col-md-2">'+ 
+      '<div class="col-md-4">'+ 
           '<label> &nbsp;</label>'+
           '<input  type="text" name="course[]" readonly="true" value="'+course+'" class="form-control">'+ 
       '</div>'+
-      '<div class="col-md-2">'+ 
+      '<div class="col-md-4">'+ 
           '<label> &nbsp;</label>'+
           '<input  type="text" name="batch[]" readonly="true" value="'+batch+'" class="form-control">'+ 
       '</div>'+

@@ -49,25 +49,25 @@ $v = ucfirst($model);
             <br />
             
             <div class="row  form-group" id="prescription">
-              <div class="col-md-2">
+              <div class="col-md-4">
                 <label>Course</label>
                 <?php echo $this->Form->input('BatchTime.course_id',array('options' => $courses,'label'=> false,'div'=> false)); ?>
               </div>
-              <div class="col-md-2" id="batch">
+              <div class="col-md-4" id="batch">
                 <label>Batch</label>
                 <?php echo $this->Form->input('BatchTime.batch_id',array('options'=>'','empty'=>'Plesse Select','label'=> false,'div'=> false)); ?>
               </div>
          
           <?php foreach($this->request->data['StudentCourse'] as $key => $course){  ?>
               <div  style="clear:both" class="rowss"> 
-                <div class="col-md-2">
+                <div class="col-md-4">
                  <label>&nbsp;</label>
                   <?php $courseName  = $this->requestAction('courses/name/'.$course['course_id']) ;
                   
                   ?>                 
                   <input  type="text" name="course[]" readonly="true" value=<?php echo $courseName ?> class="form-control">
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-4">
                  <label>&nbsp;</label>
                   <?php $batchName  = $this->requestAction('batches/name/'.$course['batch_id']) ;
                   

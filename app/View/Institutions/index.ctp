@@ -54,7 +54,7 @@
 						'controller' => $this->request->params['controller'],
 						'action' => 'status',
 						$value[$model]['id'],
-						),array('class'=>'fa fa-times','escape' => false, 'confirm' => __('Want to delete?'))
+						),array('class'=>'','escape' => false, 'confirm' => __('Want to delete?'))
 					);
 					$action = $this->Html->link('Edit ', array('controller' =>$this->request->params['controller'], 'action' => 'edit', $value[$model]['id']),array('class'=>'fa fa-pencil-square-o'));					
 					/*$action .= ' '.$this->Form->postLink(__('Delete', true), array(		
