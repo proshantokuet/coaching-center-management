@@ -85,5 +85,5 @@ class Student extends AppModel
 		
 	);
 	public $belongsTo = array('User','Institution','Batch');
-	public $hasMany = array('StudentCourse','Payment');
+	public $hasMany = array('StudentCourse','Payment','AcademicResult');
 }

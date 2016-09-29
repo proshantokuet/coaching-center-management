@@ -117,7 +117,13 @@ class AppController extends Controller {
 	    	'VI'=>'VI');
 	    $occupations = array('Teacher'=>'Teacher','Govt Service Holder' => 'Govt Service Holder','Private Service Holder'=>'Private Service Holder',
 	    	'Others'=>'Others');
-	    $this->set(compact('boards','branches','year_of_passing','occupations'));
+	    $year = array('2005'=>'2005','2006'=>'2006','2007'=>'2007','2008'=>'2008','2009'=>'2009','2010'=>'2010','2011'=>'2011','2012'=>'2012',
+	    '2013'=>'2013','2014'=>'2014','2015'=>'2015','2016'=>'2016','2017'=>'2017','2018'=>'2018','2019'=>'2019','2020'=>'2020'
+	    );
+	    $blood_group = array('A+'=>'A+','B+'=>'B+','B-'=>'B-','A-'=>'A-','AB+'=>'AB+','O-'=>'0-');
+	    $years =array_reverse($year);
+		$exam = array('PSC'=>'PSC','JSC'=>'JSC','SSC'=>'SSC','HSC'=>'HSC');
+	    $this->set(compact('boards','branches','year_of_passing','occupations','years','exam','blood_group'));
 	}
     
     public function createArrayValue(){
