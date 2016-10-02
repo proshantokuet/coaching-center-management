@@ -74,6 +74,11 @@ $v = ucfirst($model);
                
               </div>
               <div class="form-group">
+                <label>Role <span class="required">*</span></label>
+                <?php  echo $this->Form->input('role',array('selected'=>$this->request->data['User']['role'],'options'=>array('admin'=>'admin','Front desk officer'=>'Front desk officer'),'class'=>'form-control','label'=>false,'div'=>false)); ?>   
+               
+              </div>
+              <div class="form-group">
                 <label>Status</label>
                 <?php
                 echo $this->Form->checkbox('status');

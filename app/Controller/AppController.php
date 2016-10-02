@@ -81,28 +81,38 @@ class AppController extends Controller {
 	}
     }
     
+    function checkAdminOrOfficer(){
+		if (!$this->Auth->login()){            
+		    $this->redirect(array('controller'=>'Users','action' => 'login'));            
+		}
+		else if($this->Session->read('Auth.User.role') =='admin' || $this->Session->read('Auth.User.role') =='Front desk officer'){  
+			 $this->Auth->allow();
+	    }else{
+			$this->Session->setFlash(__(' Unauthorized Access' ), 'default', array('class' => 'success'));			
+	        $this->redirect(array('controller'=>'Users','action' => 'unauthorized'));
+		}
+	}
     function checkPermission(){
 		if (!$this->Auth->login()){            
 		    $this->redirect(array('controller'=>'Users','action' => 'login'));            
 		}
 		else if($this->Session->read('Auth.User.role') !='admin'){            
 	        $this->Session->setFlash(__(' Unauthorized Access' ), 'default', array('class' => 'success'));			
-	        $this->redirect(array('controller'=>'Users','action' => 'unauthorized'));
-	            
+	        $this->redirect(array('controller'=>'Users','action' => 'unauthorized'));	            
 	    }
     }
     
-     function studentPermission(){
-	if (!$this->Auth->login()){
-            
-	    $this->redirect(array('controller'=>'Users','action' => 'login'));
-            
-	}else if($this->Session->read('Auth.User.role') !='student'){
-            
-            $this->Session->setFlash(__(' Unauthorized Access' ), 'default', array('class' => 'success'));			
-            $this->redirect(array('controller'=>'Users','action' => 'unauthorized'));
-            
-        }
+    function studentPermission(){
+		if (!$this->Auth->login()){
+				
+			$this->redirect(array('controller'=>'Users','action' => 'login'));
+				
+		}else if($this->Session->read('Auth.User.role') !='student'){
+				
+				$this->Session->setFlash(__(' Unauthorized Access' ), 'default', array('class' => 'success'));			
+				$this->redirect(array('controller'=>'Users','action' => 'unauthorized'));
+				
+		 }
     }
     
     public function dateformat($date = null){

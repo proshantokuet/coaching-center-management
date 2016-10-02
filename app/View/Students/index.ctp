@@ -91,8 +91,9 @@ $v = ucfirst($model);
           
           $action = $this->Html->link('Course Assign ', array('controller' =>$this->request->params['controller'], 'action' => 'course', $value[$model]['id']),array('class'=>'label label-success'));
 
+          if($this->Session->read('Auth.User.role') =='admin'){
           $action .= '     &nbsp;'.$this->Html->link('Change Password', array('controller' =>'Users', 'action' => 'changepassword', $value[$model]['id']),array('class'=>'label label-success')); 
-
+		  }
           $action .= '     &nbsp;'.$this->Html->link('Student Summary Print', array('controller' =>$this->request->params['controller'], 'action' => 'print_form', $value[$model]['id']),array('target'=>'_blank','class'=>'label label-success')); 
           
           $action .= '     &nbsp;'.$this->Html->link('ID Card Print', array('controller' =>$this->request->params['controller'], 'action' => 'card', $value[$model]['id']),array('target'=>'_blank','class'=>'label label-success'));

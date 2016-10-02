@@ -58,6 +58,15 @@ class User extends AppModel
 				'last' => true,
 			),
 		),
+		
+		'role' => array(
+			'notEmpty' => array(
+				'rule' => 'notEmpty',
+				'message' => 'This field cannot be left blank.',
+				'last' => true,
+			)
+			 
+		),
 		'email' => array(
 			'email' => array(
 				"rule"=>array("checkemail", array("email")),

@@ -91,7 +91,7 @@ $v = ucfirst($model);
                                         
               </div>
               <div class="col-md-2"> 
-                <input type="text" id="due_date" class="form-control due_date" name="due_date[]">
+                <input type="text" class="due_date"  class="form-control due_date" name="due_date[]">
               </div>
           </div>
 

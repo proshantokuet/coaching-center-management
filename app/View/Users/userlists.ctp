@@ -39,7 +39,7 @@
 				<table cellpadding="0" cellspacing="0" class="table" >
 				<?php  
 				$tableHeaders =  $this->Html->tableHeaders(array(                   
-					$this->Paginator->sort('name'),
+					$this->Paginator->sort('username'),
 					$this->Paginator->sort('email'),
 					$this->Paginator->sort('phone'),
 					$this->Paginator->sort('role_id'),
@@ -71,7 +71,7 @@
 					$action .= ' '.$this->Html->link(' Change Password', array('controller' =>$this->request->params['controller'], 'action' => 'changepassword', $value[$v]['id']));	
 					
 					$rows[] = array(
-						$value[$v]['name'],
+						$value[$v]['username'],
 						$value[$v]['email'],
 						$value[$v]['mobile'],		
 						$value[$v]['role'],

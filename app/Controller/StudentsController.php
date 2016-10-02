@@ -9,7 +9,7 @@ class StudentsController extends AppController {
 	// Patient registration form
 	
 	public function add(){
-		$this->checkPermission();		
+		$this->checkAdminOrOfficer();	
 		$model = $this->_model();
 		$this->loadModel('Course');
 		$this->set('title_for_layout', __('Student Add Form'));
@@ -93,7 +93,7 @@ class StudentsController extends AppController {
 		$this->set(compact('courses','batches','edu_level','institutions'));
 	}
 	public function course($id){
-		$this->checkPermission();
+		$this->checkAdminOrOfficer();
 		$model = $this->_model();
 		$this->set('title_for_layout', __('Student Registration Edit Form'));
 		if (!empty($this->request->data)) {	
@@ -118,7 +118,7 @@ class StudentsController extends AppController {
 
 	}
 	public function edit($id){
-		$this->checkPermission();
+		$this->checkAdminOrOfficer();
 		$model = $this->_model();
 		$this->set('title_for_layout', __('Student Information Edit Form'));
 		if (!empty($this->request->data)) {	
@@ -232,13 +232,14 @@ class StudentsController extends AppController {
 
 	}
 	public function search(){
-		$this->checkPermission();
+		//$this->checkPermission();
+		$this->checkAdminOrOfficer();
 		$this->set('title_for_layout', __('Student Search Form'));	
 		$this->_searchResult($_REQUEST);
 	}
 	
 	public function index(){		
-		$this->checkPermission();
+		$this->checkAdminOrOfficer();
 		$indicator = 1;
 		$this->set('title_for_layout', __('Student Search Form'));
 		
@@ -309,7 +310,8 @@ class StudentsController extends AppController {
 			'institution_id','batch_id'));	
 	}
 	public function view($id){		
-		$this->checkPermission();				
+		//$this->checkPermission();
+		$this->checkAdminOrOfficer();				
 		$model = $this->_model();
 		$this->request->data = $this->$model->read(null, $id);
 		$this->set('title_for_layout', __('Student View Form ' .$this->request->data['Student']['name'] ));
@@ -359,7 +361,7 @@ class StudentsController extends AppController {
 	}
 	public function print_form($id){
 		$this->layout = 'print';
-		$this->checkPermission();				
+		$this->checkAdminOrOfficer();				
 		$model = $this->_model();
 		$this->request->data = $this->$model->read(null, $id);
 		$this->set('title_for_layout', __('Student Print Form ' .$this->request->data['Student']['name'] ));
@@ -398,13 +400,13 @@ class StudentsController extends AppController {
 	}
 	public function card($id){
 		$this->layout = 'print';
-		$this->checkPermission();				
+		$this->checkAdminOrOfficer();				
 		$model = $this->_model();
 		$this->request->data = $this->$model->read(null, $id);
 	}
 
 	public function statement(){
-		$this->checkPermission();
+		$this->checkAdminOrOfficer();
 		$indicator = 1;
 		$this->set('title_for_layout', __('Student Statement'));
 		

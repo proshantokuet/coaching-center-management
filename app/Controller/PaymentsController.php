@@ -8,7 +8,7 @@ class PaymentsController extends AppController {
 	public $uses = array('Payment','Course','Student','StudentCourse','Transaction','LastPayment');	
 	
 	public function index($id){
-		$this->checkPermission();		
+		$this->checkAdminOrOfficer();
 		$model = $this->_model();
 		if (!empty($this->request->data)) {			
 			$this->$model->create();
@@ -105,7 +105,7 @@ class PaymentsController extends AppController {
 		
 	}
 	public function edit($id){
-		$this->checkPermission();
+		$this->checkAdminOrOfficer();
 		$model = $this->_model();
 		if (!$id && empty($this->request->data)) {
 			$this->Session->setFlash(__('Invalid ' .$v), 'default', array('class' => 'error'));
@@ -124,7 +124,7 @@ class PaymentsController extends AppController {
 		$this->request->data = $this->$model->read(null, $id);
 	}
 	public function due_payment(){
-		$this->checkPermission();
+		$this->checkAdminOrOfficer();
 		$indicator = 1;
 		$this->view = 'due';
 		$this->set('title_for_layout', __('Due Payment'));

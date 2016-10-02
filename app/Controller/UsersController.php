@@ -34,7 +34,7 @@ class UsersController extends AppController {
 			$photographName = $this->ImageUpload->uploadImage('picture', IMAGE_LOCATION1);
 			$this->request->data['User']['picture']= $photographName['image'];
 			$this->request->data['User']['thumbnail']= $photographName['thumbnail'];
-			$this->request->data['User']['role'] = 'admin';
+			
 			if ($this->$v->save($this->request->data)) {
 				
 				$this->Session->setFlash(__('User has been created successfully.'), 'default', array('class' => 'success'));
@@ -103,6 +103,7 @@ class UsersController extends AppController {
 		$this->layout = 'login';
 		
 		if ($this->request->is('post')) {
+			
 			if ($this->request->data['User']['rememberMe'] == 1) {
 				if ($this->Auth->login()) {
 					$users = $this->Session->read('Auth.User');
@@ -123,7 +124,7 @@ class UsersController extends AppController {
 					$this->Session->setFlash(__('Invalid email or password, try again'));
 				}
 			}else{
-				if ($this->Auth->login()) {				
+				if ($this->Auth->login()) {								
 					$users = $this->Session->read('Auth.User');					
 					if($users['status'] == 1){
 						$this->_redirect_login($users['role'],$users['id']);						
@@ -151,6 +152,7 @@ class UsersController extends AppController {
 			array('User.is_logged' => 1),
 			array('User.id' => $id)
 		);
+		
 		//$this->$v->saveField("is_logged",1);
 		if($role =='student'){
 			// if user type doctor then get appointment page
@@ -158,6 +160,9 @@ class UsersController extends AppController {
 		}else if($role == 'admin'){
 			// if user type admin then get user list page
 			$this->redirect(array('controller'=>'Users','action' => 'index'));						
+		}else if($role == 'Front desk officer'){			
+			$this->redirect(array('controller'=>'Students','action' => 'index'));
+		}else{
 		}
 	}
 	function _login_fail(){
@@ -186,7 +191,7 @@ class UsersController extends AppController {
 		$v = $this->_model();
 		$this->set('title_for_layout', __('User List'));
 		$this->Patient->recursive = 0;
-		$filter = array('conditions'=>array('User.role ='=> 'admin'),'limit'=>20,'order'=> 'User.id desc');		
+		$filter = array('conditions'=>array('User.role !='=> 'student'),'limit'=>20,'order'=> 'User.id desc');		
 		$this->paginate =$filter;
 		$this->set('values', $this->paginate('User'));
 		$this->view = 'userlists';		
