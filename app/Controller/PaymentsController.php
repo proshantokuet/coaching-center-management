@@ -17,7 +17,8 @@ class PaymentsController extends AppController {
 				array_push($course_list,$this->request->data['course_id'][$key]);
 				$payment = $this->$model->find('first', array('conditions'=>array('Payment.course_id'=>$this->request->data['course_id'][$key],'Payment.student_id'=>$id)));
 				$due_date = new DateTime($this->request->data['due_date'][$key]);
-				$due_date = $due_date->format('Y-m-d');
+				//$due_date = $due_date->format('Y-m-d');
+				$due_date = $this->request->data['due_date'][$key];
 				$couse_id =  $this->request->data['course_id'][$key];
 				$this->request->data[$key]['Transaction']['student_id'] = $id;
 				$this->request->data[$key]['Transaction']['course_id'] = $couse_id;

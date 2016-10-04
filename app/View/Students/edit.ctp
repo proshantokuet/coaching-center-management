@@ -69,10 +69,7 @@ $v = ucfirst($model);
                 <?php  echo $this->Form->input('institution_id',array('options'=>$institutions,'class'=>'form-control','label'=>false,'div'=>false)); ?>
               </div>
               
-              <div class="form-group">
-                <label>Roll No <span class="required">*</span></label>
-                <?php  echo $this->Form->input('id_number',array('placeholder'=>'Student Id','class'=>'form-control','label'=>false,'div'=>false)); ?>
-              </div>
+             
               <div class="form-group">
                 <label>Secret key <span class="required">*</span></label>
                 <?php  echo $this->Form->input('User.question',array('placeholder'=>'Secret key','class'=>'form-control','label'=>false,'div'=>false)); ?>   
@@ -129,11 +126,11 @@ $v = ucfirst($model);
             <!-- /.col -->
           </div>
           <!-- /.row -->
-			<div class="col-md-12">
+			<div class="col-md-12 row">
 			   <div class="row">
 				   <div class="col-md-6">
 					  <label> Birth Date </label>
-					  <?php  echo $this->Form->input('birth_date',array('class'=>'form-control','label'=>false,'div'=>false)); ?>
+					  <?php  echo $this->Form->input('birth_date',array('class'=>'form-control due_date','type'=>'text','label'=>false,'div'=>false)); ?>
 					</div>
 					<div class="col-md-6">
 					  <label> Blood Group </label>
@@ -141,7 +138,7 @@ $v = ucfirst($model);
 					</div>
 			   </div>
 		   </div>
-           <div class="col-md-12">
+           <div class="col-md-12 row">
 			   <div class="row">
 				   <div class="col-md-6">
 					  <label> Remarkable academic performance </label>
@@ -220,7 +217,14 @@ $v = ucfirst($model);
 			  </div>  
 			  
 		  </div>
-        
+		<div class="col-md-12 row">
+		   
+			    <div class="col-md-2">
+                <label>Roll No <span class="required">*</span></label>
+                <?php  echo $this->Form->input('id_number',array('placeholder'=>'Student Id','class'=>'form-control','label'=>false,'div'=>false)); ?>
+                </div>
+             
+		  </div>
 
         <!-- /.box-body -->
          <div class="box-footer">

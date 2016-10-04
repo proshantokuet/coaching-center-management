@@ -19,7 +19,7 @@ class Student extends AppModel
 				'last' => true,
 			),
 			 'between' => array(
-                'rule' => array('between', 6, 6),
+                'rule' => array('between', 8, 8),
                 'message' => 'must be 6 characters'
             )
 		),
@@ -65,6 +65,22 @@ class Student extends AppModel
 			
 		),
 		'father_name' => array(
+			'notEmpty' => array(
+				'rule' => 'notEmpty',
+				'message' => 'This field cannot be left blank.',
+				'last' => true,
+			),			
+			
+		),
+		'contact_student' => array(
+			'notEmpty' => array(
+				'rule' => 'notEmpty',
+				'message' => 'This field cannot be left blank.',
+				'last' => true,
+			),			
+			
+		),
+		'contact_guardian' => array(
 			'notEmpty' => array(
 				'rule' => 'notEmpty',
 				'message' => 'This field cannot be left blank.',

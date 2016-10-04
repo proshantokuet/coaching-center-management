@@ -269,7 +269,7 @@ $(function() {
     $( ".due_date" ).datepicker({
       changeMonth: true,
       changeYear: true,
-     // dateFormat: 'YYYY-mm-dd' ,
+      dateFormat: 'yy-mm-dd' ,
       //minDate: 0
     });
   });
