@@ -22,6 +22,7 @@
 			'bootstrap-timepicker.min',
 			'select2.min',
 			'AdminLTE.min',
+			'jquery-ui',
 			'_all-skins.min'));		
 		echo $this->fetch('css');
 		echo $this->fetch('script');
@@ -50,7 +51,8 @@
 <?php 
 	echo $this->Html->script(array(				
 			'jquery-2.2.3.min',			
-			'bootstrap.min',			
+			'bootstrap.min',
+			'jquery-ui',			
 			'app.min',
 			'demo',
 			
@@ -86,4 +88,15 @@ function readURL(input, name) {
       return false;
   }
 }
+</script>
+
+<script>
+$(function() {
+    $( ".due_date" ).datepicker({
+      changeMonth: true,
+      changeYear: true,
+      dateFormat: 'yy-mm-dd' ,
+      //minDate: 0
+    });
+  });
 </script>

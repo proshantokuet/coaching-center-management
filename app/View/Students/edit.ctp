@@ -165,6 +165,7 @@ $v = ucfirst($model);
 				  <div class="col-md-3">
 					  <label> GPA </label>
 					<?php  echo $this->Form->input('AcademicResult.0.gpa',array('class'=>'form-control','label'=>false,'div'=>false)); ?>
+					<?php  echo $this->Form->input('AcademicResult.0.id',array('type'=>'hidden','class'=>'form-control','label'=>false,'div'=>false)); ?>
 				  </div>
 			  </div>
 			  <div class="row">
@@ -181,6 +182,8 @@ $v = ucfirst($model);
 				  <div class="col-md-3">
 					  <label> GPA </label>
 					<?php  echo $this->Form->input('AcademicResult.1.gpa',array('class'=>'form-control','label'=>false,'div'=>false)); ?>
+					<?php  echo $this->Form->input('AcademicResult.1.id',array('type'=>'hidden','class'=>'form-control','label'=>false,'div'=>false)); ?>
+					
 				  </div>
 			  </div>
 			  <div class="row">
@@ -197,12 +200,14 @@ $v = ucfirst($model);
 				  <div class="col-md-3">
 					  <label> GPA </label>
 					<?php  echo $this->Form->input('AcademicResult.2.gpa',array('class'=>'form-control','label'=>false,'div'=>false)); ?>
+					<?php  echo $this->Form->input('AcademicResult.2.id',array('type'=>'hidden','class'=>'form-control','label'=>false,'div'=>false)); ?>
 				  </div>
 			  </div>
 				<div class="row">
 				  <div class="col-md-3">
 					  <label> Exam Name </label>
 					  <?php  echo $this->Form->input('AcademicResult.3.exam',array('value'=>'HSC','class'=>'form-control','label'=>false,'div'=>false)); ?></div>
+					  
 				  <div class="col-md-3"><label> Passing Year</label>
 					<?php  echo $this->Form->input('AcademicResult.3.year',array('empty'=>'Please Select','options'=>$years,'class'=>'form-control','label'=>false,'div'=>false)); ?>
 				  </div>
@@ -213,6 +218,7 @@ $v = ucfirst($model);
 				  <div class="col-md-3">
 					  <label> GPA </label>
 					<?php  echo $this->Form->input('AcademicResult.3.gpa',array('class'=>'form-control','label'=>false,'div'=>false)); ?>
+					<?php  echo $this->Form->input('AcademicResult.3.id',array('type'=>'hidden','class'=>'form-control','label'=>false,'div'=>false)); ?>
 				  </div>
 			  </div>  
 			  

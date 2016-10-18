@@ -199,7 +199,7 @@ class StudentsController extends AppController {
 
 			$datasource = $this->$model->getDataSource();
 			$datasource->begin(); 
-			
+			pr($this->request->data);
 			try{ 
 				if ($this->$model->saveAll($this->request->data)) {
 					$datasource->commit();

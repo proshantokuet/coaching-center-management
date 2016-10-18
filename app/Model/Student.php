@@ -20,7 +20,7 @@ class Student extends AppModel
 			),
 			 'between' => array(
                 'rule' => array('between', 8, 8),
-                'message' => 'must be 6 characters'
+                'message' => 'must be 8 characters'
             )
 		),
 		'password' => array(
