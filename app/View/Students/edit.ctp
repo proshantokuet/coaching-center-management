@@ -223,11 +223,57 @@ $v = ucfirst($model);
 			  </div>  
 			  
 		  </div>
+		  <div class="col-md-12">
+            <br />
+            
+            <div class="row  form-group" id="prescription">
+              <div class="col-md-4">
+                <label>Course</label>
+                <?php echo $this->Form->input('BatchTime.course_id',array('options' => $courses,'label'=> false,'div'=> false)); ?>
+              </div>
+              <div class="col-md-4" id="batch">
+                <label>Batch</label>
+                <?php echo $this->Form->input('BatchTime.batch_id',array('options'=>'','empty'=>'Plesse Select','label'=> false,'div'=> false)); ?>
+              </div>
+         
+          <?php foreach($this->request->data['StudentCourse'] as $key => $course){  ?>
+              <div  style="clear:both" class="rowss"> 
+                <div class="col-md-4">
+                 <label>&nbsp;</label>
+                  <?php $courseName  = $this->requestAction('courses/name/'.$course['course_id']) ;
+                  
+                  ?>                 
+                  <input  type="text" name="course[]" readonly="true" value=<?php echo $courseName ?> class="form-control">
+                </div>
+                <div class="col-md-4">
+                 <label>&nbsp;</label>
+                  <?php $batchName  = $this->requestAction('batches/name/'.$course['batch_id']) ;
+                  
+                  ?>                 
+                  <input  type="text" name="batch[]" readonly="true" value=<?php echo $batchName ?> class="form-control">
+                </div>
+                <div class="col-md-1"><label>&nbsp;</label>
+				<?php if(!array_key_exists($course['course_id'],$course_payments)){ ?>
+                  <button  type="button"
+                    class="btn  btn-md remove">
+                    <span class="glyphicon" aria-hidden="true">Delete</span></button>
+				   <?php } ?>
+                </div> 
+                   
+              </div>
+              <?php } ?>
+               </div>
+              <div style="clear:both"></div>
+              <br />
+          <div id="addCourse" class="btn btn-primary">Add Course</div>
+        </div>
+
 		<div class="col-md-12 row">
 		   
 			    <div class="col-md-2">
-                <label>Roll No <span class="required">*</span></label>
-                <?php  echo $this->Form->input('id_number',array('placeholder'=>'Student Id','class'=>'form-control','label'=>false,'div'=>false)); ?>
+                <label>Roll No (8 digits)<span class="required">*</span></label>
+                <input id="StudentIdNumber" pattern=".{8,8}" name="data[Student][id_number]"  required="required" value="<?php echo $this->request->data['Student']['id_number'] ?>">
+                <?php  //echo $this->Form->input('id_number',array('maxlength' => 5,'class'=>'form-control','label'=>false,'div'=>false)); ?>
                 </div>
              
 		  </div>

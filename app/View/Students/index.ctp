@@ -61,7 +61,21 @@ $v = ucfirst($model);
              
 
             </div>
-      
+       <div class="col-md-12 row">
+            <br />
+           
+            
+              <div class="col-md-4">
+                <label>Course</label><br />
+                <?php echo $this->Form->input('BatchTime.course_id',array('empty'=>'Please Select','options' => $courses,'label'=> false,'div'=> false)); ?>
+              </div>
+              <div class="col-md-4" id="batch">
+                <label>Batch</label><br />
+                <?php echo $this->Form->input('BatchTime.batch_id',array('options'=>'','empty'=>'Plesse Select','label'=> false,'div'=> false)); ?>
+              
+          </div>
+           
+        </div>
             <!-- /.col -->
           </div>
           <!-- /.row -->

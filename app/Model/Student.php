@@ -18,10 +18,7 @@ class Student extends AppModel
 				'message' => 'The roll has already been taken.',
 				'last' => true,
 			),
-			 'between' => array(
-                'rule' => array('between', 8, 8),
-                'message' => 'must be 8 characters'
-            )
+			
 		),
 		'password' => array(
 			'notEmpty' => array(

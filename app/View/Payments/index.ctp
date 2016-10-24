@@ -86,12 +86,12 @@ $v = ucfirst($model);
               <div><?php  echo $value['due_date']; ?></div>                             
               </div>
               <div class="col-md-2"> 
-              	<input  type="number" name="amount[]"   class="form-control">
+              	<input  type="number" value="0" name="amount[]"   class="form-control">
               	<input  type="hidden" name="course_id[]" value=<?php echo  $value['id'] ?>>
                                         
               </div>
               <div class="col-md-2"> 
-                <input type="text" class="due_date"  class="form-control due_date" name="due_date[]">
+                <input type="text" class="due_date" value="<?php echo $value['due_date']; ?>" class="form-control due_date" name="due_date[]">
               </div>
           </div>
 

@@ -222,8 +222,9 @@ $v = ucfirst($model);
 		  <div class="col-md-12 row">
 		   
 			    <div class="col-md-2">
-                <label>Roll No <span class="required">*</span></label>
-                <?php  echo $this->Form->input('id_number',array('placeholder'=>'Student Id','class'=>'form-control','label'=>false,'div'=>false)); ?>
+                <label>Roll No (8 digits) <span class="required">*</span></label>
+                <input id="StudentIdNumber" pattern=".{8,8}" name="data[Student][id_number]"  required="required" value="<?php echo $this->request->data['Student']['id_number'] ?>">
+                <?php  //echo $this->Form->input('id_number',array('placeholder'=>'Student Id','class'=>'form-control','label'=>false,'div'=>false)); ?>
                 </div>
              
 		  </div>

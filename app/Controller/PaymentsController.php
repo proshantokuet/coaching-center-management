@@ -20,10 +20,16 @@ class PaymentsController extends AppController {
 				//$due_date = $due_date->format('Y-m-d');
 				$due_date = $this->request->data['due_date'][$key];
 				$couse_id =  $this->request->data['course_id'][$key];
-				$this->request->data[$key]['Transaction']['student_id'] = $id;
-				$this->request->data[$key]['Transaction']['course_id'] = $couse_id;
-				$this->request->data[$key]['Transaction']['amount'] = $value;
-				$this->request->data[$key]['Transaction']['user_id'] =$this->Session->read('Auth.User.id');
+				$tr  = 1;
+				if($value !=0){
+					$this->request->data[$key]['Transaction']['student_id'] = $id;
+					$this->request->data[$key]['Transaction']['course_id'] = $couse_id;
+					$this->request->data[$key]['Transaction']['amount'] = $value;
+					$this->request->data[$key]['Transaction']['user_id'] =$this->Session->read('Auth.User.id');
+				}else{
+					unset($this->request->data[$key]['Transaction']);
+					$tr = 0;
+				}
 
 				if(!empty($payment)){
 					$this->request->data[$key]['Payment']['id'] = $payment['Payment']['id'];
@@ -31,21 +37,33 @@ class PaymentsController extends AppController {
 					$this->request->data[$key]['Payment']['due_date'] = $due_date;					
 					$this->request->data[$key]['Payment']['amount'] = $value+$payment['Payment']['amount'];					
 				}else{
-					$this->request->data[$key]['Payment']['user_id'] = $this->Session->read('Auth.User.id');
-					$this->request->data[$key]['Payment']['student_id'] = $id;
-					$this->request->data[$key]['Payment']['amount'] = $value;
-					$this->request->data[$key]['Payment']['status'] = 1;
-					$this->request->data[$key]['Payment']['due_date'] = $due_date;
-					$this->request->data[$key]['Payment']['course_id'] = $couse_id;
+					if($value !=0){
+						$this->request->data[$key]['Payment']['user_id'] = $this->Session->read('Auth.User.id');
+						$this->request->data[$key]['Payment']['student_id'] = $id;
+						$this->request->data[$key]['Payment']['amount'] = $value;
+						$this->request->data[$key]['Payment']['status'] = 1;
+						$this->request->data[$key]['Payment']['due_date'] = $due_date;
+						$this->request->data[$key]['Payment']['course_id'] = $couse_id;
+					}else{
+						unset($this->request->data[$key]['Payment']);
+					}
 				}
-				$this->request->data[$key]['LastPayment']['student_id'] = $id;
-				$this->request->data[$key]['LastPayment']['course_id'] = $couse_id;
-				$this->request->data[$key]['LastPayment']['user_id'] = $this->Session->read('Auth.User.id');
-				$this->request->data[$key]['LastPayment']['amount'] = $value;
+				$lats_payment = $this->LastPayment->find('first',array('conditions'=>array('student_id'=>$id,'course_id'=>$couse_id)));
+				if(!empty($lats_payment)){
+					$this->request->data[$key]['LastPayment']['id']= $lats_payment['LastPayment']['id'];
+				}
+				if($value ==0){
+					$this->request->data[$key]['LastPayment']['amount'] = $lats_payment['LastPayment']['amount'];
+				}else{
+					$this->request->data[$key]['LastPayment']['student_id'] = $id;
+					$this->request->data[$key]['LastPayment']['course_id'] = $couse_id;
+					$this->request->data[$key]['LastPayment']['user_id'] = $this->Session->read('Auth.User.id');
+					$this->request->data[$key]['LastPayment']['amount'] = $value;
+				}
 
 			}
 
-
+			
 						
 			unset($this->request->data['amount']);
 			unset($this->request->data['due_date']);
@@ -53,7 +71,6 @@ class PaymentsController extends AppController {
 			$datasource = $this->$model->getDataSource();
 			//pr($this->request->data);die;
 			$datasource->begin(); 
-
 			$payments = $this->Payment->find('all', array('fields'=>array('Payment.id,Payment.course_id'),'conditions'=>array('Payment.student_id'=>$id,)));
 			foreach($payments as $key => $ids){			
 				if (!in_array($ids['Payment']['course_id'], $course_list)) {					
@@ -62,10 +79,12 @@ class PaymentsController extends AppController {
 				}
 				
 			}
-			@$this->LastPayment->deleteAll(array('LastPayment.student_id'=> $id));
+			//@$this->LastPayment->deleteAll(array('LastPayment.student_id'=> $id));
 			try{ 
 				if ($this->$model->saveAll($this->request->data)) {	
+					if($tr !=0 ){
 					$this->Transaction->saveAll($this->request->data);
+					}
 					$this->LastPayment->saveAll($this->request->data);
 				 	$datasource->commit();			
 					$this->Session->setFlash(__('Success'), 'default', array('class' => 'success'));				

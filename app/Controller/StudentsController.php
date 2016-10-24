@@ -122,7 +122,7 @@ class StudentsController extends AppController {
 		$model = $this->_model();
 		$this->set('title_for_layout', __('Student Information Edit Form'));
 		if (!empty($this->request->data)) {	
-
+	
 			$this->_saveOrUpdate($id,$this->request->data,'','');
 		}
 		$this->request->data = $this->$model->read(null, $id);
@@ -133,7 +133,14 @@ class StudentsController extends AppController {
 		$edu_level = array('Kg'=>'Kg','One'=>'One','Two'=>'Two','Three'=>'Three','Four'=>'Four',
 			'Five'=>'Five','Six'=>'Six','Seven'=>'Seven','Eight'=>'Eight','Nine'=>'Nine','Ten'=>'Ten',
 			'Eleven'=>'Eleven','Tweleve'=>'Tweleve');
-		$this->set(compact('courses','batches','edu_level','institutions'));
+		
+		@$course_payments ="";
+		foreach($this->request->data['StudentCourse'] as $key=>$value){
+			
+				@$course_payments[$value['course_id']]= $value['amount'];
+		}
+		$this->set(compact('courses','batches','edu_level','institutions','course_payments'));
+		
 
 	}
 	
@@ -199,7 +206,7 @@ class StudentsController extends AppController {
 
 			$datasource = $this->$model->getDataSource();
 			$datasource->begin(); 
-			pr($this->request->data);
+			//pr($this->request->data);
 			try{ 
 				if ($this->$model->saveAll($this->request->data)) {
 					$datasource->commit();
@@ -224,7 +231,8 @@ class StudentsController extends AppController {
 					throw new Exception();
 					$this->Session->setFlash(__($this->save_msg_error), 'default', array('class' => 'error'));
 				}
-			}catch(Exception $e) {			
+			}catch(Exception $e) {	
+				
 				$datasource->rollback();
 				return 1;			
 				exit();
@@ -242,7 +250,11 @@ class StudentsController extends AppController {
 		$this->checkAdminOrOfficer();
 		$indicator = 1;
 		$this->set('title_for_layout', __('Student Search Form'));
+		$courses = $this->Course->find('list', array('fields'=>array('Course.name','Course.name'),'conditions'=>array('Course.status'=>1)));
 		
+		$batches = $this->Batch->find('list', array('fields'=>array('Batch.id','Batch.name'),'conditions'=>array('Batch.status'=>1)));
+		
+		$this->set(compact('courses','batches'));
 		if(!empty($_REQUEST)){
 			$indicator = 2;			
 		}	
@@ -280,30 +292,69 @@ class StudentsController extends AppController {
 		}else{
 			$institution_id_array = array();
 		}
-		/*if(!empty($batch_id)){
-			$batch_id_array = array($model.'.batch_id'  => $batch_id);
-		}else{
-			$batch_id_array = array();
-		}*/
+		
 		if(!empty($name)){			
 			$name_array = array($model.'.name LIKE ?'  => "%".$name."%");	
 		}else{
 			$name_array = array();
 		}
-		if(!empty($id_number_array) || !empty($email) || !empty($contact_student) || !empty($institution_id) 
-			 || !empty($name)){
-			$conditions = array_merge($id_number_array,$email_array,$contact_student_array,$institution_id_array,$name_array);
-			$this->paginate = array(
-					'conditions'=>array(
-						$conditions,					
-					),
-					'limit' => 20,
-					'order'=> 'Student.id DESC',
+		if(!empty($this->params['url']['course_id'])){
+			
+			$course_name = 	$this->params['url']['course_id'];
+			$course = $this->Course->find('first',array('conditions'=>array('Course.name' =>$course_name))); 
+			$course_id = $course['Course']['id'];
+			
+						
+			if($this->params['url']['batch']){
+				$batch_name = 	$this->params['url']['batch'];
+				$batch = $this->Batch->find('first',array('conditions'=>array('Batch.name' =>$batch_name))); 
+				$batch_id = $batch['Batch']['id'];
+				$course_Join = array('table'=> 'student_courses',						     
+						'alias'=>'StudentCourse',						
+						'type'=>'inner',						 
+						'conditions'=>array('Student.id=StudentCourse.student_id')
 				);
+				$course_condition = array(
+						'StudentCourse.course_id'=> $course_id,
+						'StudentCourse.batch_id'=> $batch_id,	
+				);		
+				
+			}else{
+				$course_Join = array('table'=> 'student_courses',						     
+						'alias'=>'StudentCourse',						
+						'type'=>'inner',						 
+						'conditions'=>array('Student.id=StudentCourse.student_id')
+				);
+				$course_condition = array(
+						'StudentCourse.course_id'=> $course_id,										
+						
+				);				
+			}
+			}else{
+					$course_Join = '';
+					$course_condition = '';
+				}
+		
+		if(!empty($id_number_array) || !empty($email) || !empty($contact_student) || !empty($institution_id) 
+			 || !empty($name) || !empty($this->params['url']['course_id']) || !empty($this->params['url']['batch'])){
+			$conditions = array_merge($id_number_array,$email_array,$contact_student_array,$institution_id_array,$name_array);			
+			$this->paginate = 	array('Student' => array('joins'=> array(					
+					$course_Join,
+						
+				),
+				'conditions'=>array(
+					$conditions,										
+					$course_condition,
+				),
+				'limit' => 20,
+				'group'=>'Student.name',
+				'order'=> 'Student.name desc',
+			));
 			
 			$this->set('values', $this->paginate());
 			
 		}
+		
 		$institutions = $this->Institution->find('list', array('fields'=>array('Institution.id','Institution.name'),'conditions'=>array('Institution.status'=>1)));
 		$batches = $this->Batch->find('list', array('fields'=>array('Batch.id','Batch.name'),'conditions'=>array('Batch.status'=>1)));
 		$this->set(compact('batches','institutions','name','id_number','email','contact_student','institution_id',
